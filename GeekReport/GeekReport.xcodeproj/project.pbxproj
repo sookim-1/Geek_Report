@@ -14,6 +14,17 @@
 		76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */; };
 		76234E1E2BBE7B63006ACA2F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 76234E1D2BBE7B63006ACA2F /* SnapKit */; };
 		76234E212BBE7B78006ACA2F /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 76234E202BBE7B78006ACA2F /* Then */; };
+		76234E272BBE9362006ACA2F /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E262BBE9362006ACA2F /* BaseTabBarController.swift */; };
+		76234E2A2BBE9398006ACA2F /* UITabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E292BBE9398006ACA2F /* UITabBarController+Extension.swift */; };
+		76234E2C2BBE9462006ACA2F /* TabBarNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E2B2BBE9462006ACA2F /* TabBarNavigationManager.swift */; };
+		76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E312BBE94A0006ACA2F /* HomeNavigationViewController.swift */; };
+		76234E342BBE94B8006ACA2F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E332BBE94B8006ACA2F /* SearchViewController.swift */; };
+		76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E352BBE94C7006ACA2F /* SearchNavigationViewController.swift */; };
+		76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E372BBE94D1006ACA2F /* MyListNavigationViewController.swift */; };
+		76234E3A2BBE94DA006ACA2F /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E392BBE94DA006ACA2F /* MyListViewController.swift */; };
+		76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3B2BBE94E2006ACA2F /* SettingViewController.swift */; };
+		76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3D2BBE94F2006ACA2F /* SettingNavigationViewController.swift */; };
+		76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +35,17 @@
 		76234E122BBE7AA2006ACA2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76234E142BBE7AA2006ACA2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		76234E262BBE9362006ACA2F /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		76234E292BBE9398006ACA2F /* UITabBarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extension.swift"; sourceTree = "<group>"; };
+		76234E2B2BBE9462006ACA2F /* TabBarNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationManager.swift; sourceTree = "<group>"; };
+		76234E312BBE94A0006ACA2F /* HomeNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationViewController.swift; sourceTree = "<group>"; };
+		76234E332BBE94B8006ACA2F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		76234E352BBE94C7006ACA2F /* SearchNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigationViewController.swift; sourceTree = "<group>"; };
+		76234E372BBE94D1006ACA2F /* MyListNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListNavigationViewController.swift; sourceTree = "<group>"; };
+		76234E392BBE94DA006ACA2F /* MyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
+		76234E3B2BBE94E2006ACA2F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		76234E3D2BBE94F2006ACA2F /* SettingNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNavigationViewController.swift; sourceTree = "<group>"; };
+		76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +80,65 @@
 		76234E052BBE7AA0006ACA2F /* GeekReport */ = {
 			isa = PBXGroup;
 			children = (
+				76234E302BBE9485006ACA2F /* Setting */,
+				76234E2F2BBE9480006ACA2F /* MyList */,
+				76234E2E2BBE947A006ACA2F /* Search */,
+				76234E2D2BBE9476006ACA2F /* Home */,
+				76234E282BBE938C006ACA2F /* Extension */,
 				76234E062BBE7AA0006ACA2F /* AppDelegate.swift */,
 				76234E082BBE7AA0006ACA2F /* SceneDelegate.swift */,
-				76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */,
 				76234E0F2BBE7AA2006ACA2F /* Assets.xcassets */,
 				76234E112BBE7AA2006ACA2F /* LaunchScreen.storyboard */,
 				76234E142BBE7AA2006ACA2F /* Info.plist */,
+				76234E262BBE9362006ACA2F /* BaseTabBarController.swift */,
+				76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */,
+				76234E2B2BBE9462006ACA2F /* TabBarNavigationManager.swift */,
 			);
 			path = GeekReport;
+			sourceTree = "<group>";
+		};
+		76234E282BBE938C006ACA2F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				76234E292BBE9398006ACA2F /* UITabBarController+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		76234E2D2BBE9476006ACA2F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				76234E312BBE94A0006ACA2F /* HomeNavigationViewController.swift */,
+				76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		76234E2E2BBE947A006ACA2F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				76234E352BBE94C7006ACA2F /* SearchNavigationViewController.swift */,
+				76234E332BBE94B8006ACA2F /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		76234E2F2BBE9480006ACA2F /* MyList */ = {
+			isa = PBXGroup;
+			children = (
+				76234E372BBE94D1006ACA2F /* MyListNavigationViewController.swift */,
+				76234E392BBE94DA006ACA2F /* MyListViewController.swift */,
+			);
+			path = MyList;
+			sourceTree = "<group>";
+		};
+		76234E302BBE9485006ACA2F /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				76234E3D2BBE94F2006ACA2F /* SettingNavigationViewController.swift */,
+				76234E3B2BBE94E2006ACA2F /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,9 +219,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
+				76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */,
+				76234E272BBE9362006ACA2F /* BaseTabBarController.swift in Sources */,
 				76234E072BBE7AA0006ACA2F /* AppDelegate.swift in Sources */,
+				76234E342BBE94B8006ACA2F /* SearchViewController.swift in Sources */,
+				76234E3A2BBE94DA006ACA2F /* MyListViewController.swift in Sources */,
 				76234E092BBE7AA0006ACA2F /* SceneDelegate.swift in Sources */,
+				76234E2C2BBE9462006ACA2F /* TabBarNavigationManager.swift in Sources */,
+				76234E2A2BBE9398006ACA2F /* UITabBarController+Extension.swift in Sources */,
+				76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
+				76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */,
+				76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */,
+				76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
