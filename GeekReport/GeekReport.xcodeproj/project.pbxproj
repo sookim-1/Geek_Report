@@ -25,6 +25,7 @@
 		76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3B2BBE94E2006ACA2F /* SettingViewController.swift */; };
 		76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3D2BBE94F2006ACA2F /* SettingNavigationViewController.swift */; };
 		76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */; };
+		76234E452BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E442BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		76234E3B2BBE94E2006ACA2F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		76234E3D2BBE94F2006ACA2F /* SettingNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNavigationViewController.swift; sourceTree = "<group>"; };
 		76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
+		76234E442BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAnimatedTransitioning.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		76234E052BBE7AA0006ACA2F /* GeekReport */ = {
 			isa = PBXGroup;
 			children = (
+				76234E432BBEA0BC006ACA2F /* Tab */,
 				76234E302BBE9485006ACA2F /* Setting */,
 				76234E2F2BBE9480006ACA2F /* MyList */,
 				76234E2E2BBE947A006ACA2F /* Search */,
@@ -90,9 +93,7 @@
 				76234E0F2BBE7AA2006ACA2F /* Assets.xcassets */,
 				76234E112BBE7AA2006ACA2F /* LaunchScreen.storyboard */,
 				76234E142BBE7AA2006ACA2F /* Info.plist */,
-				76234E262BBE9362006ACA2F /* BaseTabBarController.swift */,
 				76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */,
-				76234E2B2BBE9462006ACA2F /* TabBarNavigationManager.swift */,
 			);
 			path = GeekReport;
 			sourceTree = "<group>";
@@ -139,6 +140,16 @@
 				76234E3B2BBE94E2006ACA2F /* SettingViewController.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		76234E432BBEA0BC006ACA2F /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				76234E2B2BBE9462006ACA2F /* TabBarNavigationManager.swift */,
+				76234E262BBE9362006ACA2F /* BaseTabBarController.swift */,
+				76234E442BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift */,
+			);
+			path = Tab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +242,7 @@
 				76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
 				76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */,
+				76234E452BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift in Sources */,
 				76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */,
 				76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */,
 			);

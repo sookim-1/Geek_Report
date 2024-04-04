@@ -14,6 +14,7 @@ final class BaseTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        delegate = self
         configureTabbar()
         viewControllers = [createHomeNavigationController(), createSearchNavigationController(), createMyListNavigationController(), createSettingNavigationController()]
     }
@@ -67,6 +68,15 @@ extension BaseTabBarController: TabBarNavigationManagerDelegate {
 
     func relayTabBarHiiden(hidden: Bool, animated: Bool, duration: TimeInterval) {
         self.setTabBarHidden(hidden, animated: animated, duration: duration)
+    }
+
+}
+
+// MARK: - UITabBarControllerDelegate
+extension BaseTabBarController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TabBarAnimatedTransitioning()
     }
 
 }
