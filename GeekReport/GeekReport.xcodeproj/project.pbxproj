@@ -26,6 +26,10 @@
 		76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3D2BBE94F2006ACA2F /* SettingNavigationViewController.swift */; };
 		76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */; };
 		76234E452BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E442BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift */; };
+		76234E482BBF8498006ACA2F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 76234E472BBF8498006ACA2F /* RxCocoa */; };
+		76234E4A2BBF8498006ACA2F /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 76234E492BBF8498006ACA2F /* RxRelay */; };
+		76234E4D2BBF84EC006ACA2F /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 76234E4C2BBF84EC006ACA2F /* RxGesture */; };
+		76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E4E2BBF8596006ACA2F /* DeviceUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,7 @@
 		76234E3D2BBE94F2006ACA2F /* SettingNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNavigationViewController.swift; sourceTree = "<group>"; };
 		76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 		76234E442BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		76234E4E2BBF8596006ACA2F /* DeviceUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +60,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76234E482BBF8498006ACA2F /* RxCocoa in Frameworks */,
 				76234E1E2BBE7B63006ACA2F /* SnapKit in Frameworks */,
+				76234E4D2BBF84EC006ACA2F /* RxGesture in Frameworks */,
+				76234E4A2BBF8498006ACA2F /* RxRelay in Frameworks */,
 				76234E212BBE7B78006ACA2F /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				76234E292BBE9398006ACA2F /* UITabBarController+Extension.swift */,
+				76234E4E2BBF8596006ACA2F /* DeviceUI.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -171,6 +180,9 @@
 			packageProductDependencies = (
 				76234E1D2BBE7B63006ACA2F /* SnapKit */,
 				76234E202BBE7B78006ACA2F /* Then */,
+				76234E472BBF8498006ACA2F /* RxCocoa */,
+				76234E492BBF8498006ACA2F /* RxRelay */,
+				76234E4C2BBF84EC006ACA2F /* RxGesture */,
 			);
 			productName = GeekReport;
 			productReference = 76234E032BBE7AA0006ACA2F /* GeekReport.app */;
@@ -203,6 +215,8 @@
 			packageReferences = (
 				76234E1C2BBE7B63006ACA2F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				76234E1F2BBE7B78006ACA2F /* XCRemoteSwiftPackageReference "Then" */,
+				76234E462BBF8498006ACA2F /* XCRemoteSwiftPackageReference "RxSwift" */,
+				76234E4B2BBF84EC006ACA2F /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = 76234E042BBE7AA0006ACA2F /* Products */;
 			projectDirPath = "";
@@ -230,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */,
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
 				76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */,
 				76234E272BBE9362006ACA2F /* BaseTabBarController.swift in Sources */,
@@ -481,6 +496,22 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		76234E462BBF8498006ACA2F /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		76234E4B2BBF84EC006ACA2F /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -493,6 +524,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 76234E1F2BBE7B78006ACA2F /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		76234E472BBF8498006ACA2F /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76234E462BBF8498006ACA2F /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		76234E492BBF8498006ACA2F /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76234E462BBF8498006ACA2F /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		76234E4C2BBF84EC006ACA2F /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76234E4B2BBF84EC006ACA2F /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
