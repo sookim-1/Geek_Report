@@ -9,6 +9,17 @@ import UIKit
 
 extension UIView {
 
+    func addSubviews(_ views: UIView...) {
+        views.forEach { addSubview($0) }
+    }
+
+    func addShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = .zero
+        layer.shadowOpacity = 0.4
+        layer.shadowRadius = 7
+    }
+
     func animateClick(completion: @escaping () -> Void) {
         UIView.animate(withDuration: 0.15) {
             self.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
@@ -17,13 +28,6 @@ extension UIView {
                 self.transform = CGAffineTransform.identity
             } completion: { _ in completion() }
         }
-    }
-
-    func addShadow() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = .zero
-        layer.shadowOpacity = 0.4
-        layer.shadowRadius = 7
     }
 
 }

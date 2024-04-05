@@ -7,12 +7,18 @@
 
 import UIKit
 
-class BaseUIViewController: UIViewController {
+class BaseUIViewController: UIViewController, UIConfigurable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
     }
+
+    func setupHierarchy() {}
+
+    func setupLayout() {}
+
+    func setupProperties() {}
 
 }

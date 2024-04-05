@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class CustomItemView: UIView {
+final class CustomItemView: BaseUIView {
 
     private lazy var containerView = UIView()
 
@@ -45,8 +45,8 @@ final class CustomItemView: UIView {
 
         super.init(frame: .zero)
 
-        addSubviews()
-        setupConstraints()
+        setupHierarchy()
+        setupLayout()
         setupProperties()
     }
 
@@ -54,17 +54,13 @@ final class CustomItemView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func addSubviews() {
+    override func setupHierarchy() {
         self.addSubview(containerView)
 
-        [nameLabel,
-        iconImageView,
-         underlineView].forEach {
-            self.containerView.addSubview($0)
-        }
+        self.containerView.addSubviews(nameLabel, iconImageView, underlineView)
     }
 
-    private func setupConstraints() {
+    override func setupLayout() {
         containerView.snp.makeConstraints {
             $0.edges.equalToSuperview()
             $0.center.equalToSuperview()
@@ -90,7 +86,7 @@ final class CustomItemView: UIView {
         }
     }
 
-    private func setupProperties() {
+    override func setupProperties() {
         self.clipsToBounds = true
     }
 

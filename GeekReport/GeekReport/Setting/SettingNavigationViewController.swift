@@ -7,14 +7,4 @@
 
 import UIKit
 
-final class SettingNavigationViewController: UINavigationController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
-        self.tabBarItem.title = "설정"
-        self.tabBarItem.image = UIImage(systemName: "gearshape")
-    }
-
-}
+final class SettingNavigationViewController: UINavigationController {}

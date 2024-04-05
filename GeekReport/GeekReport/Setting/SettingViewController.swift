@@ -16,11 +16,23 @@ final class SettingViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mainLabel.text = "SettingViewController"
+        setupHierarchy()
+        setupLayout()
+        setupProperties()
+    }
+
+    override func setupHierarchy() {
         self.view.addSubview(mainLabel)
+    }
+
+    override func setupLayout() {
         mainLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+    }
+
+    override func setupProperties() {
+        mainLabel.text = "SettingViewController"
     }
 
 }

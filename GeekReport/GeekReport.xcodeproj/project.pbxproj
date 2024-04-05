@@ -34,6 +34,9 @@
 		76234E532BBF88BC006ACA2F /* CustomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E522BBF88BC006ACA2F /* CustomItemView.swift */; };
 		76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E542BBF8A4B006ACA2F /* CustomTabBar.swift */; };
 		76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E562BBF8B63006ACA2F /* UIView+Extension.swift */; };
+		76234E5A2BBF8F97006ACA2F /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */; };
+		76234E5C2BBF901D006ACA2F /* UIConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E5B2BBF901D006ACA2F /* UIConfigurable.swift */; };
+		76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E602BBF929D006ACA2F /* BaseUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +64,9 @@
 		76234E522BBF88BC006ACA2F /* CustomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomItemView.swift; sourceTree = "<group>"; };
 		76234E542BBF8A4B006ACA2F /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		76234E562BBF8B63006ACA2F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		76234E5B2BBF901D006ACA2F /* UIConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfigurable.swift; sourceTree = "<group>"; };
+		76234E602BBF929D006ACA2F /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,7 @@
 		76234E052BBE7AA0006ACA2F /* GeekReport */ = {
 			isa = PBXGroup;
 			children = (
+				76234E5D2BBF9023006ACA2F /* Protocol */,
 				76234E582BBF8B75006ACA2F /* Util */,
 				76234E432BBEA0BC006ACA2F /* Tab */,
 				76234E302BBE9485006ACA2F /* Setting */,
@@ -111,6 +118,7 @@
 				76234E112BBE7AA2006ACA2F /* LaunchScreen.storyboard */,
 				76234E142BBE7AA2006ACA2F /* Info.plist */,
 				76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */,
+				76234E602BBF929D006ACA2F /* BaseUIView.swift */,
 			);
 			path = GeekReport;
 			sourceTree = "<group>";
@@ -120,6 +128,7 @@
 			children = (
 				76234E292BBE9398006ACA2F /* UITabBarController+Extension.swift */,
 				76234E562BBF8B63006ACA2F /* UIView+Extension.swift */,
+				76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -179,6 +188,14 @@
 				76234E4E2BBF8596006ACA2F /* DeviceUI.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		76234E5D2BBF9023006ACA2F /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				76234E5B2BBF901D006ACA2F /* UIConfigurable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,15 +289,18 @@
 				76234E072BBE7AA0006ACA2F /* AppDelegate.swift in Sources */,
 				76234E342BBE94B8006ACA2F /* SearchViewController.swift in Sources */,
 				76234E3A2BBE94DA006ACA2F /* MyListViewController.swift in Sources */,
+				76234E5A2BBF8F97006ACA2F /* UIStackView+Extension.swift in Sources */,
 				76234E092BBE7AA0006ACA2F /* SceneDelegate.swift in Sources */,
 				76234E2C2BBE9462006ACA2F /* TabBarNavigationManager.swift in Sources */,
 				76234E2A2BBE9398006ACA2F /* UITabBarController+Extension.swift in Sources */,
 				76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
+				76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */,
 				76234E532BBF88BC006ACA2F /* CustomItemView.swift in Sources */,
 				76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */,
 				76234E452BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift in Sources */,
 				76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */,
+				76234E5C2BBF901D006ACA2F /* UIConfigurable.swift in Sources */,
 				76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */,
 				76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */,
 				76234E512BBF878F006ACA2F /* CustomTabItem.swift in Sources */,

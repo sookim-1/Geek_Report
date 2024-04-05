@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-final class CustomTabBar: UIStackView {
+final class CustomTabBar: UIStackView, UIConfigurable {
 
     var itemTapped: Observable<Int> { itemTappedSubject.asObservable() }
 
@@ -27,7 +27,7 @@ final class CustomTabBar: UIStackView {
     init() {
         super.init(frame: .zero)
 
-        addSubviews()
+        setupHierarchy()
         setupProperties()
         bind()
 
@@ -40,13 +40,15 @@ final class CustomTabBar: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func addSubviews() {
-        customItemViews.forEach {
-            self.addArrangedSubview($0)
-        }
+    func setupHierarchy() {
+        self.addArrangedSubviews(customItemViews)
     }
 
-    private func setupProperties() {
+    func setupLayout() {
+
+    }
+
+    func setupProperties() {
         distribution = .fillEqually
         alignment = .center
         backgroundColor = .systemIndigo

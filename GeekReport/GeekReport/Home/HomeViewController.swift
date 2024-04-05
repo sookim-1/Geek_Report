@@ -16,11 +16,24 @@ final class HomeViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mainLabel.text = "HomeViewController"
+        setupHierarchy()
+        setupLayout()
+        setupProperties()
+    }
+
+    override func setupHierarchy() {
         self.view.addSubview(mainLabel)
+    }
+
+    override func setupLayout() {
         mainLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
 
+    override func setupProperties() {
+        mainLabel.text = "HomeViewController"
+    }
+
 }
+

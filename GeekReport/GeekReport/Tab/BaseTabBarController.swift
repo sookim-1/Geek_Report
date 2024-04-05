@@ -9,8 +9,8 @@ import UIKit
 import RxSwift
 import SnapKit
 
-final class BaseTabBarController: UITabBarController {
-    
+final class BaseTabBarController: UITabBarController, UIConfigurable {
+
     private let tabBarNavigationManager = TabBarNavigationManager()
     private let customTabBar = CustomTabBar()
 
@@ -60,11 +60,13 @@ final class BaseTabBarController: UITabBarController {
         return nextView
     }
 
-    private func setupHierarchy() {
+
+    func setupHierarchy() {
         view.addSubview(customTabBar)
     }
 
-    private func setupLayout() {
+
+    func setupLayout() {
         customTabBar.snp.makeConstraints {
             $0.bottom.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
@@ -72,7 +74,7 @@ final class BaseTabBarController: UITabBarController {
         }
     }
 
-    private func setupProperties() {
+    func setupProperties() {
         tabBar.isHidden = true
 
         customTabBar.addShadow()
@@ -114,8 +116,4 @@ extension BaseTabBarController: UITabBarControllerDelegate {
         return TabBarAnimatedTransitioning()
     }
 
-}
-
-#Preview {
-    BaseTabBarController()
 }
