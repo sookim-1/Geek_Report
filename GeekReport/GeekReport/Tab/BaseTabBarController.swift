@@ -6,27 +6,26 @@
 //
 
 import UIKit
+import RxSwift
+import SnapKit
 
 final class BaseTabBarController: UITabBarController {
     
     private let tabBarNavigationManager = TabBarNavigationManager()
+    private let customTabBar = CustomTabBar()
+
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         delegate = self
-        configureTabbar()
-        viewControllers = [createHomeNavigationController(), createSearchNavigationController(), createMyListNavigationController(), createSettingNavigationController()]
-    }
 
-    private func configureTabbar() {
-        tabBar.tintColor = .systemGray6
-        tabBar.unselectedItemTintColor = .systemGray4
-        tabBar.backgroundColor = .white
-        tabBar.barTintColor = .white
-        tabBar.layer.borderWidth = 1
-        tabBar.layer.borderColor = UIColor.systemGray2.cgColor
-        tabBar.clipsToBounds = true
+        setupHierarchy()
+        setupLayout()
+        setupProperties()
+        bind()
+        view.layoutIfNeeded()
     }
 
     private func createHomeNavigationController() -> UINavigationController {
@@ -61,6 +60,42 @@ final class BaseTabBarController: UITabBarController {
         return nextView
     }
 
+    private func setupHierarchy() {
+        view.addSubview(customTabBar)
+    }
+
+    private func setupLayout() {
+        customTabBar.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(90 + DeviceUI.shared.safeAreaBottomHeight)
+        }
+    }
+
+    private func setupProperties() {
+        tabBar.isHidden = true
+
+        customTabBar.addShadow()
+
+        selectedIndex = 0
+        setViewControllers([createHomeNavigationController(), createSearchNavigationController(), createMyListNavigationController(), createSettingNavigationController()], animated: true)
+    }
+
+    private func selectTabWith(index: Int) {
+        self.selectedIndex = index
+    }
+
+    private func bind() {
+        customTabBar.itemTapped
+            .bind { [weak self] in
+                guard let self
+                else { return }
+
+                self.selectTabWith(index: $0)
+            }
+            .disposed(by: disposeBag)
+    }
+
 }
 
 // MARK: - TabBarNavigationManagerDelegate
@@ -79,4 +114,8 @@ extension BaseTabBarController: UITabBarControllerDelegate {
         return TabBarAnimatedTransitioning()
     }
 
+}
+
+#Preview {
+    BaseTabBarController()
 }

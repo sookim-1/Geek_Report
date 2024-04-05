@@ -30,6 +30,10 @@
 		76234E4A2BBF8498006ACA2F /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 76234E492BBF8498006ACA2F /* RxRelay */; };
 		76234E4D2BBF84EC006ACA2F /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 76234E4C2BBF84EC006ACA2F /* RxGesture */; };
 		76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E4E2BBF8596006ACA2F /* DeviceUI.swift */; };
+		76234E512BBF878F006ACA2F /* CustomTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E502BBF878F006ACA2F /* CustomTabItem.swift */; };
+		76234E532BBF88BC006ACA2F /* CustomItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E522BBF88BC006ACA2F /* CustomItemView.swift */; };
+		76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E542BBF8A4B006ACA2F /* CustomTabBar.swift */; };
+		76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E562BBF8B63006ACA2F /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,10 @@
 		76234E3F2BBE962D006ACA2F /* BaseUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 		76234E442BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		76234E4E2BBF8596006ACA2F /* DeviceUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceUI.swift; sourceTree = "<group>"; };
+		76234E502BBF878F006ACA2F /* CustomTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItem.swift; sourceTree = "<group>"; };
+		76234E522BBF88BC006ACA2F /* CustomItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomItemView.swift; sourceTree = "<group>"; };
+		76234E542BBF8A4B006ACA2F /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		76234E562BBF8B63006ACA2F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,7 @@
 		76234E052BBE7AA0006ACA2F /* GeekReport */ = {
 			isa = PBXGroup;
 			children = (
+				76234E582BBF8B75006ACA2F /* Util */,
 				76234E432BBEA0BC006ACA2F /* Tab */,
 				76234E302BBE9485006ACA2F /* Setting */,
 				76234E2F2BBE9480006ACA2F /* MyList */,
@@ -110,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				76234E292BBE9398006ACA2F /* UITabBarController+Extension.swift */,
-				76234E4E2BBF8596006ACA2F /* DeviceUI.swift */,
+				76234E562BBF8B63006ACA2F /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -157,8 +166,19 @@
 				76234E2B2BBE9462006ACA2F /* TabBarNavigationManager.swift */,
 				76234E262BBE9362006ACA2F /* BaseTabBarController.swift */,
 				76234E442BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift */,
+				76234E502BBF878F006ACA2F /* CustomTabItem.swift */,
+				76234E522BBF88BC006ACA2F /* CustomItemView.swift */,
+				76234E542BBF8A4B006ACA2F /* CustomTabBar.swift */,
 			);
 			path = Tab;
+			sourceTree = "<group>";
+		};
+		76234E582BBF8B75006ACA2F /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				76234E4E2BBF8596006ACA2F /* DeviceUI.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +266,7 @@
 			files = (
 				76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */,
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
+				76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */,
 				76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */,
 				76234E272BBE9362006ACA2F /* BaseTabBarController.swift in Sources */,
 				76234E072BBE7AA0006ACA2F /* AppDelegate.swift in Sources */,
@@ -256,10 +277,13 @@
 				76234E2A2BBE9398006ACA2F /* UITabBarController+Extension.swift in Sources */,
 				76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
+				76234E532BBF88BC006ACA2F /* CustomItemView.swift in Sources */,
 				76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */,
 				76234E452BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift in Sources */,
 				76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */,
 				76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */,
+				76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */,
+				76234E512BBF878F006ACA2F /* CustomTabItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +353,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -386,7 +410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
