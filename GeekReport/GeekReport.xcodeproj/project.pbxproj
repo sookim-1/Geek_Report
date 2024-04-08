@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		760F731A2BC3E6B90063B535 /* AnimeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F73192BC3E6B90063B535 /* AnimeDataModel.swift */; };
+		760F731D2BC3E7540063B535 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 760F731C2BC3E7540063B535 /* Kingfisher */; };
+		760F73202BC3E7650063B535 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F731F2BC3E7650063B535 /* HomeService.swift */; };
+		760F73222BC3EA6A0063B535 /* GRError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F73212BC3EA6A0063B535 /* GRError.swift */; };
+		760F73252BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F73242BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift */; };
+		760F73272BC3F0B90063B535 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F73262BC3F0B90063B535 /* UIImage+Extension.swift */; };
 		76234E072BBE7AA0006ACA2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E062BBE7AA0006ACA2F /* AppDelegate.swift */; };
 		76234E092BBE7AA0006ACA2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E082BBE7AA0006ACA2F /* SceneDelegate.swift */; };
 		76234E102BBE7AA2006ACA2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76234E0F2BBE7AA2006ACA2F /* Assets.xcassets */; };
@@ -40,6 +46,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		760F73192BC3E6B90063B535 /* AnimeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDataModel.swift; sourceTree = "<group>"; };
+		760F731F2BC3E7650063B535 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		760F73212BC3EA6A0063B535 /* GRError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRError.swift; sourceTree = "<group>"; };
+		760F73242BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		760F73262BC3F0B90063B535 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		76234E032BBE7AA0006ACA2F /* GeekReport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeekReport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76234E062BBE7AA0006ACA2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76234E082BBE7AA0006ACA2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				760F731D2BC3E7540063B535 /* Kingfisher in Frameworks */,
 				76234E482BBF8498006ACA2F /* RxCocoa in Frameworks */,
 				76234E1E2BBE7B63006ACA2F /* SnapKit in Frameworks */,
 				76234E4D2BBF84EC006ACA2F /* RxGesture in Frameworks */,
@@ -85,6 +97,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		760F73182BC3E57F0063B535 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				760F73192BC3E6B90063B535 /* AnimeDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		760F731E2BC3E7590063B535 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				760F731F2BC3E7650063B535 /* HomeService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		760F73232BC3ECA20063B535 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				760F73242BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		76234DFA2BBE7AA0006ACA2F = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +165,7 @@
 				76234E292BBE9398006ACA2F /* UITabBarController+Extension.swift */,
 				76234E562BBF8B63006ACA2F /* UIView+Extension.swift */,
 				76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */,
+				760F73262BC3F0B90063B535 /* UIImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -136,6 +173,9 @@
 		76234E2D2BBE9476006ACA2F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				760F73232BC3ECA20063B535 /* Views */,
+				760F731E2BC3E7590063B535 /* Service */,
+				760F73182BC3E57F0063B535 /* Model */,
 				76234E312BBE94A0006ACA2F /* HomeNavigationViewController.swift */,
 				76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */,
 			);
@@ -186,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				76234E4E2BBF8596006ACA2F /* DeviceUI.swift */,
+				760F73212BC3EA6A0063B535 /* GRError.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -220,6 +261,7 @@
 				76234E472BBF8498006ACA2F /* RxCocoa */,
 				76234E492BBF8498006ACA2F /* RxRelay */,
 				76234E4C2BBF84EC006ACA2F /* RxGesture */,
+				760F731C2BC3E7540063B535 /* Kingfisher */,
 			);
 			productName = GeekReport;
 			productReference = 76234E032BBE7AA0006ACA2F /* GeekReport.app */;
@@ -254,6 +296,7 @@
 				76234E1F2BBE7B78006ACA2F /* XCRemoteSwiftPackageReference "Then" */,
 				76234E462BBF8498006ACA2F /* XCRemoteSwiftPackageReference "RxSwift" */,
 				76234E4B2BBF84EC006ACA2F /* XCRemoteSwiftPackageReference "RxGesture" */,
+				760F731B2BC3E7540063B535 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 76234E042BBE7AA0006ACA2F /* Products */;
 			projectDirPath = "";
@@ -285,18 +328,23 @@
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
 				76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */,
 				76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */,
+				760F731A2BC3E6B90063B535 /* AnimeDataModel.swift in Sources */,
 				76234E272BBE9362006ACA2F /* BaseTabBarController.swift in Sources */,
 				76234E072BBE7AA0006ACA2F /* AppDelegate.swift in Sources */,
 				76234E342BBE94B8006ACA2F /* SearchViewController.swift in Sources */,
 				76234E3A2BBE94DA006ACA2F /* MyListViewController.swift in Sources */,
 				76234E5A2BBF8F97006ACA2F /* UIStackView+Extension.swift in Sources */,
 				76234E092BBE7AA0006ACA2F /* SceneDelegate.swift in Sources */,
+				760F73222BC3EA6A0063B535 /* GRError.swift in Sources */,
 				76234E2C2BBE9462006ACA2F /* TabBarNavigationManager.swift in Sources */,
 				76234E2A2BBE9398006ACA2F /* UITabBarController+Extension.swift in Sources */,
 				76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */,
+				760F73272BC3F0B90063B535 /* UIImage+Extension.swift in Sources */,
+				760F73202BC3E7650063B535 /* HomeService.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
 				76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */,
 				76234E532BBF88BC006ACA2F /* CustomItemView.swift in Sources */,
+				760F73252BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift in Sources */,
 				76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */,
 				76234E452BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift in Sources */,
 				76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */,
@@ -524,6 +572,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		760F731B2BC3E7540063B535 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 		76234E1C2BBE7B63006ACA2F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -559,6 +615,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		760F731C2BC3E7540063B535 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 760F731B2BC3E7540063B535 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		76234E1D2BBE7B63006ACA2F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 76234E1C2BBE7B63006ACA2F /* XCRemoteSwiftPackageReference "SnapKit" */;
