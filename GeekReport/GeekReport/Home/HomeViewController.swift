@@ -19,6 +19,8 @@ final class HomeViewController: BaseUIViewController {
         $0.delegate = self
     }
 
+    private lazy var autoScrollView = InfiniteAutoScrollView()
+
     private var topAnimeList: [AnimeData] = []
 
     override func viewDidLoad() {
@@ -29,13 +31,22 @@ final class HomeViewController: BaseUIViewController {
         setupProperties()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.isNavigationBarHidden = true
+    }
+
     override func setupHierarchy() {
-        self.view.addSubview(collectionView)
+        self.view.addSubview(autoScrollView)
     }
 
     override func setupLayout() {
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        autoScrollView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.height.equalTo(700)
         }
     }
 
@@ -46,7 +57,8 @@ final class HomeViewController: BaseUIViewController {
                 self.topAnimeList = success.dataLists
 
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.autoScrollView.contentArray = self.topAnimeList
+                    self.autoScrollView.collectionView.reloadData()
                 }
             case .failure(let failure):
                 print("\(failure)")
