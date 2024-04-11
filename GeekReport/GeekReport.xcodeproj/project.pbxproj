@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */; };
+		760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */; };
+		760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */; };
+		760ABA8C2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA8B2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift */; };
+		760ABA8E2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA8D2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift */; };
 		760F731A2BC3E6B90063B535 /* AnimeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F73192BC3E6B90063B535 /* AnimeDataModel.swift */; };
 		760F731D2BC3E7540063B535 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 760F731C2BC3E7540063B535 /* Kingfisher */; };
 		760F73202BC3E7650063B535 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F731F2BC3E7650063B535 /* HomeService.swift */; };
@@ -48,6 +53,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnimeDataDTO.swift; sourceTree = "<group>"; };
+		760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonDataDTO.swift; sourceTree = "<group>"; };
+		760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSeasonDataDTO.swift; sourceTree = "<group>"; };
+		760ABA8B2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSeasonDataDTO.swift; sourceTree = "<group>"; };
+		760ABA8D2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationAnimeDataDTO.swift; sourceTree = "<group>"; };
 		760F73192BC3E6B90063B535 /* AnimeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDataModel.swift; sourceTree = "<group>"; };
 		760F731F2BC3E7650063B535 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		760F73212BC3EA6A0063B535 /* GRError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRError.swift; sourceTree = "<group>"; };
@@ -105,6 +115,11 @@
 			isa = PBXGroup;
 			children = (
 				760F73192BC3E6B90063B535 /* AnimeDataModel.swift */,
+				760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */,
+				760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */,
+				760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */,
+				760ABA8B2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift */,
+				760ABA8D2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -330,8 +345,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */,
 				76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */,
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
+				760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */,
 				76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */,
 				76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */,
 				760F731A2BC3E6B90063B535 /* AnimeDataModel.swift in Sources */,
@@ -342,7 +359,9 @@
 				76234E5A2BBF8F97006ACA2F /* UIStackView+Extension.swift in Sources */,
 				76234E092BBE7AA0006ACA2F /* SceneDelegate.swift in Sources */,
 				760F73222BC3EA6A0063B535 /* GRError.swift in Sources */,
+				760ABA8E2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift in Sources */,
 				76234E2C2BBE9462006ACA2F /* TabBarNavigationManager.swift in Sources */,
+				760ABA8C2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift in Sources */,
 				76234E2A2BBE9398006ACA2F /* UITabBarController+Extension.swift in Sources */,
 				76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */,
 				760F73272BC3F0B90063B535 /* UIImage+Extension.swift in Sources */,
@@ -358,6 +377,7 @@
 				76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */,
 				76234E5C2BBF901D006ACA2F /* UIConfigurable.swift in Sources */,
 				76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */,
+				760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */,
 				76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */,
 				76234E512BBF878F006ACA2F /* CustomTabItem.swift in Sources */,
 			);

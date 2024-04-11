@@ -7,29 +7,21 @@
 
 import Foundation
 
-// MARK: - AnimeDataList
-struct AnimeDataList: Codable {
-    let dataLists: [AnimeData]
-
-    enum CodingKeys: String, CodingKey {
-        case dataLists = "data"
-    }
-}
-
-// MARK: - Datum
+// MARK: - AnimeData
 struct AnimeData: Codable {
     let animeID: Int
     let title: String
-    let images: AnimeDataImage
+    let imageURLs: ImageURLs
 
     enum CodingKeys: String, CodingKey {
         case animeID = "mal_id"
-        case images, title
+        case imageURLs = "images"
+        case title
     }
 }
 
-// MARK: - Images
-struct AnimeDataImage: Codable {
+// MARK: - ImageURLs
+struct ImageURLs: Codable {
     let jpgURLs: JpgURLs
 
     enum CodingKeys: String, CodingKey {
@@ -39,9 +31,13 @@ struct AnimeDataImage: Codable {
 
 // MARK: - JpgURLs
 struct JpgURLs: Codable {
-    let imageURL: String
+    let basicImageURL: String
+    let smallImageURL: String
+    let largeImageURL: String
 
     enum CodingKeys: String, CodingKey {
-        case imageURL = "image_url"
+        case basicImageURL = "image_url"
+        case smallImageURL = "small_image_url"
+        case largeImageURL = "large_image_url"
     }
 }
