@@ -34,6 +34,7 @@ final class TempHomeViewController: BaseUIViewController {
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
         $0.backgroundColor = .systemRed
+        $0.delegate = self
     }
 
     enum Section: CaseIterable {
@@ -215,4 +216,16 @@ extension TempHomeViewController: PagerDelegate {
     func didValueChanged(indexPath: IndexPath, scrollPosition: UICollectionView.ScrollPosition) {
         self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
     }
+}
+
+// MARK: -
+extension TempHomeViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let item = self.homeDataSource.itemIdentifier(for: indexPath)
+        else { return }
+
+        self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
+    }
+
 }

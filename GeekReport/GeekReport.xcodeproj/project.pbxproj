@@ -11,6 +11,8 @@
 		7601DB162BDB6BCC0066B1ED /* PagingSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */; };
 		7601DB192BDB6D9D0066B1ED /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7601DB182BDB6D9D0066B1ED /* LookinServer */; };
 		7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */; };
+		7601DB1D2BDB84350066B1ED /* AnimeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */; };
+		7601DB1F2BDB86440066B1ED /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */; };
 		760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */; };
 		760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */; };
 		760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */; };
@@ -60,6 +62,8 @@
 		7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHomeViewController.swift; sourceTree = "<group>"; };
 		7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingSectionFooterView.swift; sourceTree = "<group>"; };
 		7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
+		7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetailViewController.swift; sourceTree = "<group>"; };
+		7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnimeDataDTO.swift; sourceTree = "<group>"; };
 		760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonDataDTO.swift; sourceTree = "<group>"; };
 		760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSeasonDataDTO.swift; sourceTree = "<group>"; };
@@ -208,7 +212,9 @@
 				76234E312BBE94A0006ACA2F /* HomeNavigationViewController.swift */,
 				76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */,
 				7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */,
+				7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */,
 				7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */,
+				7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -381,6 +387,7 @@
 				760F73272BC3F0B90063B535 /* UIImage+Extension.swift in Sources */,
 				760F73202BC3E7650063B535 /* HomeService.swift in Sources */,
 				760F73372BC53D480063B535 /* InfiniteAutoScrollViewCell.swift in Sources */,
+				7601DB1F2BDB86440066B1ED /* CustomSegmentedControl.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
 				7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */,
 				76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */,
@@ -394,6 +401,7 @@
 				76234E5C2BBF901D006ACA2F /* UIConfigurable.swift in Sources */,
 				76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */,
 				760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */,
+				7601DB1D2BDB84350066B1ED /* AnimeDetailViewController.swift in Sources */,
 				76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */,
 				76234E512BBF878F006ACA2F /* CustomTabItem.swift in Sources */,
 			);

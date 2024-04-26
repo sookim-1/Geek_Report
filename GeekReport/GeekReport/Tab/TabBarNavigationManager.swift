@@ -24,6 +24,8 @@ final class TabBarNavigationManager: NSObject, UINavigationControllerDelegate {
             switch viewController {
             case is TempHomeViewController:
                 viewController.navigationController?.isNavigationBarHidden = true
+            case is AnimeDetailViewController:
+                viewController.navigationController?.isNavigationBarHidden = false
             default:
                 print("navigationController: \(navigationController)\nviewController: \(viewController)")
             }
