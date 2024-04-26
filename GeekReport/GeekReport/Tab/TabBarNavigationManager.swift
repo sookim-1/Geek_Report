@@ -21,6 +21,13 @@ final class TabBarNavigationManager: NSObject, UINavigationControllerDelegate {
 
         switch navigationController {
         case is HomeNavigationViewController:
+            switch viewController {
+            case is TempHomeViewController:
+                viewController.navigationController?.isNavigationBarHidden = true
+            default:
+                print("navigationController: \(navigationController)\nviewController: \(viewController)")
+            }
+
             print("navigationController: \(navigationController)\nviewController: \(viewController)")
         case is SearchNavigationViewController:
             print("navigationController: \(navigationController)\nviewController: \(viewController)")

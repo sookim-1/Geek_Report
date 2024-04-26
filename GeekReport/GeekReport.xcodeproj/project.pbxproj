@@ -10,6 +10,7 @@
 		7601DB142BDB64C70066B1ED /* TempHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */; };
 		7601DB162BDB6BCC0066B1ED /* PagingSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */; };
 		7601DB192BDB6D9D0066B1ED /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7601DB182BDB6D9D0066B1ED /* LookinServer */; };
+		7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */; };
 		760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */; };
 		760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */; };
 		760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */; };
@@ -58,6 +59,7 @@
 /* Begin PBXFileReference section */
 		7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHomeViewController.swift; sourceTree = "<group>"; };
 		7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingSectionFooterView.swift; sourceTree = "<group>"; };
+		7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
 		760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnimeDataDTO.swift; sourceTree = "<group>"; };
 		760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonDataDTO.swift; sourceTree = "<group>"; };
 		760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSeasonDataDTO.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 			children = (
 				76234E4E2BBF8596006ACA2F /* DeviceUI.swift */,
 				760F73212BC3EA6A0063B535 /* GRError.swift */,
+				7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				760F73202BC3E7650063B535 /* HomeService.swift in Sources */,
 				760F73372BC53D480063B535 /* InfiniteAutoScrollViewCell.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
+				7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */,
 				76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */,
 				76234E532BBF88BC006ACA2F /* CustomItemView.swift in Sources */,
 				7601DB142BDB64C70066B1ED /* TempHomeViewController.swift in Sources */,

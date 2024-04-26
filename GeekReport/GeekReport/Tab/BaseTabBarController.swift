@@ -70,7 +70,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
         customTabBar.snp.makeConstraints {
             $0.bottom.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(90 + DeviceUI.shared.safeAreaBottomHeight)
+            $0.height.equalTo(GlobalConstant.customTabBarHeight)
         }
     }
 

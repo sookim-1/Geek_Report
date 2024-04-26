@@ -68,7 +68,10 @@ final class TempHomeViewController: BaseUIViewController {
 
     override func setupLayout() {
         self.collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-GlobalConstant.customTabBarHeight)
         }
     }
 
@@ -186,11 +189,11 @@ extension TempHomeViewController {
     }
 
     private func createBasicSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 10)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.3))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.35), heightDimension: .fractionalWidth(0.55))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
@@ -212,8 +215,4 @@ extension TempHomeViewController: PagerDelegate {
     func didValueChanged(indexPath: IndexPath, scrollPosition: UICollectionView.ScrollPosition) {
         self.collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
     }
-}
-
-#Preview {
-    TempHomeViewController() 
 }
