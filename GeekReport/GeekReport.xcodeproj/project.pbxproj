@@ -13,6 +13,12 @@
 		7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */; };
 		7601DB1D2BDB84350066B1ED /* AnimeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */; };
 		7601DB1F2BDB86440066B1ED /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */; };
+		7601DB212BDB98450066B1ED /* SimpleIconLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB202BDB98450066B1ED /* SimpleIconLabelView.swift */; };
+		7601DB232BDB99DF0066B1ED /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB222BDB99DF0066B1ED /* UIButton+Extension.swift */; };
+		7601DB452BDBABAB0066B1ED /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB442BDBABAB0066B1ED /* ChapterViewController.swift */; };
+		7601DB472BDBAC130066B1ED /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB462BDBAC130066B1ED /* ListItem.swift */; };
+		7601DB492BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB482BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift */; };
+		7601DB4B2BDBAD0B0066B1ED /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB4A2BDBAD0B0066B1ED /* OptionViewController.swift */; };
 		760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */; };
 		760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */; };
 		760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */; };
@@ -64,6 +70,12 @@
 		7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
 		7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetailViewController.swift; sourceTree = "<group>"; };
 		7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		7601DB202BDB98450066B1ED /* SimpleIconLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleIconLabelView.swift; sourceTree = "<group>"; };
+		7601DB222BDB99DF0066B1ED /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		7601DB442BDBABAB0066B1ED /* ChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterViewController.swift; sourceTree = "<group>"; };
+		7601DB462BDBAC130066B1ED /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		7601DB482BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortAnimeDetailViewController.swift; sourceTree = "<group>"; };
+		7601DB4A2BDBAD0B0066B1ED /* OptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
 		760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnimeDataDTO.swift; sourceTree = "<group>"; };
 		760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonDataDTO.swift; sourceTree = "<group>"; };
 		760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSeasonDataDTO.swift; sourceTree = "<group>"; };
@@ -199,6 +211,7 @@
 				76234E562BBF8B63006ACA2F /* UIView+Extension.swift */,
 				76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */,
 				760F73262BC3F0B90063B535 /* UIImage+Extension.swift */,
+				7601DB222BDB99DF0066B1ED /* UIButton+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -214,6 +227,11 @@
 				7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */,
 				7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */,
 				7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */,
+				7601DB442BDBABAB0066B1ED /* ChapterViewController.swift */,
+				7601DB462BDBAC130066B1ED /* ListItem.swift */,
+				7601DB482BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift */,
+				7601DB4A2BDBAD0B0066B1ED /* OptionViewController.swift */,
+				7601DB202BDB98450066B1ED /* SimpleIconLabelView.swift */,
 				7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */,
 			);
 			path = Home;
@@ -368,10 +386,12 @@
 				76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */,
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
 				760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */,
+				7601DB472BDBAC130066B1ED /* ListItem.swift in Sources */,
 				76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */,
 				76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */,
 				760F731A2BC3E6B90063B535 /* AnimeDataModel.swift in Sources */,
 				76234E272BBE9362006ACA2F /* BaseTabBarController.swift in Sources */,
+				7601DB452BDBABAB0066B1ED /* ChapterViewController.swift in Sources */,
 				76234E072BBE7AA0006ACA2F /* AppDelegate.swift in Sources */,
 				76234E342BBE94B8006ACA2F /* SearchViewController.swift in Sources */,
 				76234E3A2BBE94DA006ACA2F /* MyListViewController.swift in Sources */,
@@ -404,6 +424,10 @@
 				7601DB1D2BDB84350066B1ED /* AnimeDetailViewController.swift in Sources */,
 				76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */,
 				76234E512BBF878F006ACA2F /* CustomTabItem.swift in Sources */,
+				7601DB492BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift in Sources */,
+				7601DB212BDB98450066B1ED /* SimpleIconLabelView.swift in Sources */,
+				7601DB232BDB99DF0066B1ED /* UIButton+Extension.swift in Sources */,
+				7601DB4B2BDBAD0B0066B1ED /* OptionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
