@@ -201,7 +201,7 @@ extension InfiniteAutoScrollView: UICollectionViewDataSource {
 
         let content = contentArray[indexPath.item]
         
-        cell.imageView.kf.setImage(with: URL(string: content.images.jpgURLs.imageURL))
+        cell.imageView.kf.setImage(with: URL(string: content.imageURLs.jpgURLs.largeImageURL))
         cell.delegate = self
         
         return cell

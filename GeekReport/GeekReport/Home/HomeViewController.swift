@@ -54,7 +54,7 @@ final class HomeViewController: BaseUIViewController {
         HomeService.shared.getTopAnimes { result in
             switch result {  
             case .success(let success):
-                self.topAnimeList = success.dataLists
+                self.topAnimeList = success
 
                 DispatchQueue.main.async {
                     self.autoScrollView.contentArray = self.topAnimeList
@@ -95,7 +95,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
         let item = self.topAnimeList[indexPath.item]
 
-        cell.configureUI(imageURL: item.images.jpgURLs.imageURL, title: item.title)
+        cell.configureUI(imageURL: item.imageURLs.jpgURLs.largeImageURL, title: item.title)
 
         return cell
     }
