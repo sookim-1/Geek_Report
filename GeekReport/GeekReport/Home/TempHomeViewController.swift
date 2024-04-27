@@ -10,30 +10,11 @@ import SnapKit
 import Then
 import RxSwift
 
-class ItemModel: Hashable {
-
-    var uuid = UUID()
-    let text: String
-
-    init(text: String) {
-        self.text = text
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(uuid)
-    }
-
-    static func == (lhs: ItemModel, rhs: ItemModel) -> Bool {
-        return lhs.uuid == rhs.uuid
-    }
-
-}
-
 // FIXME: - ItemModel을 AnimeData모델로 변경, CustomCell 작성
 final class TempHomeViewController: BaseUIViewController {
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
-        $0.backgroundColor = .systemRed
+        $0.backgroundColor = .black
         $0.delegate = self
     }
 
@@ -46,8 +27,8 @@ final class TempHomeViewController: BaseUIViewController {
         case winter
     }
 
-    typealias HomeDataSource = UICollectionViewDiffableDataSource<Section, ItemModel>
-    typealias HomeDataSnapShot = NSDiffableDataSourceSnapshot<Section, ItemModel>
+    typealias HomeDataSource = UICollectionViewDiffableDataSource<Section, AnimeData>
+    typealias HomeDataSnapShot = NSDiffableDataSourceSnapshot<Section, AnimeData>
     private var homeDataSource: HomeDataSource!
     private var titleHeaderRegistration: UICollectionView.SupplementaryRegistration<UICollectionViewListCell>!
     private var pageFooterRegistration: UICollectionView.SupplementaryRegistration<PagingSectionFooterView>!
@@ -77,7 +58,7 @@ final class TempHomeViewController: BaseUIViewController {
     }
 
     override func setupProperties() {
-
+        self.view.backgroundColor = .black
     }
 
     private func createLayout() -> UICollectionViewLayout {
@@ -92,22 +73,29 @@ final class TempHomeViewController: BaseUIViewController {
     }
 
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ItemModel> { (cell, indexPath, item) in
-            var content = cell.defaultContentConfiguration()
-            content.text = item.text
-            content.textProperties.alignment = .center
-            cell.contentConfiguration = content
+        let carouselCellRegistration = UICollectionView.CellRegistration<AnimeBannerCollectionViewCell, AnimeData> { (cell, indexPath, item) in
+            cell.imageView.kf.setImage(with: URL(string: item.imageURLs.jpgURLs.largeImageURL))
+            cell.titleLabel.text = item.title
+        }
+        
+        let cellRegistration = UICollectionView.CellRegistration<AnimeCollectionViewCell, AnimeData> { (cell, indexPath, item) in
+            cell.imageView.kf.setImage(with: URL(string: item.imageURLs.jpgURLs.largeImageURL))
+            cell.titleLabel.text = item.title
         }
 
         self.homeDataSource = HomeDataSource(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            if indexPath.section == 0 {
+                return collectionView.dequeueConfiguredReusableCell(using: carouselCellRegistration, for: indexPath, item: itemIdentifier)
+            } else {
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            }
         })
 
         // MARK: - SupplementaryView
         self.titleHeaderRegistration = .init(elementKind: UICollectionView.elementKindSectionHeader) { (supplementaryView, elementKind, indexPath) in
             var content = supplementaryView.defaultContentConfiguration()
             content.text = "제목"
-            content.textProperties.alignment = .center
+            content.textProperties.color = .white
             supplementaryView.contentConfiguration = content
         }
 
@@ -135,12 +123,8 @@ final class TempHomeViewController: BaseUIViewController {
         var snapShot = HomeDataSnapShot()
         snapShot.appendSections(Section.allCases)
 
-        let items = (0..<5).map(\.description)
-
-        items.enumerated().forEach { index, item in
-            Section.allCases.forEach {
-                snapShot.appendItems([ItemModel(text: item)], toSection: $0)
-            }
+        Section.allCases.forEach {
+            snapShot.appendItems(AnimeData.defaultData, toSection: $0)
         }
         
         self.homeDataSource.apply(snapShot, animatingDifferences: animated)
@@ -155,7 +139,7 @@ extension TempHomeViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalWidth(0.5))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(490))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
@@ -228,4 +212,8 @@ extension TempHomeViewController: UICollectionViewDelegate {
         self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
     }
 
+}
+
+#Preview {
+    TempHomeViewController()
 }

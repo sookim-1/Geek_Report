@@ -49,9 +49,9 @@ final class AnimeDetailViewController: BaseUIViewController {
     private var shortAnimeDetailVC: ShortAnimeDetailViewController = ShortAnimeDetailViewController()
     private var optionVC: OptionViewController = OptionViewController()
 
-    var item: ItemModel!
+    var item: AnimeData!
 
-    init(item: ItemModel) {
+    init(item: AnimeData) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
     }
@@ -63,14 +63,10 @@ final class AnimeDetailViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemRed
-
         setupHierarchy()
         setupLayout()
         setupProperties()
         updateView(index: 0)
-        print("refresh \(item.text)")
-
 
         self.chapterSegmentedControl.didTapSegment = { index in
             self.updateView(index: index)
@@ -162,7 +158,7 @@ final class AnimeDetailViewController: BaseUIViewController {
     }
 
     override func setupProperties() {
-
+        view.backgroundColor = .black
     }
 
     private func updateView(index: Int) {

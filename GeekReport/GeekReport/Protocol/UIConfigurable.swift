@@ -7,6 +7,7 @@
 
 import Foundation
 
+// 공통
 protocol UIConfigurable {
 
     func setupHierarchy()
