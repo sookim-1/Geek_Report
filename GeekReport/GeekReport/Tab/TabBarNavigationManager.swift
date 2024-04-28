@@ -18,14 +18,18 @@ final class TabBarNavigationManager: NSObject, UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 
         print("navigationController: \(navigationController)\nviewController: \(viewController)")
-
+        
+        viewController.navigationController?.isNavigationBarHidden = true
+        viewController.navigationController?.tabBarController?.tabBar.isHidden = false
+        
         switch navigationController {
         case is HomeNavigationViewController:
             switch viewController {
-            case is TempHomeViewController:
+            case is HomeViewController:
                 viewController.navigationController?.isNavigationBarHidden = true
             case is AnimeDetailViewController:
                 viewController.navigationController?.isNavigationBarHidden = false
+                viewController.navigationController?.tabBarController?.tabBar.isHidden = true
             default:
                 print("navigationController: \(navigationController)\nviewController: \(viewController)")
             }

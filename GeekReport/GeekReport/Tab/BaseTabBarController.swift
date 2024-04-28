@@ -29,7 +29,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
     }
 
     private func createHomeNavigationController() -> UINavigationController {
-        let rootView = TempHomeViewController()
+        let rootView = HomeViewController()
         let nextView = HomeNavigationViewController(rootViewController: rootView)
         nextView.delegate = tabBarNavigationManager
 

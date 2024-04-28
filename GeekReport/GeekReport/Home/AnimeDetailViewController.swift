@@ -158,7 +158,7 @@ final class AnimeDetailViewController: BaseUIViewController {
     }
 
     override func setupProperties() {
-        view.backgroundColor = .black
+        
     }
 
     private func updateView(index: Int) {

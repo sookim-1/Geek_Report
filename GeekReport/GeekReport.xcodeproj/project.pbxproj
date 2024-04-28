@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7601DB142BDB64C70066B1ED /* TempHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */; };
 		7601DB162BDB6BCC0066B1ED /* PagingSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */; };
 		7601DB192BDB6D9D0066B1ED /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 7601DB182BDB6D9D0066B1ED /* LookinServer */; };
 		7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */; };
@@ -64,10 +63,11 @@
 		76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E602BBF929D006ACA2F /* BaseUIView.swift */; };
 		76ADC3992BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */; };
 		76ADC39B2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */; };
+		76BDE1E22BDDE3DF00E3903F /* SectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */; };
+		76BDE1E42BDDE57800E3903F /* GlobalDateFormmater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE1E32BDDE57800E3903F /* GlobalDateFormmater.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHomeViewController.swift; sourceTree = "<group>"; };
 		7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingSectionFooterView.swift; sourceTree = "<group>"; };
 		7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
 		7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetailViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +119,8 @@
 		76234E602BBF929D006ACA2F /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
 		76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeBannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleHeaderView.swift; sourceTree = "<group>"; };
+		76BDE1E32BDDE57800E3903F /* GlobalDateFormmater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDateFormmater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,10 +230,10 @@
 				760F73182BC3E57F0063B535 /* Model */,
 				76234E312BBE94A0006ACA2F /* HomeNavigationViewController.swift */,
 				76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */,
-				7601DB132BDB64C70066B1ED /* TempHomeViewController.swift */,
 				76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */,
 				76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */,
 				7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */,
+				76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */,
 				7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */,
 				7601DB442BDBABAB0066B1ED /* ChapterViewController.swift */,
 				7601DB462BDBAC130066B1ED /* ListItem.swift */,
@@ -289,6 +291,7 @@
 				76234E4E2BBF8596006ACA2F /* DeviceUI.swift */,
 				760F73212BC3EA6A0063B535 /* GRError.swift */,
 				7601DB1A2BDB81540066B1ED /* GlobalConstant.swift */,
+				76BDE1E32BDDE57800E3903F /* GlobalDateFormmater.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */,
+				76BDE1E42BDDE57800E3903F /* GlobalDateFormmater.swift in Sources */,
 				76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */,
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
 				760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */,
@@ -406,6 +410,7 @@
 				76234E092BBE7AA0006ACA2F /* SceneDelegate.swift in Sources */,
 				760F73222BC3EA6A0063B535 /* GRError.swift in Sources */,
 				760ABA8E2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift in Sources */,
+				76BDE1E22BDDE3DF00E3903F /* SectionTitleHeaderView.swift in Sources */,
 				76234E2C2BBE9462006ACA2F /* TabBarNavigationManager.swift in Sources */,
 				760ABA8C2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift in Sources */,
 				7601DB162BDB6BCC0066B1ED /* PagingSectionFooterView.swift in Sources */,
@@ -419,7 +424,6 @@
 				7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */,
 				76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */,
 				76234E532BBF88BC006ACA2F /* CustomItemView.swift in Sources */,
-				7601DB142BDB64C70066B1ED /* TempHomeViewController.swift in Sources */,
 				760F73252BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift in Sources */,
 				760F73382BC53D480063B535 /* InfiniteAutoScrollView.swift in Sources */,
 				76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */,
