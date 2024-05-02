@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TabBarNavigationManagerDelegate: AnyObject {
-    func relayTabBarHiiden(hidden: Bool, animated: Bool, duration: TimeInterval)
+    func customTabbarHidden(hidden: Bool)
 }
 
 final class TabBarNavigationManager: NSObject, UINavigationControllerDelegate {
@@ -20,16 +20,19 @@ final class TabBarNavigationManager: NSObject, UINavigationControllerDelegate {
         print("navigationController: \(navigationController)\nviewController: \(viewController)")
         
         viewController.navigationController?.isNavigationBarHidden = true
-        viewController.navigationController?.tabBarController?.tabBar.isHidden = false
-        
+        delegate?.customTabbarHidden(hidden: false)
+
         switch navigationController {
         case is HomeNavigationViewController:
             switch viewController {
             case is HomeViewController:
                 viewController.navigationController?.isNavigationBarHidden = true
             case is AnimeDetailViewController:
-                viewController.navigationController?.isNavigationBarHidden = false
-                viewController.navigationController?.tabBarController?.tabBar.isHidden = true
+                viewController.navigationController?.isNavigationBarHidden = true
+                delegate?.customTabbarHidden(hidden: true)
+            case is MoreAnimeViewController:
+                viewController.navigationController?.isNavigationBarHidden = true
+                delegate?.customTabbarHidden(hidden: true)
             default:
                 print("navigationController: \(navigationController)\nviewController: \(viewController)")
             }

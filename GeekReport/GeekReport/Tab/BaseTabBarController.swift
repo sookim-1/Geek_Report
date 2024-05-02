@@ -8,10 +8,12 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Then
 
 final class BaseTabBarController: UITabBarController, UIConfigurable {
 
     private let tabBarNavigationManager = TabBarNavigationManager()
+    
     private let customTabBar = CustomTabBar()
 
     private let disposeBag = DisposeBag()
@@ -81,6 +83,8 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
 
         selectedIndex = 0
         setViewControllers([createHomeNavigationController(), createSearchNavigationController(), createMyListNavigationController(), createSettingNavigationController()], animated: true)
+
+        self.tabBarNavigationManager.delegate = self
     }
 
     private func selectTabWith(index: Int) {
@@ -103,8 +107,10 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
 // MARK: - TabBarNavigationManagerDelegate
 extension BaseTabBarController: TabBarNavigationManagerDelegate {
 
-    func relayTabBarHiiden(hidden: Bool, animated: Bool, duration: TimeInterval) {
-        self.setTabBarHidden(hidden, animated: animated, duration: duration)
+    func customTabbarHidden(hidden: Bool) {
+        self.customTabBar.snp.updateConstraints { make in
+            make.height.equalTo(hidden ? 0 : GlobalConstant.customTabBarHeight)
+        }
     }
 
 }

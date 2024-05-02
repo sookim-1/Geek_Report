@@ -61,6 +61,8 @@
 		76234E5A2BBF8F97006ACA2F /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */; };
 		76234E5C2BBF901D006ACA2F /* UIConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E5B2BBF901D006ACA2F /* UIConfigurable.swift */; };
 		76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E602BBF929D006ACA2F /* BaseUIView.swift */; };
+		7626FA1F2BE36B2D0053F974 /* MoreAnimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7626FA1E2BE36B2D0053F974 /* MoreAnimeViewController.swift */; };
+		7626FA212BE36DCF0053F974 /* DefaultBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7626FA202BE36DCF0053F974 /* DefaultBackButton.swift */; };
 		76ADC3992BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */; };
 		76ADC39B2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */; };
 		76BDE1E22BDDE3DF00E3903F /* SectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */; };
@@ -117,6 +119,8 @@
 		76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		76234E5B2BBF901D006ACA2F /* UIConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfigurable.swift; sourceTree = "<group>"; };
 		76234E602BBF929D006ACA2F /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
+		7626FA1E2BE36B2D0053F974 /* MoreAnimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreAnimeViewController.swift; sourceTree = "<group>"; };
+		7626FA202BE36DCF0053F974 /* DefaultBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBackButton.swift; sourceTree = "<group>"; };
 		76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeBannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleHeaderView.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				760F73362BC53D470063B535 /* InfiniteAutoScrollView.swift */,
 				760F73352BC53D470063B535 /* InfiniteAutoScrollViewCell.swift */,
 				760F73242BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift */,
+				7626FA202BE36DCF0053F974 /* DefaultBackButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */,
 				76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */,
 				7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */,
+				7626FA1E2BE36B2D0053F974 /* MoreAnimeViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
 				760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */,
 				7601DB472BDBAC130066B1ED /* ListItem.swift in Sources */,
+				7626FA212BE36DCF0053F974 /* DefaultBackButton.swift in Sources */,
 				76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */,
 				76234E362BBE94C7006ACA2F /* SearchNavigationViewController.swift in Sources */,
 				760F731A2BC3E6B90063B535 /* AnimeDataModel.swift in Sources */,
@@ -457,6 +464,7 @@
 				76234E3E2BBE94F2006ACA2F /* SettingNavigationViewController.swift in Sources */,
 				760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */,
 				7601DB1D2BDB84350066B1ED /* AnimeDetailViewController.swift in Sources */,
+				7626FA1F2BE36B2D0053F974 /* MoreAnimeViewController.swift in Sources */,
 				76234E572BBF8B63006ACA2F /* UIView+Extension.swift in Sources */,
 				76234E512BBF878F006ACA2F /* CustomTabItem.swift in Sources */,
 				7601DB492BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift in Sources */,

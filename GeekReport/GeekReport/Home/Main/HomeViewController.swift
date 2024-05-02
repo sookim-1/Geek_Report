@@ -113,10 +113,14 @@ final class HomeViewController: BaseUIViewController {
         self.titleHeaderRegistration = .init(elementKind: UICollectionView.elementKindSectionHeader) { (supplementaryView, elementKind, indexPath) in
             supplementaryView.sectionTitleLabel.text = self.homeDataSource.sectionIdentifier(for: indexPath.section)?.title
             supplementaryView.moreButton.rx.tap.bind { [weak self] _ in
-                guard let item = self?.homeDataSource.itemIdentifier(for: indexPath)
+                guard let self
                 else { return }
-                
-                self?.pushToAnimeDetailVC(item: item)
+
+                let section = self.homeDataSource.sectionIdentifier(for: indexPath.section)
+                switch section {
+                default:
+                    self.pushToMoreAnimeVC(items: self.animeTopLists)
+                }
             }
             .disposed(by: self.disposeBag)
         }
@@ -224,6 +228,10 @@ extension HomeViewController {
 
     private func pushToAnimeDetailVC(item: AnimeData) {
         self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
+    }
+
+    private func pushToMoreAnimeVC(items: [AnimeData]) {
+        self.navigationController?.pushViewController(MoreAnimeViewController(animeLists: items), animated: true)
     }
 }
 

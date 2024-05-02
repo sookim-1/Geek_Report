@@ -8,10 +8,26 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
+import RxSwift
+import RxCocoa
 
 final class AnimeDetailViewController: BaseUIViewController {
 
-    // MARK: - Header View
+    lazy var backButton = DefaultBackButton()
+    lazy var mainScrollView = UIScrollView()
+    lazy var headerImageWrapView = UIView()
+    lazy var headerImageView = UIImageView().then {
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+    }
+
+    lazy var mainContentView = UIView().then {
+        $0.backgroundColor = .black
+    }
+
+
+
     lazy var mainHeaderView = UIView()
 
     lazy var animeImagView = UIImageView().then {
@@ -49,7 +65,8 @@ final class AnimeDetailViewController: BaseUIViewController {
     private var shortAnimeDetailVC: ShortAnimeDetailViewController = ShortAnimeDetailViewController()
     private var optionVC: OptionViewController = OptionViewController()
 
-    var item: AnimeData!
+    private var item: AnimeData!
+    private let disposeBag = DisposeBag()
 
     init(item: AnimeData) {
         self.item = item
@@ -74,7 +91,12 @@ final class AnimeDetailViewController: BaseUIViewController {
     }
 
     override func setupHierarchy() {
-        self.view.addSubviews(mainHeaderView, chapterSegmentedControl, detailContainerView)
+        self.view.addSubviews(mainScrollView, backButton)
+        self.mainScrollView.addSubviews(headerImageWrapView, mainContentView)
+        self.headerImageWrapView.addSubview(headerImageView)
+
+
+        self.mainContentView.addSubviews(mainHeaderView, chapterSegmentedControl, detailContainerView)
 
         self.mainHeaderView.addSubviews(animeImagView, animeTitleLabel, scoreIconLabelView, heartIconLabelView, saveButton)
 
@@ -90,8 +112,42 @@ final class AnimeDetailViewController: BaseUIViewController {
     }
 
     override func setupLayout() {
-        self.mainHeaderView.snp.makeConstraints { make in
+        self.backButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview().offset(20)
+            make.width.equalTo(40)
+            make.height.equalTo(self.backButton.snp.width)
+        }
+
+        self.mainScrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        self.headerImageWrapView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalTo(self.mainContentView.snp.top).offset(-20).priority(.init(900))
+            make.width.equalToSuperview()
+        }
+
+        self.headerImageView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.snp.top).priority(.init(900))
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+
+        self.mainContentView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(400)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.width.equalToSuperview()
+        }
+
+        self.mainHeaderView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalTo(self.chapterSegmentedControl.snp.top)
@@ -158,7 +214,16 @@ final class AnimeDetailViewController: BaseUIViewController {
     }
 
     override func setupProperties() {
-        
+        self.headerImageView.kf.setImage(with: URL(string: self.item.imageURLs.jpgURLs.largeImageURL))
+
+        self.backButton.rx.tap
+            .bind { [weak self] in
+                guard let self
+                else { return }
+
+                self.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 
     private func updateView(index: Int) {

@@ -11,7 +11,13 @@ import Then
 
 final class SimpleIconLabelView: BaseUIView {
 
+    lazy var iconImageWrapView = UIView().then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 8
+    }
+
     lazy var iconImageView = UIImageView()
+
     lazy var descriptionLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .white
@@ -38,22 +44,26 @@ final class SimpleIconLabelView: BaseUIView {
     }
 
     override func setupHierarchy() {
-        self.addSubviews(self.iconImageView, self.descriptionLabel)
+        self.addSubviews(self.iconImageWrapView, self.descriptionLabel)
+        self.iconImageWrapView.addSubviews(self.iconImageView)
     }
 
     override func setupLayout() {
-        self.iconImageView.snp.makeConstraints { make in
+        self.iconImageWrapView.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.35)
+            make.height.equalTo(self.iconImageWrapView.snp.width)
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(self.iconImageView.snp.height)
+        }
+
+        self.iconImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
 
         self.descriptionLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(self.iconImageView.snp.trailing)
+            make.leading.equalTo(self.iconImageWrapView.snp.trailing)
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
 

@@ -1,0 +1,139 @@
+//
+//  MoreAnimeViewController.swift
+//  GeekReport
+//
+//  Created by sookim on 5/2/24.
+//
+
+import UIKit
+import SnapKit
+import Then
+import RxSwift
+import RxCocoa
+
+final class MoreAnimeViewController: BaseUIViewController {
+
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
+        $0.backgroundColor = .black
+        $0.delegate = self
+    }
+
+    lazy var backButton = DefaultBackButton()
+
+    enum Section {
+        case main
+    }
+
+    typealias HomeDataSource = UICollectionViewDiffableDataSource<Section, AnimeData>
+    typealias HomeDataSnapShot = NSDiffableDataSourceSnapshot<Section, AnimeData>
+    private var homeDataSource: HomeDataSource!
+    private var animeLists: [AnimeData]!
+    private let disposeBag = DisposeBag()
+
+    init(animeLists: [AnimeData]) {
+        self.animeLists = animeLists
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupHierarchy()
+        setupLayout()
+        setupProperties()
+        configureDataSource()
+        applySnapshot()
+    }
+    
+
+    override func setupHierarchy() {
+        self.view.addSubviews(self.collectionView, self.backButton)
+    }
+
+    override func setupLayout() {
+        self.collectionView.snp.makeConstraints { make in
+            make.top.equalTo(self.backButton.snp.bottom).offset(10)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+
+        self.backButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview().offset(20)
+            make.width.equalTo(40)
+            make.height.equalTo(self.backButton.snp.width)
+        }
+    }
+
+    override func setupProperties() {
+        self.backButton.rx.tap
+            .bind { [weak self] in
+                guard let self
+                else { return }
+
+                self.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            return self.createBasicSection()
+        }
+
+        return layout
+    }
+
+    private func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<AnimeCollectionViewCell, AnimeData> { (cell, indexPath, item) in
+            cell.imageView.kf.setImage(with: URL(string: item.imageURLs.jpgURLs.largeImageURL))
+            cell.titleLabel.text = item.title
+        }
+
+        self.homeDataSource = HomeDataSource(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        })
+    }
+
+    private func applySnapshot(animated: Bool = true) {
+        var snapShot = HomeDataSnapShot()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(self.animeLists)
+        self.homeDataSource.apply(snapShot, animatingDifferences: animated)
+    }
+
+    private func createBasicSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.8))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets.bottom = 20
+
+        return section
+    }
+
+    private func pushToAnimeDetailVC(item: AnimeData) {
+        self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
+    }
+
+}
+
+extension MoreAnimeViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let item = self.homeDataSource.itemIdentifier(for: indexPath)
+        else { return }
+
+        self.pushToAnimeDetailVC(item: item)
+    }
+
+}
