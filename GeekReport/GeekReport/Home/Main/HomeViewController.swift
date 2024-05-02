@@ -10,6 +10,13 @@ import SnapKit
 import Then
 import RxSwift
 
+enum Season: String, CaseIterable {
+    case spring = "spring"
+    case summer = "summer"
+    case autumn = "fall"
+    case winter = "winter"
+}
+
 // FIXME: - ItemModel을 AnimeData모델로 변경, CustomCell 작성
 final class HomeViewController: BaseUIViewController {
 
@@ -30,10 +37,10 @@ final class HomeViewController: BaseUIViewController {
             switch self {
             case .carousel: ""
             case .recommend: "Top 10"
-            case .spring: "\(GlobalDateFormmater.shared.getCurrentYear()) 1분기"
-            case .summer: "\(GlobalDateFormmater.shared.getCurrentYear()) 2분기"
-            case .autumn: "\(GlobalDateFormmater.shared.getCurrentYear()) 3분기"
-            case .winter: "\(GlobalDateFormmater.shared.getCurrentYear()) 4분기"
+            case .spring: "\(GlobalDateFormmater.shared.currentYear) 1분기"
+            case .summer: "\(GlobalDateFormmater.shared.currentYear) 2분기"
+            case .autumn: "\(GlobalDateFormmater.shared.currentYear) 3분기"
+            case .winter: "\(GlobalDateFormmater.shared.currentYear) 4분기"
             }
         }
     }
@@ -47,6 +54,10 @@ final class HomeViewController: BaseUIViewController {
 
     private var animeRecommendationLists: [AnimeData] = []
     private var animeTopLists: [AnimeData] = []
+    private var animeSpringLists: [AnimeData] = []
+    private var animeSummerLists: [AnimeData] = []
+    private var animeAutumnLists: [AnimeData] = []
+    private var animeWinterLists: [AnimeData] = []
 
     private let disposeBag = DisposeBag()
 
@@ -58,8 +69,18 @@ final class HomeViewController: BaseUIViewController {
         setupProperties()
         configureDataSource()
         applySnapshot()
+
         requestGetRecentAnimeRecommendations()
         requestGetTopAnime()
+        requestGetSpringSeasonAnime {
+            self.requestGetSummerSeasonAnime {
+                self.requestGetAutumnSeasonAnime {
+                    self.requestGetWinterSeasonAnime {
+                        print("로딩 종료")
+                    }
+                }
+            }
+        }
     }
 
     override func setupHierarchy() {
@@ -118,8 +139,18 @@ final class HomeViewController: BaseUIViewController {
 
                 let section = self.homeDataSource.sectionIdentifier(for: indexPath.section)
                 switch section {
-                default:
+                case .recommend:
                     self.pushToMoreAnimeVC(items: self.animeTopLists)
+                case .spring:
+                    self.pushToMoreAnimeVC(items: self.animeSpringLists)
+                case .summer:
+                    self.pushToMoreAnimeVC(items: self.animeSummerLists)
+                case .autumn:
+                    self.pushToMoreAnimeVC(items: self.animeAutumnLists)
+                case .winter:
+                    self.pushToMoreAnimeVC(items: self.animeWinterLists)
+                default:
+                    print("Not Push")
                 }
             }
             .disposed(by: supplementaryView.disposeBag)
@@ -155,8 +186,14 @@ final class HomeViewController: BaseUIViewController {
                 snapShot.appendItems(self.animeRecommendationLists, toSection: $0)
             case .recommend:
                 snapShot.appendItems(self.animeTopLists, toSection: $0)
-            default:
-                snapShot.appendItems(AnimeData.defaultData, toSection: $0)
+            case .spring:
+                snapShot.appendItems(self.animeSpringLists, toSection: $0)
+            case .summer:
+                snapShot.appendItems(self.animeSummerLists, toSection: $0)
+            case .autumn:
+                snapShot.appendItems(self.animeAutumnLists, toSection: $0)
+            case .winter:
+                snapShot.appendItems(self.animeWinterLists, toSection: $0)
             }
         }
         
@@ -278,6 +315,62 @@ extension HomeViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             }
+        }
+    }
+
+    private func requestGetSpringSeasonAnime(completion: @escaping () -> Void) {
+        HomeService.shared.getSeasonAnime(season: .spring) { result in
+            switch result {
+            case .success(let datas):
+                self.animeSpringLists = datas
+                self.applySnapshot()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+
+            completion()
+        }
+    }
+
+    private func requestGetSummerSeasonAnime(completion: @escaping () -> Void) {
+        HomeService.shared.getSeasonAnime(season: .summer) { result in
+            switch result {
+            case .success(let datas):
+                self.animeSummerLists = datas
+                self.applySnapshot()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+
+            completion()
+        }
+    }
+
+    private func requestGetAutumnSeasonAnime(completion: @escaping () -> Void) {
+        HomeService.shared.getSeasonAnime(season: .autumn) { result in
+            switch result {
+            case .success(let datas):
+                self.animeAutumnLists = datas
+                self.applySnapshot()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+
+            completion()
+        }
+    }
+
+    private func requestGetWinterSeasonAnime(completion: @escaping () -> Void) {
+        HomeService.shared.getSeasonAnime(season: .winter) { result in
+            switch result {
+            case .success(let datas):
+                self.animeWinterLists = datas
+                self.applySnapshot()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+
+            completion()
         }
     }
 

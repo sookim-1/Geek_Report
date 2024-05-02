@@ -106,4 +106,46 @@ struct HomeService {
         task.resume()
     }
 
+    /// 현재 시즌 애니메이션 API 호출
+    func getSeasonAnime(season: Season, completed: @escaping (Result<[AnimeData], GRError>) -> Void) {
+        let endpoint = baseURL + "seasons/\(GlobalDateFormmater.shared.currentYear)/\(season.rawValue)?limit=10"
+
+        guard let url = URL(string: endpoint) else {
+            completed(.failure(.unknownError))
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+
+            if let _ = error {
+                completed(.failure(.unknownError))
+                return
+            }
+
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200
+            else {
+                completed(.failure(.unknownError))
+                return
+            }
+
+            guard let data
+            else {
+                completed(.failure(.unknownError))
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                let animeLists = try decoder.decode(CurrentSeasonDataDTO.self, from: data)
+
+                completed(.success(animeLists.data))
+            } catch {
+                completed(.failure(.unknownError))
+            }
+
+        }
+
+        task.resume()
+    }
+
 }

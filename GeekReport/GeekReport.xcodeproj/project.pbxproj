@@ -19,9 +19,7 @@
 		7601DB492BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB482BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift */; };
 		7601DB4B2BDBAD0B0066B1ED /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601DB4A2BDBAD0B0066B1ED /* OptionViewController.swift */; };
 		760ABA862BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */; };
-		760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */; };
 		760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */; };
-		760ABA8C2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA8B2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift */; };
 		760ABA8E2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ABA8D2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift */; };
 		760F731A2BC3E6B90063B535 /* AnimeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760F73192BC3E6B90063B535 /* AnimeDataModel.swift */; };
 		760F731D2BC3E7540063B535 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 760F731C2BC3E7540063B535 /* Kingfisher */; };
@@ -81,9 +79,7 @@
 		7601DB482BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortAnimeDetailViewController.swift; sourceTree = "<group>"; };
 		7601DB4A2BDBAD0B0066B1ED /* OptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
 		760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnimeDataDTO.swift; sourceTree = "<group>"; };
-		760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingSeasonDataDTO.swift; sourceTree = "<group>"; };
 		760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSeasonDataDTO.swift; sourceTree = "<group>"; };
-		760ABA8B2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSeasonDataDTO.swift; sourceTree = "<group>"; };
 		760ABA8D2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationAnimeDataDTO.swift; sourceTree = "<group>"; };
 		760F73192BC3E6B90063B535 /* AnimeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDataModel.swift; sourceTree = "<group>"; };
 		760F731F2BC3E7650063B535 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
@@ -150,9 +146,7 @@
 			children = (
 				760F73192BC3E6B90063B535 /* AnimeDataModel.swift */,
 				760ABA852BC7EC3B00D0BB89 /* TopAnimeDataDTO.swift */,
-				760ABA872BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift */,
 				760ABA892BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift */,
-				760ABA8B2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift */,
 				760ABA8D2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift */,
 			);
 			path = Model;
@@ -425,7 +419,6 @@
 				76BDE1E42BDDE57800E3903F /* GlobalDateFormmater.swift in Sources */,
 				76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */,
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
-				760ABA882BC7EC9C00D0BB89 /* UpcomingSeasonDataDTO.swift in Sources */,
 				7601DB472BDBAC130066B1ED /* ListItem.swift in Sources */,
 				7626FA212BE36DCF0053F974 /* DefaultBackButton.swift in Sources */,
 				76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */,
@@ -443,7 +436,6 @@
 				760ABA8E2BC7ED5400D0BB89 /* RecommendationAnimeDataDTO.swift in Sources */,
 				76BDE1E22BDDE3DF00E3903F /* SectionTitleHeaderView.swift in Sources */,
 				76234E2C2BBE9462006ACA2F /* TabBarNavigationManager.swift in Sources */,
-				760ABA8C2BC7ECF200D0BB89 /* CurrentSeasonDataDTO.swift in Sources */,
 				7601DB162BDB6BCC0066B1ED /* PagingSectionFooterView.swift in Sources */,
 				76234E2A2BBE9398006ACA2F /* UITabBarController+Extension.swift in Sources */,
 				76234E322BBE94A0006ACA2F /* HomeNavigationViewController.swift in Sources */,
