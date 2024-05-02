@@ -44,6 +44,10 @@ final class HomeViewController: BaseUIViewController {
     private var titleHeaderRegistration: UICollectionView.SupplementaryRegistration<SectionTitleHeaderView>!
     private var pageFooterRegistration: UICollectionView.SupplementaryRegistration<PagingSectionFooterView>!
     private let pagingInfoSubject = PublishSubject<PagingInfo>()
+
+    private var animeRecommendationLists: [AnimeData] = []
+    private var animeTopLists: [AnimeData] = []
+
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -54,6 +58,8 @@ final class HomeViewController: BaseUIViewController {
         setupProperties()
         configureDataSource()
         applySnapshot()
+        requestGetRecentAnimeRecommendations()
+        requestGetTopAnime()
     }
 
     override func setupHierarchy() {
@@ -140,7 +146,14 @@ final class HomeViewController: BaseUIViewController {
         snapShot.appendSections(Section.allCases)
 
         Section.allCases.forEach {
-            snapShot.appendItems(AnimeData.defaultData, toSection: $0)
+            switch $0 {
+            case .carousel:
+                snapShot.appendItems(self.animeRecommendationLists, toSection: $0)
+            case .recommend:
+                snapShot.appendItems(self.animeTopLists, toSection: $0)
+            default:
+                snapShot.appendItems(AnimeData.defaultData, toSection: $0)
+            }
         }
         
         self.homeDataSource.apply(snapShot, animatingDifferences: animated)
@@ -233,6 +246,31 @@ extension HomeViewController: UICollectionViewDelegate {
 
 }
 
-#Preview {
-    HomeViewController()
+// MARK: - API
+extension HomeViewController {
+
+    private func requestGetRecentAnimeRecommendations() {
+        HomeService.shared.getRecentAnimeRecommendations { result in
+            switch result {
+            case .success(let datas):
+                self.animeRecommendationLists = datas
+                self.applySnapshot()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    private func requestGetTopAnime() {
+        HomeService.shared.getTopAnime { result in
+            switch result {
+            case .success(let datas):
+                self.animeTopLists = datas
+                self.applySnapshot()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+
 }

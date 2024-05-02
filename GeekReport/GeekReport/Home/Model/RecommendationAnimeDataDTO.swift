@@ -17,7 +17,7 @@ struct RecommendationAnimeDataDTO: Codable {
 }
 
 struct RecommendationAnimeEntry: Codable {
-    let entry: [AnimeData]
+    var entry: [AnimeData]
 
     enum CodingKeys: String, CodingKey {
         case entry = "entry"

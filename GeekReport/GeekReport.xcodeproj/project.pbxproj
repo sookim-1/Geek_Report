@@ -225,22 +225,13 @@
 		76234E2D2BBE9476006ACA2F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				7678AE742BE34A6A00994E10 /* Main */,
+				7678AE752BE34A9900994E10 /* Detail */,
+				7678AE732BE34A5900994E10 /* Cells */,
 				760F73232BC3ECA20063B535 /* Views */,
 				760F731E2BC3E7590063B535 /* Service */,
 				760F73182BC3E57F0063B535 /* Model */,
 				76234E312BBE94A0006ACA2F /* HomeNavigationViewController.swift */,
-				76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */,
-				76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */,
-				76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */,
-				7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */,
-				76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */,
-				7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */,
-				7601DB442BDBABAB0066B1ED /* ChapterViewController.swift */,
-				7601DB462BDBAC130066B1ED /* ListItem.swift */,
-				7601DB482BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift */,
-				7601DB4A2BDBAD0B0066B1ED /* OptionViewController.swift */,
-				7601DB202BDB98450066B1ED /* SimpleIconLabelView.swift */,
-				7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -302,6 +293,39 @@
 				76234E5B2BBF901D006ACA2F /* UIConfigurable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		7678AE732BE34A5900994E10 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7678AE742BE34A6A00994E10 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				76234E1A2BBE7AE5006ACA2F /* HomeViewController.swift */,
+				76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */,
+				76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */,
+				76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */,
+				7601DB152BDB6BCC0066B1ED /* PagingSectionFooterView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		7678AE752BE34A9900994E10 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				7601DB1C2BDB84350066B1ED /* AnimeDetailViewController.swift */,
+				7601DB442BDBABAB0066B1ED /* ChapterViewController.swift */,
+				7601DB462BDBAC130066B1ED /* ListItem.swift */,
+				7601DB482BDBACFA0066B1ED /* ShortAnimeDetailViewController.swift */,
+				7601DB4A2BDBAD0B0066B1ED /* OptionViewController.swift */,
+				7601DB202BDB98450066B1ED /* SimpleIconLabelView.swift */,
+				7601DB1E2BDB86440066B1ED /* CustomSegmentedControl.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
