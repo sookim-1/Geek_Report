@@ -22,10 +22,11 @@ struct AnimeDetailData: Codable {
     let animeID: Int
     let title: String
     let imageURLs: ImageURLs
-    let episodes: Int
+    let episodes: Int?
     let score: Double
     let rank, favorites: Int
-    let synopsis, background: String
+    let synopsis: String
+    let background: String?
 
     enum CodingKeys: String, CodingKey {
         case animeID = "mal_id"
