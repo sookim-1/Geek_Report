@@ -136,7 +136,7 @@ struct HomeService {
 
             do {
                 let decoder = JSONDecoder()
-                let animeLists = try decoder.decode(CurrentSeasonDataDTO.self, from: data)
+                let animeLists = try decoder.decode(TargetSeasonDataDTO.self, from: data)
 
                 completed(.success(animeLists.data))
             } catch {
@@ -148,4 +148,46 @@ struct HomeService {
         task.resume()
     }
 
+    /// 애니메이션 상세
+    func getAnimeID(animeID: Int, completed: @escaping (Result<AnimeDetailData, GRError>) -> Void) {
+        let endpoint = baseURL + "anime/\(animeID)"
+
+        guard let url = URL(string: endpoint) else {
+            completed(.failure(.unknownError))
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+
+            if let _ = error {
+                completed(.failure(.unknownError))
+                return
+            }
+
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200
+            else {
+                completed(.failure(.unknownError))
+                return
+            }
+
+            guard let data
+            else {
+                completed(.failure(.unknownError))
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                let anime = try decoder.decode(AnimeDetailDataDTO.self, from: data)
+
+                completed(.success(anime.data))
+            } catch {
+                completed(.failure(.unknownError))
+            }
+
+        }
+
+        task.resume()
+    }
+    
 }

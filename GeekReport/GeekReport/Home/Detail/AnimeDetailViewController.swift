@@ -23,26 +23,40 @@ final class AnimeDetailViewController: BaseUIViewController {
     }
 
     lazy var mainContentView = UIView().then {
-        $0.backgroundColor = .black
+        $0.backgroundColor = .systemGray6
     }
-
-
 
     lazy var mainHeaderView = UIView()
 
-    lazy var animeImagView = UIImageView().then {
-        $0.backgroundColor = .systemBlue
-    }
-
     lazy var animeTitleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .bold)
+        $0.font = .systemFont(ofSize: 34, weight: .heavy)
         $0.textColor = .white
-        $0.numberOfLines = 0
-        $0.text = "나의 히어로 아카데미아아아아"
+        $0.numberOfLines = 2
+        $0.textAlignment = .right
+    }
+    
+    lazy var iconLabelStackView = UIStackView(arrangedSubviews: [rankIconLabelView, scoreIconLabelView, heartIconLabelView]).then {
+        $0.axis = .horizontal
+        $0.alignment = .fill
+        $0.distribution = .fillEqually
+        $0.spacing = 5
     }
 
-    lazy var scoreIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "star.fill"), text: "8.5")
-    lazy var heartIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "heart.fill"), text: "8K")
+    lazy var rankIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "medal.fill"), title: "랭크", description: "46위").then {
+        $0.iconImageWrapView.backgroundColor = .white
+        $0.iconImageView.tintColor = .systemMint
+    }
+    
+    lazy var scoreIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "star.fill"), title: "점수", description: "8.75").then {
+        $0.iconImageWrapView.backgroundColor = .white
+        $0.iconImageView.tintColor = .systemYellow
+    }
+    
+    lazy var heartIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "heart.fill"), title: "좋아요", description: "82416").then {
+        $0.iconImageWrapView.backgroundColor = .white
+        $0.iconImageView.tintColor = .systemPink
+    }
+    
     lazy var saveButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -54,8 +68,15 @@ final class AnimeDetailViewController: BaseUIViewController {
         $0.layer.cornerRadius = 16
     }
 
-    let customSegmentedControlProperty = CustomSegmentedControlProperty(currentIndex: 0, segmentsTitleLists: ["에피소드", "상세내용", "옵션"])
+    let customSegmentedControlProperty = CustomSegmentedControlProperty(currentIndex: 0, segmentsTitleLists: ["시놉시스", "배경"])
     lazy var chapterSegmentedControl = CustomSegmentedControl(property: self.customSegmentedControlProperty)
+    
+    lazy var detailLabel = UILabel().then {
+        $0.textColor = .black
+        $0.numberOfLines = 0
+        $0.font = .systemFont(ofSize: 14, weight: .regular)
+        $0.text = self.item.synopsis
+    }
 
     lazy var detailContainerView = UIView().then {
         $0.backgroundColor = .systemMint
@@ -65,10 +86,10 @@ final class AnimeDetailViewController: BaseUIViewController {
     private var shortAnimeDetailVC: ShortAnimeDetailViewController = ShortAnimeDetailViewController()
     private var optionVC: OptionViewController = OptionViewController()
 
-    private var item: AnimeData!
+    private var item: AnimeDetailData!
     private let disposeBag = DisposeBag()
 
-    init(item: AnimeData) {
+    init(item: AnimeDetailData) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
     }
@@ -86,29 +107,20 @@ final class AnimeDetailViewController: BaseUIViewController {
         updateView(index: 0)
 
         self.chapterSegmentedControl.didTapSegment = { index in
-            self.updateView(index: index)
+            if index == 0 {
+                self.detailLabel.text = self.item.synopsis
+            } else {
+                self.detailLabel.text = self.item.background
+            }
         }
     }
 
     override func setupHierarchy() {
         self.view.addSubviews(mainScrollView, backButton)
         self.mainScrollView.addSubviews(headerImageWrapView, mainContentView)
-        self.headerImageWrapView.addSubview(headerImageView)
+        self.headerImageWrapView.addSubviews(headerImageView, animeTitleLabel)
 
-
-        self.mainContentView.addSubviews(mainHeaderView, chapterSegmentedControl, detailContainerView)
-
-        self.mainHeaderView.addSubviews(animeImagView, animeTitleLabel, scoreIconLabelView, heartIconLabelView, saveButton)
-
-        addChild(chapterVC)
-        addChild(shortAnimeDetailVC)
-        addChild(optionVC)
-
-        self.detailContainerView.addSubviews(chapterVC.view, shortAnimeDetailVC.view, optionVC.view)
-
-        chapterVC.didMove(toParent: self)
-        shortAnimeDetailVC.didMove(toParent: self)
-        optionVC.didMove(toParent: self)
+        self.mainContentView.addSubviews(self.iconLabelStackView, self.chapterSegmentedControl, self.detailLabel)
     }
 
     override func setupLayout() {
@@ -127,8 +139,15 @@ final class AnimeDetailViewController: BaseUIViewController {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalTo(self.mainContentView.snp.top).offset(-20).priority(.init(900))
+            make.bottom.equalTo(self.mainContentView.snp.top).priority(.init(900))
             make.width.equalToSuperview()
+        }
+        
+        self.animeTitleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerY.equalToSuperview().dividedBy(0.6)
+            make.bottom.greaterThanOrEqualToSuperview()
         }
 
         self.headerImageView.snp.makeConstraints { make in
@@ -144,77 +163,37 @@ final class AnimeDetailViewController: BaseUIViewController {
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalToSuperview()
+            make.height.equalToSuperview()
         }
 
-        self.mainHeaderView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalTo(self.chapterSegmentedControl.snp.top)
-            make.height.equalToSuperview().multipliedBy(0.3)
-        }
-
-        self.animeImagView.snp.makeConstraints { make in
+        self.iconLabelStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.leading.equalToSuperview().offset(20)
-            make.trailing.equalTo(self.mainHeaderView.snp.centerX).offset(-20)
-            make.bottom.equalToSuperview().offset(-20)
-        }
-
-        self.animeTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.leading.equalTo(self.mainHeaderView.snp.centerX).offset(20)
             make.trailing.equalToSuperview().offset(-20)
+            make.height.equalTo(50)
         }
-
-        self.scoreIconLabelView.snp.makeConstraints { make in
-            make.top.equalTo(self.animeTitleLabel.snp.bottom).offset(8)
-            make.leading.equalTo(self.animeTitleLabel.snp.leading)
-            make.trailing.equalTo(self.animeTitleLabel.snp.trailing)
-            make.height.equalToSuperview().multipliedBy(0.15)
-        }
-
-        self.heartIconLabelView.snp.makeConstraints { make in
-            make.top.equalTo(self.scoreIconLabelView.snp.bottom).offset(8)
-            make.leading.equalTo(self.animeTitleLabel.snp.leading)
-            make.trailing.equalTo(self.animeTitleLabel.snp.trailing)
-            make.height.equalToSuperview().multipliedBy(0.15)
-        }
-
-        self.saveButton.snp.makeConstraints { make in
-            make.top.equalTo(self.heartIconLabelView.snp.bottom).offset(8)
-            make.leading.equalTo(self.animeTitleLabel.snp.leading)
-            make.trailing.equalTo(self.animeTitleLabel.snp.trailing)
-            make.bottom.equalToSuperview().offset(-20)
-            make.height.equalToSuperview().multipliedBy(0.3)
-        }
-
+        
         self.chapterSegmentedControl.snp.makeConstraints { make in
+            make.top.equalTo(self.iconLabelStackView.snp.bottom).offset(50)
             make.leading.equalToSuperview().offset(20)
+            make.trailing.equalTo(self.iconLabelStackView.snp.centerX)
         }
-
-        self.detailContainerView.snp.makeConstraints { make in
-            make.top.equalTo(self.chapterSegmentedControl.snp.bottom).offset(10)
+        
+        self.detailLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.chapterSegmentedControl.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.bottom.equalToSuperview().offset(-(GlobalConstant.customTabBarHeight + 10))
-        }
-
-        self.chapterVC.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-
-        self.shortAnimeDetailVC.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-
-        self.optionVC.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
     }
 
     override func setupProperties() {
+        self.view.backgroundColor = .systemGray6
+        self.animeTitleLabel.text = self.item.title
         self.headerImageView.kf.setImage(with: URL(string: self.item.imageURLs.jpgURLs.largeImageURL))
+        
+        self.rankIconLabelView.descriptionLabel.text = "\(self.item.rank)위"
+        self.scoreIconLabelView.descriptionLabel.text = "\(self.item.score)점"
+        self.heartIconLabelView.descriptionLabel.text = "\(self.item.favorites)개"
 
         self.backButton.rx.tap
             .bind { [weak self] in
@@ -231,4 +210,6 @@ final class AnimeDetailViewController: BaseUIViewController {
         shortAnimeDetailVC.view.isHidden = index != 1
         optionVC.view.isHidden = index != 2
     }
+    
+    
 }

@@ -10,18 +10,35 @@ import SnapKit
 import Then
 
 final class SimpleIconLabelView: BaseUIView {
-
+    
     lazy var iconImageWrapView = UIView().then {
-        $0.backgroundColor = .white
+        $0.addSubview(self.iconImageView)
         $0.layer.cornerRadius = 8
+        $0.backgroundColor = .systemBrown
+    }
+    
+    lazy var iconImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
+    }
+    
+    lazy var labelStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel]).then {
+        $0.axis = .vertical
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.spacing = 2
+    }
+    
+    lazy var titleLabel = UILabel().then {
+        $0.textColor = .systemGray2
+        $0.font = .systemFont(ofSize: 14)
+        $0.numberOfLines = 1
     }
 
-    lazy var iconImageView = UIImageView()
-
     lazy var descriptionLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
-        $0.textColor = .white
-        $0.textAlignment = .left
+        $0.font = .systemFont(ofSize: 19)
+        $0.textColor = .black
+        $0.numberOfLines = 1
     }
 
     override init(frame: CGRect) {
@@ -36,34 +53,37 @@ final class SimpleIconLabelView: BaseUIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    convenience init(image: UIImage?, text: String) {
+    convenience init(image: UIImage?, title: String, description: String) {
         self.init(frame: .zero)
 
         self.iconImageView.image = image
-        self.descriptionLabel.text = text
+        self.titleLabel.text = title
+        self.descriptionLabel.text = description
     }
 
     override func setupHierarchy() {
-        self.addSubviews(self.iconImageWrapView, self.descriptionLabel)
-        self.iconImageWrapView.addSubviews(self.iconImageView)
+        self.addSubviews(self.iconImageWrapView, self.labelStackView)
     }
 
     override func setupLayout() {
         self.iconImageWrapView.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.35)
-            make.height.equalTo(self.iconImageWrapView.snp.width)
-            make.top.equalToSuperview()
             make.leading.equalToSuperview()
+            make.trailing.equalTo(labelStackView.snp.leading).offset(-5)
+            make.top.equalToSuperview()
+            make.height.equalTo(self.iconImageWrapView.snp.width)
+            make.bottom.equalToSuperview()
         }
-
+        
         self.iconImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalToSuperview().multipliedBy(0.5)
+            make.center.equalToSuperview()
         }
-
-        self.descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.iconImageWrapView.snp.trailing)
+        
+        self.labelStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 

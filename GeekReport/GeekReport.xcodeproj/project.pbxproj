@@ -226,7 +226,6 @@
 			children = (
 				7678AE742BE34A6A00994E10 /* Main */,
 				7678AE752BE34A9900994E10 /* Detail */,
-				7678AE732BE34A5900994E10 /* Cells */,
 				760F73232BC3ECA20063B535 /* Views */,
 				760F731E2BC3E7590063B535 /* Service */,
 				760F73182BC3E57F0063B535 /* Model */,
@@ -292,13 +291,6 @@
 				76234E5B2BBF901D006ACA2F /* UIConfigurable.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		7678AE732BE34A5900994E10 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		7678AE742BE34A6A00994E10 /* Main */ = {

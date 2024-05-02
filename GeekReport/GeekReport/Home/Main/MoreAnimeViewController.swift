@@ -122,7 +122,23 @@ final class MoreAnimeViewController: BaseUIViewController {
     }
 
     private func pushToAnimeDetailVC(item: AnimeData) {
-        self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
+        HomeService.shared.getAnimeID(animeID: item.animeID) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data), animated: true)
+                }
+            case .failure(let error):
+                if error == .unknownError {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "에러", message: "해당 애니메이션은 접근이 불가합니다.\n참고 ID : \(item.animeID)", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+                        alert.addAction(action)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
 
 }
