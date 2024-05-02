@@ -22,7 +22,9 @@ final class SectionTitleHeaderView: UICollectionReusableView, UIConfigurable {
         $0.setBackgroundImage(UIImage(systemName: "arrowshape.turn.up.right.circle"), for: .normal)
         $0.tintColor = .white
     }
-    
+
+    var disposeBag = DisposeBag()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,8 +40,8 @@ final class SectionTitleHeaderView: UICollectionReusableView, UIConfigurable {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        self.disposeBag = DisposeBag()
     }
-    
     
     func setupHierarchy() {
         self.addSubviews(sectionTitleLabel, moreButton)

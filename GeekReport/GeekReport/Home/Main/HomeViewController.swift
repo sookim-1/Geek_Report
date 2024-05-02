@@ -122,7 +122,7 @@ final class HomeViewController: BaseUIViewController {
                     self.pushToMoreAnimeVC(items: self.animeTopLists)
                 }
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: supplementaryView.disposeBag)
         }
 
         self.pageFooterRegistration = .init(elementKind: UICollectionView.elementKindSectionFooter) { [unowned self]
