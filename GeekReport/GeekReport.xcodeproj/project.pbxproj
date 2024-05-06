@@ -61,6 +61,7 @@
 		76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76234E602BBF929D006ACA2F /* BaseUIView.swift */; };
 		7626FA1F2BE36B2D0053F974 /* MoreAnimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7626FA1E2BE36B2D0053F974 /* MoreAnimeViewController.swift */; };
 		7626FA212BE36DCF0053F974 /* DefaultBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7626FA202BE36DCF0053F974 /* DefaultBackButton.swift */; };
+		76802CCA2BE8C25200F4CC8D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76802CC92BE8C25200F4CC8D /* Int+Extension.swift */; };
 		76ADC3992BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */; };
 		76ADC39B2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */; };
 		76BDE1E22BDDE3DF00E3903F /* SectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */; };
@@ -117,6 +118,7 @@
 		76234E602BBF929D006ACA2F /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
 		7626FA1E2BE36B2D0053F974 /* MoreAnimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreAnimeViewController.swift; sourceTree = "<group>"; };
 		7626FA202BE36DCF0053F974 /* DefaultBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBackButton.swift; sourceTree = "<group>"; };
+		76802CC92BE8C25200F4CC8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeBannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleHeaderView.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				76234E592BBF8F97006ACA2F /* UIStackView+Extension.swift */,
 				760F73262BC3F0B90063B535 /* UIImage+Extension.swift */,
 				7601DB222BDB99DF0066B1ED /* UIButton+Extension.swift */,
+				76802CC92BE8C25200F4CC8D /* Int+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				760F73252BC3ECB60063B535 /* HomeBannerCollectionViewCell.swift in Sources */,
 				760F73382BC53D480063B535 /* InfiniteAutoScrollView.swift in Sources */,
 				76234E402BBE962D006ACA2F /* BaseUIViewController.swift in Sources */,
+				76802CCA2BE8C25200F4CC8D /* Int+Extension.swift in Sources */,
 				76234E452BBEA0D6006ACA2F /* TabBarAnimatedTransitioning.swift in Sources */,
 				76234E3C2BBE94E2006ACA2F /* SettingViewController.swift in Sources */,
 				76234E5C2BBF901D006ACA2F /* UIConfigurable.swift in Sources */,

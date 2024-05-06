@@ -26,7 +26,7 @@ final class SimpleIconLabelView: BaseUIView {
         $0.axis = .vertical
         $0.alignment = .fill
         $0.distribution = .fill
-        $0.spacing = 2
+        $0.spacing = 0
     }
     
     lazy var titleLabel = UILabel().then {
@@ -36,7 +36,7 @@ final class SimpleIconLabelView: BaseUIView {
     }
 
     lazy var descriptionLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 19)
+        $0.font = .systemFont(ofSize: 16)
         $0.textColor = .black
         $0.numberOfLines = 1
     }
@@ -68,7 +68,7 @@ final class SimpleIconLabelView: BaseUIView {
     override func setupLayout() {
         self.iconImageWrapView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.trailing.equalTo(labelStackView.snp.leading).offset(-5)
+            make.trailing.equalTo(labelStackView.snp.leading).offset(-10)
             make.top.equalToSuperview()
             make.height.equalTo(self.iconImageWrapView.snp.width)
             make.bottom.equalToSuperview()

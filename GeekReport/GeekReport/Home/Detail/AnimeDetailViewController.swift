@@ -56,17 +56,6 @@ final class AnimeDetailViewController: BaseUIViewController {
         $0.iconImageWrapView.backgroundColor = .white
         $0.iconImageView.tintColor = .systemPink
     }
-    
-    lazy var saveButton = UIButton().then {
-        $0.setTitle("저장", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-
-        $0.setTitleColor(.darkGray, for: .disabled)
-        $0.setTitleColor(.white, for: .normal)
-        $0.setBackgroundColor(.lightGray, for: .disabled)
-        $0.setBackgroundColor(.purple.withAlphaComponent(0.8), for: .normal)
-        $0.layer.cornerRadius = 16
-    }
 
     let customSegmentedControlProperty = CustomSegmentedControlProperty(currentIndex: 0, segmentsTitleLists: ["시놉시스", "배경"])
     lazy var chapterSegmentedControl = CustomSegmentedControl(property: self.customSegmentedControlProperty)
@@ -82,15 +71,56 @@ final class AnimeDetailViewController: BaseUIViewController {
         $0.backgroundColor = .systemMint
     }
     
-    private var chapterVC: ChapterViewController = ChapterViewController()
-    private var shortAnimeDetailVC: ShortAnimeDetailViewController = ShortAnimeDetailViewController()
-    private var optionVC: OptionViewController = OptionViewController()
-
+    lazy var episodeTextField = UITextField().then {
+        $0.placeholder = "에피소드를 선택해주세요!"
+        $0.tintColor = .black
+        $0.textColor = .black
+        $0.textAlignment = .center
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 8
+    }
+    
+    lazy var episodePickerView = UIPickerView().then {
+        $0.delegate = self
+        $0.dataSource = self
+    }
+    
+    lazy var saveButton = UIButton().then {
+        $0.setBackgroundColor(.systemYellow, for: .normal)
+        $0.setTitle("저장", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.layer.cornerRadius = 8
+        $0.clipsToBounds = true
+    }
+    
+    lazy var toolBar = UIToolbar().then {
+        $0.barStyle = .default
+        $0.isTranslucent = true
+        $0.tintColor = .black
+        $0.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(self.donePicker))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(self.cancelPicker))
+        
+        $0.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
+        $0.isUserInteractionEnabled = true
+    }
+    
     private var item: AnimeDetailData!
+    private var episodes: [Int] = []
+    
+    lazy var scrollContentView = UIView()
     private let disposeBag = DisposeBag()
 
     init(item: AnimeDetailData) {
         self.item = item
+        
+        if let itemEpisodes = item.episodes,
+                itemEpisodes > 0 {
+            self.episodes = Array(1...itemEpisodes)
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -104,23 +134,33 @@ final class AnimeDetailViewController: BaseUIViewController {
         setupHierarchy()
         setupLayout()
         setupProperties()
-        updateView(index: 0)
 
         self.chapterSegmentedControl.didTapSegment = { index in
-            if index == 0 {
-                self.detailLabel.text = self.item.synopsis
-            } else {
-                self.detailLabel.text = self.item.background
-            }
+            self.detailLabel.text = (index == 0) ? self.item.synopsis : self.item.background
         }
+        mainScrollView.updateContentView()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let mainContentHeight = self.scrollContentView.systemLayoutSizeFitting(CGSize(width: self.scrollContentView.frame.width, height: UIView.layoutFittingCompressedSize.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
+                                                                             
+        self.mainContentView.snp.updateConstraints { make in
+            make.height.equalTo(mainContentHeight - self.headerImageWrapView.frame.height)
+        }
+        
+        view.layoutIfNeeded()
+    }
+    
 
     override func setupHierarchy() {
         self.view.addSubviews(mainScrollView, backButton)
-        self.mainScrollView.addSubviews(headerImageWrapView, mainContentView)
+        self.mainScrollView.addSubviews(self.scrollContentView)
+        self.scrollContentView.addSubviews(headerImageWrapView, mainContentView)
         self.headerImageWrapView.addSubviews(headerImageView, animeTitleLabel)
 
-        self.mainContentView.addSubviews(self.iconLabelStackView, self.chapterSegmentedControl, self.detailLabel)
+        self.mainContentView.addSubviews(self.iconLabelStackView, self.chapterSegmentedControl, self.detailLabel, self.episodeTextField, self.saveButton)
     }
 
     override func setupLayout() {
@@ -133,6 +173,11 @@ final class AnimeDetailViewController: BaseUIViewController {
 
         self.mainScrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        self.scrollContentView.snp.makeConstraints { make in
+            make.centerX.top.bottom.equalToSuperview()
+            make.width.equalToSuperview()
         }
 
         self.headerImageWrapView.snp.makeConstraints { make in
@@ -163,7 +208,7 @@ final class AnimeDetailViewController: BaseUIViewController {
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalToSuperview()
+            make.height.equalTo(500)
         }
 
         self.iconLabelStackView.snp.makeConstraints { make in
@@ -184,6 +229,20 @@ final class AnimeDetailViewController: BaseUIViewController {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
+        
+        self.episodeTextField.snp.makeConstraints { make in
+            make.top.equalTo(self.detailLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.height.equalTo(50)
+        }
+        
+        self.saveButton.snp.makeConstraints { make in
+            make.top.equalTo(self.detailLabel.snp.bottom).offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.leading.equalTo(self.episodeTextField.snp.trailing).offset(20)
+            make.width.equalTo(150)
+            make.height.equalTo(50)
+        }
     }
 
     override func setupProperties() {
@@ -191,9 +250,9 @@ final class AnimeDetailViewController: BaseUIViewController {
         self.animeTitleLabel.text = self.item.title
         self.headerImageView.kf.setImage(with: URL(string: self.item.imageURLs.jpgURLs.largeImageURL))
         
-        self.rankIconLabelView.descriptionLabel.text = "\(self.item.rank)위"
-        self.scoreIconLabelView.descriptionLabel.text = "\(self.item.score)점"
-        self.heartIconLabelView.descriptionLabel.text = "\(self.item.favorites)개"
+        self.rankIconLabelView.descriptionLabel.text = "\(self.item.rank)"
+        self.scoreIconLabelView.descriptionLabel.text = "\(self.item.score)"
+        self.heartIconLabelView.descriptionLabel.text = "\(self.item.favorites.formatThousandString)"
 
         self.backButton.rx.tap
             .bind { [weak self] in
@@ -203,13 +262,77 @@ final class AnimeDetailViewController: BaseUIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+        
+        self.episodeTextField.inputView = self.episodePickerView
+        self.episodeTextField.inputAccessoryView = self.toolBar
+    }
+    
+}
+
+// MARK: -
+extension AnimeDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    @objc func donePicker() {
+        let row = self.episodePickerView.selectedRow(inComponent: 0)
+        self.episodePickerView.selectRow(row, inComponent: 0, animated: false)
+        self.episodeTextField.text = "\(self.episodes[row])화"
+        self.episodeTextField.resignFirstResponder()
     }
 
-    private func updateView(index: Int) {
-        chapterVC.view.isHidden = index != 0
-        shortAnimeDetailVC.view.isHidden = index != 1
-        optionVC.view.isHidden = index != 2
+    @objc func cancelPicker() {
+        self.episodeTextField.text = nil
+        self.episodeTextField.resignFirstResponder()
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        self.episodes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.episodeTextField.text = "\(self.episodes[row])화"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(self.episodes[row])화"
+    }
+    
+}
+
+#Preview {
+    let item = AnimeDetailData(animeID: 52482, title: "Sasaki to Pii-chan", imageURLs: ImageURLs(jpgURLs: JpgURLs(basicImageURL: "https://cdn.myanimelist.net/images/anime/1624/139672.jpg", smallImageURL: "https://cdn.myanimelist.net/images/anime/1624/139672t.jpg", largeImageURL: "https://cdn.myanimelist.net/images/anime/1624/139672l.jpg")), episodes: 12, score: 6.86, rank: 5166, favorites: 176, synopsis: "Sasaki, a 39-year-old corporate employee, has resigned himself to live a modest life without dreams and dangers. To his great surprise, his fate takes a brutal turn after he decides to adopt a Java sparrow that he names Pii-chan. The talking bird not only happens to be a reincarnation of a famous magician from another world, but it decides to grant some of its powers to Sasaki—along with the ability to traverse between worlds. Sasaki begins a lucrative business of selling technological items from his world to the less advanced civilization of the other.\n\nHowever, Sasaki\'s life becomes more chaotic when he stops an attempt on a woman\'s life with his new powers.  Unfortunately, the woman Sasaki saved also happens to be a government agent named Hoshizaki, who is tasked with tracking down gifted individuals like him. Forced to join Hoshizaki\'s secret agency, Sasaki partakes in dangerous missions to find other gifted criminals. He does not even have the luxury of hiding in the other world, where a war is about to break out. If he wants to protect peace in both worlds, Sasaki will have to become the hero that no one expects him to be.\n\n[Written by MAL Rewrite]", background: nil)
+    
+    return AnimeDetailViewController(item: item)
+}
+
+extension UIScrollView {
+    func updateContentSize() {
+        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
+        
+        // 계산된 크기로 컨텐츠 사이즈 설정
+        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
+    }
+    
+    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
+        var totalRect: CGRect = .zero
+        
+        // 모든 자식 View의 컨트롤의 크기를 재귀적으로 호출하며 최종 영역의 크기를 설정
+        for subView in view.subviews {
+            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
+        }
+        
+        // 최종 계산 영역의 크기를 반환
+        return totalRect.union(view.frame)
     }
     
     
+}
+
+extension UIScrollView {
+   func updateContentView() {
+      contentSize.height = subviews.sorted(by: { $0.frame.maxY < $1.frame.maxY }).last?.frame.maxY ?? contentSize.height
+   }
 }
