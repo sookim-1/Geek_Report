@@ -250,7 +250,7 @@ final class AnimeDetailViewController: BaseUIViewController {
         self.animeTitleLabel.text = self.item.title
         self.headerImageView.kf.setImage(with: URL(string: self.item.imageURLs.jpgURLs.largeImageURL))
         
-        self.rankIconLabelView.descriptionLabel.text = "\(self.item.rank)"
+        self.rankIconLabelView.descriptionLabel.text = (self.item.rank != nil) ? "\(self.item.rank!)" : "미정"
         self.scoreIconLabelView.descriptionLabel.text = "\(self.item.score)"
         self.heartIconLabelView.descriptionLabel.text = "\(self.item.favorites.formatThousandString)"
 

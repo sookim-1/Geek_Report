@@ -39,6 +39,13 @@ final class TabBarNavigationManager: NSObject, UINavigationControllerDelegate {
 
             print("navigationController: \(navigationController)\nviewController: \(viewController)")
         case is SearchNavigationViewController:
+            switch viewController {
+            case is SearchViewController:
+                viewController.navigationController?.isNavigationBarHidden = false
+            default:
+                print("navigationController: \(navigationController)\nviewController: \(viewController)")
+            }
+            
             print("navigationController: \(navigationController)\nviewController: \(viewController)")
         case is MyListNavigationViewController:
             print("navigationController: \(navigationController)\nviewController: \(viewController)")

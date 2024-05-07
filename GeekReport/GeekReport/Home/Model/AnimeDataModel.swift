@@ -24,7 +24,8 @@ struct AnimeDetailData: Codable {
     let imageURLs: ImageURLs
     let episodes: Int?
     let score: Double
-    let rank, favorites: Int
+    let rank: Int?
+    let favorites: Int
     let synopsis: String
     let background: String?
 
@@ -43,12 +44,14 @@ struct AnimeData: Codable, Hashable {
     let id = UUID()
     let animeID: Int
     let title: String
+    let episodes: Int?
     let imageURLs: ImageURLs
 
     enum CodingKeys: String, CodingKey {
         case animeID = "mal_id"
         case imageURLs = "images"
         case title
+        case episodes
     }
     
     func hash(into hasher: inout Hasher) {
@@ -84,6 +87,7 @@ struct JpgURLs: Codable {
 }
 
 
+/*
 // MARK: - SampleData
 extension AnimeData {
     static var defaultData: [Self] {
@@ -131,3 +135,5 @@ extension AnimeData {
         ]
     }
 }
+
+*/
