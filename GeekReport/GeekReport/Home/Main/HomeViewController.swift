@@ -70,13 +70,27 @@ final class HomeViewController: BaseUIViewController {
         configureDataSource()
         applySnapshot()
 
-        requestGetRecentAnimeRecommendations()
-        requestGetTopAnime()
-        requestGetSpringSeasonAnime {
-            self.requestGetSummerSeasonAnime {
-                self.requestGetAutumnSeasonAnime {
-                    self.requestGetWinterSeasonAnime {
-                        print("로딩 종료")
+        requestGetRecentAnimeRecommendations {
+            DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+                self.requestGetTopAnime {
+                    DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+                        self.requestGetSpringSeasonAnime {
+                            DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+                                self.requestGetSummerSeasonAnime {
+                                    DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+                                        self.requestGetAutumnSeasonAnime {
+                                            DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+                                                self.requestGetWinterSeasonAnime {
+                                                    DispatchQueue.main.async {
+                                                        self.applySnapshot()
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -308,27 +322,29 @@ extension HomeViewController: UICollectionViewDelegate {
 // MARK: - API
 extension HomeViewController {
 
-    private func requestGetRecentAnimeRecommendations() {
+    private func requestGetRecentAnimeRecommendations(completion: @escaping () -> Void) {
         HomeService.shared.getRecentAnimeRecommendations { result in
             switch result {
             case .success(let datas):
                 self.animeRecommendationLists = datas
-                self.applySnapshot()
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            
+            completion()
         }
     }
 
-    private func requestGetTopAnime() {
+    private func requestGetTopAnime(completion: @escaping () -> Void) {
         HomeService.shared.getTopAnime { result in
             switch result {
             case .success(let datas):
                 self.animeTopLists = datas
-                self.applySnapshot()
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            
+            completion()
         }
     }
 
@@ -337,7 +353,6 @@ extension HomeViewController {
             switch result {
             case .success(let datas):
                 self.animeSpringLists = datas
-                self.applySnapshot()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -351,7 +366,6 @@ extension HomeViewController {
             switch result {
             case .success(let datas):
                 self.animeSummerLists = datas
-                self.applySnapshot()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -365,7 +379,6 @@ extension HomeViewController {
             switch result {
             case .success(let datas):
                 self.animeAutumnLists = datas
-                self.applySnapshot()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -379,7 +392,6 @@ extension HomeViewController {
             switch result {
             case .success(let datas):
                 self.animeWinterLists = datas
-                self.applySnapshot()
             case .failure(let error):
                 print(error.localizedDescription)
             }
