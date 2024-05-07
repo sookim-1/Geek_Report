@@ -40,9 +40,13 @@ final class MyListViewController: BaseUIViewController {
         setupProperties()
         configureDataSource()
         applySnapshot()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         do {
-            let contact = try self.container.viewContext.fetch(AnimeEntities.fetchRequest()) 
+            let contact = try self.container.viewContext.fetch(AnimeEntities.fetchRequest())
             
             self.myAnimeList = contact
             self.applySnapshot()

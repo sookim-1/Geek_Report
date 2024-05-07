@@ -23,6 +23,7 @@ final class HomeViewController: BaseUIViewController {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
         $0.backgroundColor = .black
         $0.delegate = self
+        $0.alpha = 0
     }
 
     enum Section: CaseIterable {
@@ -82,6 +83,7 @@ final class HomeViewController: BaseUIViewController {
                                             DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
                                                 self.requestGetWinterSeasonAnime {
                                                     DispatchQueue.main.async {
+                                                        self.collectionView.alpha = 1
                                                         self.applySnapshot()
                                                     }
                                                 }
