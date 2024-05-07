@@ -62,6 +62,9 @@
 		7626FA1F2BE36B2D0053F974 /* MoreAnimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7626FA1E2BE36B2D0053F974 /* MoreAnimeViewController.swift */; };
 		7626FA212BE36DCF0053F974 /* DefaultBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7626FA202BE36DCF0053F974 /* DefaultBackButton.swift */; };
 		76802CCA2BE8C25200F4CC8D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76802CC92BE8C25200F4CC8D /* Int+Extension.swift */; };
+		76802CCC2BE9AAD700F4CC8D /* SearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76802CCB2BE9AAD700F4CC8D /* SearchListCell.swift */; };
+		76802CCE2BE9ACF500F4CC8D /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76802CCD2BE9ACF500F4CC8D /* SearchService.swift */; };
+		76802CD02BE9B05300F4CC8D /* SearchListDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76802CCF2BE9B05300F4CC8D /* SearchListDataDTO.swift */; };
 		76ADC3992BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */; };
 		76ADC39B2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */; };
 		76BDE1E22BDDE3DF00E3903F /* SectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */; };
@@ -119,6 +122,9 @@
 		7626FA1E2BE36B2D0053F974 /* MoreAnimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreAnimeViewController.swift; sourceTree = "<group>"; };
 		7626FA202BE36DCF0053F974 /* DefaultBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBackButton.swift; sourceTree = "<group>"; };
 		76802CC92BE8C25200F4CC8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		76802CCB2BE9AAD700F4CC8D /* SearchListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListCell.swift; sourceTree = "<group>"; };
+		76802CCD2BE9ACF500F4CC8D /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		76802CCF2BE9B05300F4CC8D /* SearchListDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListDataDTO.swift; sourceTree = "<group>"; };
 		76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeBannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleHeaderView.swift; sourceTree = "<group>"; };
@@ -242,6 +248,9 @@
 			children = (
 				76234E352BBE94C7006ACA2F /* SearchNavigationViewController.swift */,
 				76234E332BBE94B8006ACA2F /* SearchViewController.swift */,
+				76802CCB2BE9AAD700F4CC8D /* SearchListCell.swift */,
+				76802CCD2BE9ACF500F4CC8D /* SearchService.swift */,
+				76802CCF2BE9B05300F4CC8D /* SearchListDataDTO.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -411,9 +420,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				760ABA8A2BC7ECCA00D0BB89 /* TargetSeasonDataDTO.swift in Sources */,
+				76802CD02BE9B05300F4CC8D /* SearchListDataDTO.swift in Sources */,
 				76BDE1E42BDDE57800E3903F /* GlobalDateFormmater.swift in Sources */,
 				76234E4F2BBF8596006ACA2F /* DeviceUI.swift in Sources */,
 				76234E382BBE94D1006ACA2F /* MyListNavigationViewController.swift in Sources */,
+				76802CCC2BE9AAD700F4CC8D /* SearchListCell.swift in Sources */,
 				7601DB472BDBAC130066B1ED /* ListItem.swift in Sources */,
 				7626FA212BE36DCF0053F974 /* DefaultBackButton.swift in Sources */,
 				76234E552BBF8A4B006ACA2F /* CustomTabBar.swift in Sources */,
@@ -422,6 +433,7 @@
 				76234E272BBE9362006ACA2F /* BaseTabBarController.swift in Sources */,
 				7601DB452BDBABAB0066B1ED /* ChapterViewController.swift in Sources */,
 				76234E072BBE7AA0006ACA2F /* AppDelegate.swift in Sources */,
+				76802CCE2BE9ACF500F4CC8D /* SearchService.swift in Sources */,
 				76234E342BBE94B8006ACA2F /* SearchViewController.swift in Sources */,
 				76234E3A2BBE94DA006ACA2F /* MyListViewController.swift in Sources */,
 				76ADC3992BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift in Sources */,
