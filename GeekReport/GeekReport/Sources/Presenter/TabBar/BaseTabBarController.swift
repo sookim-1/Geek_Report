@@ -5,6 +5,7 @@
 //  Created by sookim on 4/4/24.
 //
 
+import CoreData
 import UIKit
 import RxSwift
 import SnapKit
@@ -16,6 +17,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
     
     private let customTabBar = CustomTabBar()
 
+    private let animeRepository = DefaultAnimeRepository()
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -47,7 +49,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
     }
 
     private func createMyListNavigationController() -> UINavigationController {
-        let rootView = MyListViewController()
+        let rootView = MyListViewController(viewModel: makeMyListViewModel())
         let nextView = MyListNavigationViewController(rootViewController: rootView)
         nextView.delegate = tabBarNavigationManager
 
@@ -120,6 +122,25 @@ extension BaseTabBarController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return TabBarAnimatedTransitioning()
+    }
+
+}
+
+extension BaseTabBarController {
+
+    func makeMyListViewModel() -> MyListViewModel {
+        return MyListViewModel(animUseCase: makeAnimeDataUseCase(),
+                               container: makeContainer())
+    }
+
+    func makeAnimeDataUseCase() -> AnimeDataUseCase {
+        return DefaultAnimeUseCase(animeRepository: animeRepository)
+    }
+
+    func makeContainer() -> NSPersistentContainer {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        return appDelegate.persistentContainer
     }
 
 }

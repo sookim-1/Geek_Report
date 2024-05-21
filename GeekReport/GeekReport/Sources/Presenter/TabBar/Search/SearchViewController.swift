@@ -36,7 +36,6 @@ final class SearchViewController: BaseUIViewController {
     private var searchList: [DomainAnimeDataModel] = []
     
     private var searchSubject = PublishSubject<String>()
-    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()

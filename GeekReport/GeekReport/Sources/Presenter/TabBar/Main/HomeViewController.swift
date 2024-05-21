@@ -64,7 +64,6 @@ final class HomeViewController: BaseUIViewController {
     private let seasonUseCase = DefaultSeasonAnimeUseCase(seasonRepository: DefaultSeasonRepository())
     private let topUseCase = DefaultTopAnimeUseCase(topRepository: DefaultTopRepository())
     private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
-    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()

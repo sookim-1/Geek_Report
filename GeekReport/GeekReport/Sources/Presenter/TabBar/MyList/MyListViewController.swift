@@ -11,12 +11,12 @@ import SnapKit
 import Then
 import Kingfisher
 import RxSwift
+import RxCocoa
 
 final class MyListViewController: BaseUIViewController {
     
     private lazy var animeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
         $0.backgroundColor = .black
-        $0.delegate = self
     }
     
     enum Section {
@@ -25,39 +25,27 @@ final class MyListViewController: BaseUIViewController {
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, AnimeEntities>
     typealias DataSnapShot = NSDiffableDataSourceSnapshot<Section, AnimeEntities>
-    private var dataSource: DataSource!
-    private var myAnimeList: [AnimeEntities] = []
-
-    private var container: NSPersistentContainer!
-
-    private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
-    private let disposeBag = DisposeBag()
     
+    private var dataSource: DataSource!
+    private let viewModel: MyListViewModel
+
+    init(viewModel: MyListViewModel) {
+        self.viewModel = viewModel
+
+        super.init()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupHierarchy()
         setupLayout()
-        setupProperties()
         configureDataSource()
-        applySnapshot()
+        setupProperties()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        do {
-            let contact = try self.container.viewContext.fetch(AnimeEntities.fetchRequest())
-            
-            self.myAnimeList = contact
-            self.applySnapshot()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
+
     override func setupHierarchy() {
-        self.view.addSubview(animeCollectionView)
+        self.view.addSubviews(animeCollectionView)
     }
 
     override func setupLayout() {
@@ -70,8 +58,32 @@ final class MyListViewController: BaseUIViewController {
     }
 
     override func setupProperties() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.container = appDelegate.persistentContainer
+        let input = MyListViewModel.Input(viewWillappear: self.rx.viewWillAppear.map {_ in },
+                                          selectAnime: self.transformSelectedItemToInput())
+        let output = viewModel.transform(input: input)
+
+        output.myAnimeList
+            .drive(onNext: { [weak self] datas in
+                self?.applySnapshot(items: datas)
+            })
+            .disposed(by: disposeBag)
+
+        output.selectAnimeDone
+            .subscribe { [weak self] data in
+                self?.pushToAnimeDetailVC(item: data.toModel())
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func transformSelectedItemToInput() -> Observable<Int> {
+        return self.animeCollectionView.rx.itemSelected
+            .asObservable()
+            .compactMap { [weak self] i -> Int? in
+                guard let item = self?.dataSource.itemIdentifier(for: i)
+                else{ return nil }
+
+                return Int(item.malID)
+            }
     }
 
     private func createLayout() -> UICollectionViewLayout {
@@ -102,55 +114,18 @@ final class MyListViewController: BaseUIViewController {
         })
     }
 
-    private func applySnapshot(animated: Bool = true) {
+    private func applySnapshot(items: [AnimeEntities], animated: Bool = true) {
         var snapShot = DataSnapShot()
         snapShot.appendSections([.main])
-        snapShot.appendItems(self.myAnimeList)
-        
+        snapShot.appendItems(items)
+
         self.dataSource.apply(snapShot, animatingDifferences: animated)
     }
     
-    private func pushToAnimeDetailVC(item: AnimeEntities) {
-        animUseCase.execute(animeID: Int(item.malID))
-            .withUnretained(self)
-            .subscribe { owner, data in
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data.toModel()), animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
-        /*
-        HomeService.shared.getAnimeID(animeID: Int(item.malID)) { result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data), animated: true)
-                }
-            case .failure(let error):
-                if error == .unknownError {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "에러", message: "해당 애니메이션은 접근이 불가합니다.\n참고 ID : \(item.malID)", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                        alert.addAction(action)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
+    private func pushToAnimeDetailVC(item: DomainAnimeDetailDataModel) {
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
         }
-         */
     }
     
 }
-
-// MARK: - UICollectionViewDelegate
-extension MyListViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let item = self.dataSource.itemIdentifier(for: indexPath)
-        else { return }
-
-        self.pushToAnimeDetailVC(item: item)
-    }
-
-}
-

@@ -29,15 +29,11 @@ final class MoreAnimeViewController: BaseUIViewController {
     private var homeDataSource: HomeDataSource!
     private var animeLists: [DomainAnimeDataModel]!
     private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
-    private let disposeBag = DisposeBag()
 
     init(animeLists: [DomainAnimeDataModel]) {
         self.animeLists = animeLists
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        super.init()
     }
 
     override func viewDidLoad() {

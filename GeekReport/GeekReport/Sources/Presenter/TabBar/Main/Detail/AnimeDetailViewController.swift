@@ -114,8 +114,6 @@ final class AnimeDetailViewController: BaseUIViewController {
     
     lazy var scrollContentView = UIView()
     private var container: NSPersistentContainer!
-    
-    private let disposeBag = DisposeBag()
 
     init(item: DomainAnimeDetailDataModel) {
         self.item = item
@@ -125,11 +123,7 @@ final class AnimeDetailViewController: BaseUIViewController {
             self.episodes = Array(1...itemEpisodes)
         }
         
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init()
     }
     
     override func viewDidLoad() {
