@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 import SnapKit
 import Then
 import Kingfisher
@@ -109,8 +110,11 @@ final class AnimeDetailViewController: BaseUIViewController {
     
     private var item: AnimeDetailData!
     private var episodes: [Int] = []
+    private var selectEpisode = 1
     
     lazy var scrollContentView = UIView()
+    private var container: NSPersistentContainer!
+    
     private let disposeBag = DisposeBag()
 
     init(item: AnimeDetailData) {
@@ -265,6 +269,35 @@ final class AnimeDetailViewController: BaseUIViewController {
         
         self.episodeTextField.inputView = self.episodePickerView
         self.episodeTextField.inputAccessoryView = self.toolBar
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.container = appDelegate.persistentContainer
+        
+        self.saveButton.rx.tap
+            .bind { [weak self] in
+                guard let self
+                else { return }
+                
+                if self.episodeTextField.text?.isEmpty == false {
+                    guard let entity = NSEntityDescription.entity(forEntityName: "AnimeEntities", in: self.container.viewContext)
+                    else { return }
+                    
+                    let item = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
+                    
+                    item.setValue("\(self.item.title)", forKey: "title")
+                    item.setValue("\(self.item.imageURLs.jpgURLs.largeImageURL)", forKey: "imageURL")
+                    item.setValue(Int64(self.selectEpisode), forKey: "episodes")
+                    item.setValue(Int64(self.item.animeID), forKey: "malID")
+                    
+                    do {
+                        try self.container.viewContext.save()
+                        self.navigationController?.popViewController(animated: true)
+                    } catch {
+                        print("코어데이터 저장 오류 발생")
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
 }
@@ -293,6 +326,7 @@ extension AnimeDetailViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectEpisode = self.episodes[row]
         self.episodeTextField.text = "\(self.episodes[row])화"
     }
     
@@ -300,12 +334,6 @@ extension AnimeDetailViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         return "\(self.episodes[row])화"
     }
     
-}
-
-#Preview {
-    let item = AnimeDetailData(animeID: 52482, title: "Sasaki to Pii-chan", imageURLs: ImageURLs(jpgURLs: JpgURLs(basicImageURL: "https://cdn.myanimelist.net/images/anime/1624/139672.jpg", smallImageURL: "https://cdn.myanimelist.net/images/anime/1624/139672t.jpg", largeImageURL: "https://cdn.myanimelist.net/images/anime/1624/139672l.jpg")), episodes: 12, score: 6.86, rank: 5166, favorites: 176, synopsis: "Sasaki, a 39-year-old corporate employee, has resigned himself to live a modest life without dreams and dangers. To his great surprise, his fate takes a brutal turn after he decides to adopt a Java sparrow that he names Pii-chan. The talking bird not only happens to be a reincarnation of a famous magician from another world, but it decides to grant some of its powers to Sasaki—along with the ability to traverse between worlds. Sasaki begins a lucrative business of selling technological items from his world to the less advanced civilization of the other.\n\nHowever, Sasaki\'s life becomes more chaotic when he stops an attempt on a woman\'s life with his new powers.  Unfortunately, the woman Sasaki saved also happens to be a government agent named Hoshizaki, who is tasked with tracking down gifted individuals like him. Forced to join Hoshizaki\'s secret agency, Sasaki partakes in dangerous missions to find other gifted criminals. He does not even have the luxury of hiding in the other world, where a war is about to break out. If he wants to protect peace in both worlds, Sasaki will have to become the hero that no one expects him to be.\n\n[Written by MAL Rewrite]", background: nil)
-    
-    return AnimeDetailViewController(item: item)
 }
 
 extension UIScrollView {

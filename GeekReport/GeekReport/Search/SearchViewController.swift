@@ -13,8 +13,6 @@ import RxSwift
 
 final class SearchViewController: BaseUIViewController {
     
-    private lazy var mainLabel = UILabel()
-    
     private lazy var searchBar = UISearchController().then {
         $0.searchBar.placeholder = "제목을 입력해주세요"
         $0.searchBar.searchBarStyle = .minimal
