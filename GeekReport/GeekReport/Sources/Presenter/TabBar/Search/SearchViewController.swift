@@ -33,8 +33,6 @@ final class SearchViewController: BaseUIViewController {
     typealias DataSnapShot = NSDiffableDataSourceSnapshot<Section, DomainAnimeDataModel>
     private var dataSource: DataSource!
 
-    
-    private var searchSubject = PublishSubject<String>()
     private let viewModel: SearchViewModel
 
     init(viewModel: SearchViewModel) {

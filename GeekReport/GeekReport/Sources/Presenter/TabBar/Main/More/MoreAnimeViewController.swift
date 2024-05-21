@@ -15,7 +15,6 @@ final class MoreAnimeViewController: BaseUIViewController {
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
         $0.backgroundColor = .black
-        $0.delegate = self
     }
 
     lazy var backButton = DefaultBackButton()
@@ -27,12 +26,12 @@ final class MoreAnimeViewController: BaseUIViewController {
     typealias HomeDataSource = UICollectionViewDiffableDataSource<Section, DomainAnimeDataModel>
     typealias HomeDataSnapShot = NSDiffableDataSourceSnapshot<Section, DomainAnimeDataModel>
     private var homeDataSource: HomeDataSource!
-    private var animeLists: [DomainAnimeDataModel]!
-    private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
 
-    init(animeLists: [DomainAnimeDataModel]) {
-        self.animeLists = animeLists
-        
+    private let viewModel: MoreAnimeViewModel
+
+    init(viewModel: MoreAnimeViewModel) {
+        self.viewModel = viewModel
+
         super.init()
     }
 
@@ -41,9 +40,8 @@ final class MoreAnimeViewController: BaseUIViewController {
 
         setupHierarchy()
         setupLayout()
-        setupProperties()
         configureDataSource()
-        applySnapshot()
+        setupProperties()
     }
     
 
@@ -76,6 +74,33 @@ final class MoreAnimeViewController: BaseUIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+
+        let input = MoreAnimeViewModel.Input(selectAnime: self.transformSelectedItemToInput())
+
+        let output = viewModel.transform(input: input)
+
+        output.moreAnimeList
+            .subscribe(onNext: { [weak self] datas in
+                self?.applySnapshot(items: datas.map { $0 })
+            })
+            .disposed(by: disposeBag)
+
+        output.selectAnimeDone
+            .subscribe { [weak self] data in
+                self?.pushToAnimeDetailVC(item: data.toModel())
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func transformSelectedItemToInput() -> Observable<Int> {
+        return self.collectionView.rx.itemSelected
+            .asObservable()
+            .compactMap { [weak self] i -> Int? in
+                guard let item = self?.homeDataSource.itemIdentifier(for: i)
+                else{ return nil }
+
+                return Int(item.animeID)
+            }
     }
 
     private func createLayout() -> UICollectionViewLayout {
@@ -97,10 +122,10 @@ final class MoreAnimeViewController: BaseUIViewController {
         })
     }
 
-    private func applySnapshot(animated: Bool = true) {
+    private func applySnapshot(items: [DomainAnimeDataModel], animated: Bool = true) {
         var snapShot = HomeDataSnapShot()
         snapShot.appendSections([.main])
-        snapShot.appendItems(self.animeLists)
+        snapShot.appendItems(items)
         self.homeDataSource.apply(snapShot, animatingDifferences: animated)
     }
 
@@ -118,45 +143,10 @@ final class MoreAnimeViewController: BaseUIViewController {
         return section
     }
 
-    private func pushToAnimeDetailVC(item: DomainAnimeDataModel) {
-        animUseCase.execute(animeID: item.animeID)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data.toModel()), animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
-        /*
-        HomeService.shared.getAnimeID(animeID: item.animeID) { result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data), animated: true)
-                }
-            case .failure(let error):
-                if error == .unknownError {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "에러", message: "해당 애니메이션은 접근이 불가합니다.\n참고 ID : \(item.animeID)", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                        alert.addAction(action)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
+    private func pushToAnimeDetailVC(item: DomainAnimeDetailDataModel) {
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
         }
-         */
-    }
-
-}
-
-extension MoreAnimeViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let item = self.homeDataSource.itemIdentifier(for: indexPath)
-        else { return }
-
-        self.pushToAnimeDetailVC(item: item)
     }
 
 }

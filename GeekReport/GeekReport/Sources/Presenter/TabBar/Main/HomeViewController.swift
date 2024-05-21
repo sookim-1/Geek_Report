@@ -64,6 +64,7 @@ final class HomeViewController: BaseUIViewController {
     private let seasonUseCase = DefaultSeasonAnimeUseCase(seasonRepository: DefaultSeasonRepository())
     private let topUseCase = DefaultTopAnimeUseCase(topRepository: DefaultTopRepository())
     private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
+    private let animeRepository = DefaultAnimeRepository()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -298,8 +299,17 @@ extension HomeViewController {
     }
 
     private func pushToMoreAnimeVC(items: [DomainAnimeDataModel]) {
-        self.navigationController?.pushViewController(MoreAnimeViewController(animeLists: items), animated: true)
+        self.navigationController?.pushViewController(MoreAnimeViewController(viewModel: makeMoreAnimeViewModel(items: items)), animated: true)
     }
+
+    func makeMoreAnimeViewModel(items: [DomainAnimeDataModel]) -> MoreAnimeViewModel {
+        return MoreAnimeViewModel(animUseCase: makeAnimeDataUseCase(), animeLists: items)
+    }
+
+    func makeAnimeDataUseCase() -> AnimeDataUseCase {
+        return DefaultAnimeUseCase(animeRepository: animeRepository)
+    }
+
 }
 
 // MARK: - PagerDelegate
