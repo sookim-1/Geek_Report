@@ -10,10 +10,11 @@ import SnapKit
 import Then
 import Kingfisher
 import RxSwift
+import RxCocoa
 
 final class SearchViewController: BaseUIViewController {
     
-    private lazy var searchBar = UISearchController().then {
+    private lazy var searchController = UISearchController().then {
         $0.searchBar.placeholder = "제목을 입력해주세요"
         $0.searchBar.searchBarStyle = .minimal
         $0.searchBar.searchTextField.backgroundColor = .white
@@ -22,7 +23,6 @@ final class SearchViewController: BaseUIViewController {
     
     private lazy var animeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
         $0.backgroundColor = .black
-        $0.delegate = self
     }
     
     enum Section {
@@ -32,11 +32,18 @@ final class SearchViewController: BaseUIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, DomainAnimeDataModel>
     typealias DataSnapShot = NSDiffableDataSourceSnapshot<Section, DomainAnimeDataModel>
     private var dataSource: DataSource!
-    private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
-    private var searchList: [DomainAnimeDataModel] = []
+
     
     private var searchSubject = PublishSubject<String>()
-    
+    private let viewModel: SearchViewModel
+
+    init(viewModel: SearchViewModel) {
+        self.viewModel = viewModel
+
+        super.init()
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,13 +51,12 @@ final class SearchViewController: BaseUIViewController {
         setupLayout()
         setupProperties()
         configureDataSource()
-        applySnapshot()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.searchBar.searchBar.searchTextField.becomeFirstResponder()
+        self.searchController.searchBar.searchTextField.becomeFirstResponder()
     }
 
     override func setupHierarchy() {
@@ -67,45 +73,43 @@ final class SearchViewController: BaseUIViewController {
     }
 
     override func setupProperties() {
-        searchBar.searchResultsUpdater = self
-        navigationItem.searchController = searchBar
-        
-        searchSubject
-            .throttle(.milliseconds(1000), latest: false, scheduler: MainScheduler.instance)
-            .subscribe { [weak self] searchText in
-                guard let self,
-                      let element = searchText.event.element
-                else { return }
-                
-                if element.isEmpty == false {
-                    animUseCase.execute(searchText: element)
-                        .withUnretained(self)
-                        .subscribe { owner, data in
-                            self.searchList = data.map { $0.toModel() }
+        navigationItem.searchController = searchController
 
-                            DispatchQueue.main.async {
-                                self.applySnapshot()
-                            }
-                        }
-                        .disposed(by: disposeBag)
+        let input = SearchViewModel.Input(searchAnime: self.transformSearchTextToInput(),
+                                          selectAnime: self.transformSelectedItemToInput())
 
-                    /*
-                    SearchService.shared.getAnimeSearch(searchString: element) { result in
-                        switch result {
-                        case .success(let datas):
-                            self.searchList = datas
-                            
-                            DispatchQueue.main.async {
-                                self.applySnapshot()
-                            }
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                        }
-                    }
-                    */
-                }
+        let output = viewModel.transform(input: input)
+
+        output.searchList
+            .subscribe(onNext: { [weak self] datas in
+                self?.applySnapshot(items: datas.map { $0.toModel() })
+            })
+            .disposed(by: disposeBag)
+
+        output.selectAnimeDone
+            .subscribe { [weak self] data in
+                self?.pushToAnimeDetailVC(item: data.toModel())
             }
             .disposed(by: disposeBag)
+    }
+
+    private func transformSearchTextToInput() -> Observable<String> {
+        return self.searchController.searchBar.rx.text
+            .filter { $0?.isEmpty == false }
+            .throttle(.milliseconds(1000), scheduler: MainScheduler.instance)
+            .asObservable()
+            .compactMap { $0 }
+    }
+
+    private func transformSelectedItemToInput() -> Observable<Int> {
+        return self.animeCollectionView.rx.itemSelected
+            .asObservable()
+            .compactMap { [weak self] i -> Int? in
+                guard let item = self?.dataSource.itemIdentifier(for: i)
+                else{ return nil }
+
+                return Int(item.animeID)
+            }
     }
 
     private func createLayout() -> UICollectionViewLayout {
@@ -140,68 +144,18 @@ final class SearchViewController: BaseUIViewController {
         })
     }
 
-    private func applySnapshot(animated: Bool = true) {
+    private func applySnapshot(items: [DomainAnimeDataModel], animated: Bool = true) {
         var snapShot = DataSnapShot()
         snapShot.appendSections([.main])
-        snapShot.appendItems(self.searchList)
-        
+        snapShot.appendItems(items)
+
         self.dataSource.apply(snapShot, animatingDifferences: animated)
     }
     
-    private func pushToAnimeDetailVC(item: DomainAnimeDataModel) {
-        /*
-        HomeService.shared.getAnimeID(animeID: item.animeID) { result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data), animated: true)
-                }
-            case .failure(let error):
-                if error == .unknownError {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "에러", message: "해당 애니메이션은 접근이 불가합니다.\n참고 ID : \(item.animeID)", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                        alert.addAction(action)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
+    private func pushToAnimeDetailVC(item: DomainAnimeDetailDataModel) {
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
         }
-        */
-
-        animUseCase.execute(animeID: item.animeID)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data.toModel()), animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
-
-    }
-    
-}
-
-// MARK: - UICollectionViewDelegate
-extension SearchViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let item = self.dataSource.itemIdentifier(for: indexPath)
-        else { return }
-
-        self.pushToAnimeDetailVC(item: item)
-    }
-
-}
-
-// MARK: - UISearchResultsUpdating
-extension SearchViewController: UISearchResultsUpdating {
-    
-    /// 입력된 텍스트가 변경되거나 사용자가 키보드의 검색 버튼을 탭할 때마다 호출
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text else { return }
-        
-        self.searchSubject.onNext(query)
     }
     
 }

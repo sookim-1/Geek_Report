@@ -41,8 +41,8 @@ enum JikanEndpoint: Endpoint {
             return .query(["page": "1"])
         case .animeById(_):
             return .none
-        case .animeSearch(_):
-            return .none
+        case .animeSearch(let text):
+            return .query(["q": text])
         case .season(_):
             return .query(["limit": "10"])
         }

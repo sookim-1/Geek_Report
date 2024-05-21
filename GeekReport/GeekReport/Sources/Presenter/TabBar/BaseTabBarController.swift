@@ -41,7 +41,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
     }
 
     private func createSearchNavigationController() -> UINavigationController {
-        let rootView = SearchViewController()
+        let rootView = SearchViewController(viewModel: makeSearchViewModel())
         let nextView = SearchNavigationViewController(rootViewController: rootView)
         nextView.delegate = tabBarNavigationManager
 
@@ -127,6 +127,10 @@ extension BaseTabBarController: UITabBarControllerDelegate {
 }
 
 extension BaseTabBarController {
+
+    func makeSearchViewModel() -> SearchViewModel {
+        return SearchViewModel(animUseCase: makeAnimeDataUseCase())
+    }
 
     func makeMyListViewModel() -> MyListViewModel {
         return MyListViewModel(animUseCase: makeAnimeDataUseCase(),

@@ -83,6 +83,7 @@
 		76931C662BFC6D9D005FC630 /* MyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76931C652BFC6D9D005FC630 /* MyListViewModel.swift */; };
 		76931C682BFC6DD9005FC630 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76931C672BFC6DD9005FC630 /* ViewModelType.swift */; };
 		76931C6A2BFC7739005FC630 /* UIViewController+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76931C692BFC7739005FC630 /* UIViewController+Reactive.swift */; };
+		76931C6C2BFC81A9005FC630 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76931C6B2BFC81A9005FC630 /* SearchViewModel.swift */; };
 		76ADC3992BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */; };
 		76ADC39B2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */; };
 		76BDE1E22BDDE3DF00E3903F /* SectionTitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */; };
@@ -161,6 +162,7 @@
 		76931C652BFC6D9D005FC630 /* MyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewModel.swift; sourceTree = "<group>"; };
 		76931C672BFC6DD9005FC630 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		76931C692BFC7739005FC630 /* UIViewController+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Reactive.swift"; sourceTree = "<group>"; };
+		76931C6B2BFC81A9005FC630 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		76ADC3982BDD5DF30069CBB5 /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		76ADC39A2BDD5F860069CBB5 /* AnimeBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeBannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		76BDE1E12BDDE3DF00E3903F /* SectionTitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleHeaderView.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				76234E352BBE94C7006ACA2F /* SearchNavigationViewController.swift */,
 				76234E332BBE94B8006ACA2F /* SearchViewController.swift */,
 				76802CCB2BE9AAD700F4CC8D /* SearchListCell.swift */,
+				76931C6B2BFC81A9005FC630 /* SearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -732,6 +735,7 @@
 				76931C4C2BFC5CEC005FC630 /* TopAnimeUseCase.swift in Sources */,
 				7601DB1F2BDB86440066B1ED /* CustomSegmentedControl.swift in Sources */,
 				76234E1B2BBE7AE5006ACA2F /* HomeViewController.swift in Sources */,
+				76931C6C2BFC81A9005FC630 /* SearchViewModel.swift in Sources */,
 				76931C212BFC36E2005FC630 /* NetworkService.swift in Sources */,
 				7601DB1B2BDB81540066B1ED /* GlobalConstant.swift in Sources */,
 				76234E612BBF929D006ACA2F /* BaseUIView.swift in Sources */,
