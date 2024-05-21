@@ -8,14 +8,14 @@
 
 <img width="874" alt="detail" src="https://github.com/sookim-1/Geek_Report/assets/55218398/83c52743-3226-418a-9334-1e67cc137b77">
 
-# 사용기술
+# ⚡️ 사용기술
 - **UIKit**, **CoreData**, **UICollectionViewCompositional Layout**, **DiffableDataSource**
 - 3rdParty : **SnapKit**, **Then**, **RxSwift**, **RxGesture**, **Kingfisher**, **Lookin**, **Tuist**
 - API : [**JikanAPI**](https://jikan.moe/)
 - **CleanArchitecture**, **MVVM**
+<br>
 
-
-## 기술소개
+## 🧑‍💻 기술소개
 ### UICollectionViewCompositional Layout + DiffableDataSource
 
 전체적인 UI구성을 위해 iOS13이상부터 사용가능한 UICollectionViewCompositional Layout과 DiffableDataSource를 활용했습니다.
@@ -34,7 +34,7 @@
 
 그 외로 iOS14이상부터 사용가능한 CellRegistration과 SupplementaryRegistration도 활용하여 가독성을 향상시켰습니다.<br>
 사용방법들을 정리한 블로그글이 있는데 공감주시면 감사하겠습니다.<br>
-👋 [iOS 14이상에서 UICollectionView 사용하기](https://sookim-1.tistory.com/entry/iOS-iOS-14이상에서-UICollectionView-사용하기)
+👋 [iOS 14이상에서 UICollectionView 사용하기](https://sookim-1.tistory.com/entry/iOS-iOS-14이상에서-UICollectionView-사용하기) - sookim-1's tistory
 
 ---
 ### CleanArchitecture + MVVM 
@@ -52,7 +52,7 @@
 - 파일의 갯수가 많아 개발 속도가 더 오래걸리는 단점이 있지만, Xcode 템플릿을 활용하면 보완이 될 것 같다.
 - 원하는 파일 및 원하는 부분등을 찾기 쉬워 작업(이슈 수정, 기능추가, 코드리뷰)등이 편리할 것 같다.
 
-👋 [Clean Architecture for iOS](https://sookim-1.tistory.com/entry/Clean-Architecture-for-iOS)
+👋 [Clean Architecture for iOS](https://sookim-1.tistory.com/entry/Clean-Architecture-for-iOS) - sookim-1's tistory
 
 ▶️ MVVM
 
