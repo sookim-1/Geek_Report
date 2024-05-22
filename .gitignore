@@ -1,17 +1,7 @@
 # 참고링크 https://www.toptal.com/developers/gitignore?templates=vapor,swift,swiftpm,swiftpackagemanager,xcode,xcodeinjection,firebase,fastlane,macos,homebrew,bitrise,cocoapods,carthage,git,crashlytics
 
-# 적용한 툴 목록 : [Vapor, Swift, SwiftPM, SwiftPackageManager, Xcode, XcodeInjection, Firebase, fastlane, macOS, Homebrew, Bitrise, CocoaPods, Carthage, Crashlytics, Git, R.swift, Environments, SwiftLint, emacs, Vim]
+# 적용한 툴 목록 : [Swift, SwiftPM, SwiftPackageManager, Xcode, XcodeInjection, Firebase, fastlane, macOS, Homebrew, Bitrise, CocoaPods, Crashlytics, Git, R.swift, Environments, SwiftLint, emacs, Vim]
 
-### Bitrise ###
-.bitrise.secrets.yml
-
-### Carthage ###
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build
 
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
@@ -22,19 +12,12 @@ Carthage/Build
 Pods/
 
 ### Crashlytics ###
-#Crashlytics
 crashlytics-build.properties
 com_crashlytics_export_strings.xml
 crashlytics.properties
 fabric.properties
 
 ### fastlane ###
-# fastlane - A streamlined workflow tool for Cocoa deployment
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
 # fastlane specific
 **/fastlane/report.xml
 
@@ -83,6 +66,7 @@ Brewfile.lock.json
 .DS_Store
 .AppleDouble
 .LSOverride
+.package.resolved
 
 # Icon must end with two \r
 Icon
@@ -147,29 +131,7 @@ DerivedData/
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
 .build/
-
-# CocoaPods
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-# Pods/
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
-
-# Carthage
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
 
 Carthage/Build/
 
@@ -194,26 +156,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-### SwiftPackageManager ###
-# 하단의 파일들은 필요한 경우 주석해제
-# Packages
-# xcuserdata
-# *.xcodeproj
-
-
-### SwiftPM ###
-
-
-### Vapor ###
-Config/secrets
-
-### Vapor Patch ###
-
-
-### Xcode ###
-
-## Xcode 8 and earlier
-
 ### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
@@ -223,15 +165,16 @@ Config/secrets
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-### XcodeInjection ###
-# Code Injection
-# After new code Injection tools there's a generated folder /iOSInjectionProject
-# https://github.com/johnno1962/injectionforxcode
+### Projects ###
+*.xcodeproj
+*.xcworkspace
 
+### Tuist derived files ###
+graph.dot
+Derived/
 
-### R.swift
-*.generated.swift
-
+### Tuist managed dependencies ###
+Tuist/.build
 
 ### Environments ###
 .env
