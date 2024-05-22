@@ -19,26 +19,25 @@ final class MyListViewModel: ViewModelType {
     }
 
     struct Output {
-        var myAnimeList: Driver<[AnimeEntities]>
+        var myAnimeList: Driver<[DomainAnimeDataModel]>
         let selectAnimeDone: Observable<DomainAnimeDetailDataModel>
     }
 
     private let animUseCase: AnimeDataUseCase
-
-    private var container: NSPersistentContainer
+    private let coreDataUseCase: CoreDataUseCase
     let disposeBag = DisposeBag()
 
     init(animUseCase: AnimeDataUseCase, 
-         container: NSPersistentContainer) {
+         coreDataUseCase: CoreDataUseCase) {
         self.animUseCase = animUseCase
-        self.container = container
+        self.coreDataUseCase = coreDataUseCase
     }
 
     func transform(input: Input) -> Output {
         let myAnimeList = input.viewWillappear
             .withUnretained(self)
             .map { owner, _ in
-                try owner.container.viewContext.fetch(AnimeEntities.fetchRequest())
+                self.coreDataUseCase.getAnimes()
             }
             .asDriver(onErrorJustReturn: [])
 

@@ -114,6 +114,7 @@ final class AnimeDetailViewController: BaseUIViewController {
     
     lazy var scrollContentView = UIView()
     private var container: NSPersistentContainer!
+    private var coreDataUseCase = DefaultCoreDataUseCase(coreDataRepository: DefaultCoreDataRepository())
 
     init(item: DomainAnimeDetailDataModel) {
         self.item = item
@@ -273,22 +274,7 @@ final class AnimeDetailViewController: BaseUIViewController {
                 else { return }
                 
                 if self.episodeTextField.text?.isEmpty == false {
-                    guard let entity = NSEntityDescription.entity(forEntityName: "AnimeEntities", in: self.container.viewContext)
-                    else { return }
-                    
-                    let item = NSManagedObject(entity: entity, insertInto: self.container.viewContext)
-                    
-                    item.setValue("\(self.item.title)", forKey: "title")
-                    item.setValue("\(self.item.imageURLString)", forKey: "imageURL")
-                    item.setValue(Int64(self.selectEpisode), forKey: "episodes")
-                    item.setValue(Int64(self.item.animeID), forKey: "malID")
-                    
-                    do {
-                        try self.container.viewContext.save()
-                        self.navigationController?.popViewController(animated: true)
-                    } catch {
-                        print("코어데이터 저장 오류 발생")
-                    }
+                    self.coreDataUseCase.createAnime(selectEpisode: self.selectEpisode, DomainAnimeDataModel(animeID: self.item.animeID, title: self.item.title, episodes: self.item.episodes, imageURLString: self.item.imageURLString))
                 }
             }
             .disposed(by: disposeBag)

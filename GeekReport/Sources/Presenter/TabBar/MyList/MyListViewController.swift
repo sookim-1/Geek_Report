@@ -23,9 +23,9 @@ final class MyListViewController: BaseUIViewController {
         case main
     }
     
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, AnimeEntities>
-    typealias DataSnapShot = NSDiffableDataSourceSnapshot<Section, AnimeEntities>
-    
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, DomainAnimeDataModel>
+    typealias DataSnapShot = NSDiffableDataSourceSnapshot<Section, DomainAnimeDataModel>
+
     private var dataSource: DataSource!
     private let viewModel: MyListViewModel
 
@@ -82,7 +82,7 @@ final class MyListViewController: BaseUIViewController {
                 guard let item = self?.dataSource.itemIdentifier(for: i)
                 else{ return nil }
 
-                return Int(item.malID)
+                return Int(item.animeID)
             }
     }
 
@@ -101,12 +101,12 @@ final class MyListViewController: BaseUIViewController {
     }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<SearchListCell, AnimeEntities> { (cell, indexPath, item) in
-            cell.imageView.kf.setImage(with: URL(string: item.imageURL ?? ""))
+        let cellRegistration = UICollectionView.CellRegistration<SearchListCell, DomainAnimeDataModel> { (cell, indexPath, item) in
+            cell.imageView.kf.setImage(with: URL(string: item.imageURLString ))
             cell.titleLabel.text = item.title
             
             cell.episodeLabel.isHidden = false
-            cell.episodeLabel.text = "시청 중인 에피소드 : \(item.episodes) 화"
+            cell.episodeLabel.text = "시청 중인 에피소드 : \(item.episodes ?? 1) 화"
         }
 
         self.dataSource = DataSource(collectionView: self.animeCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
@@ -114,7 +114,7 @@ final class MyListViewController: BaseUIViewController {
         })
     }
 
-    private func applySnapshot(items: [AnimeEntities], animated: Bool = true) {
+    private func applySnapshot(items: [DomainAnimeDataModel], animated: Bool = true) {
         var snapShot = DataSnapShot()
         snapShot.appendSections([.main])
         snapShot.appendItems(items)

@@ -134,7 +134,7 @@ extension BaseTabBarController {
 
     func makeMyListViewModel() -> MyListViewModel {
         return MyListViewModel(animUseCase: makeAnimeDataUseCase(),
-                               container: makeContainer())
+                               coreDataUseCase: makeCoreDataUseCase())
     }
 
     func makeAnimeDataUseCase() -> AnimeDataUseCase {
@@ -145,6 +145,10 @@ extension BaseTabBarController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
         return appDelegate.persistentContainer
+    }
+
+    func makeCoreDataUseCase() -> CoreDataUseCase {
+        return DefaultCoreDataUseCase(coreDataRepository: DefaultCoreDataRepository())
     }
 
 }
