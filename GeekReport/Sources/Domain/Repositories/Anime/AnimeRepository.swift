@@ -10,6 +10,6 @@ import RxSwift
 
 protocol AnimeRepository {
 
-    func getAnimeById(animeID: Int) -> Observable<AnimeDetailData>
-    func getAnimeSearch(searchText: String) -> Observable<[AnimeData]>
+    func getAnimeById(animeID: Int) -> Observable<DomainAnimeDetailDataModel>
+    func getAnimeSearch(searchText: String) -> Observable<[DomainAnimeDataModel]>
 }

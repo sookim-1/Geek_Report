@@ -16,7 +16,7 @@ final class DefaultTopAnimeUseCase: TopAnimeUseCase {
         self.topRepository = topRepository
     }
 
-    func execute() -> Observable<[AnimeData]> {
+    func execute() -> Observable<[DomainAnimeDataModel]> {
         return self.topRepository
             .getTopAnime()
     }

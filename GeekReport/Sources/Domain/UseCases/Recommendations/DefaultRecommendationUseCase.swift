@@ -16,7 +16,7 @@ final class DefaultRecommendationUseCase: RecommendationUseCase {
         self.recommendationRepository = recommendationRepository
     }
 
-    func execute() -> Observable<[AnimeData]> {
+    func execute() -> Observable<[DomainAnimeDataModel]> {
         return self.recommendationRepository
             .getRecentAnimeRecommendations()
     }

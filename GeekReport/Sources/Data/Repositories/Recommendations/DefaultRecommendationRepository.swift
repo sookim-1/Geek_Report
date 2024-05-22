@@ -16,13 +16,23 @@ final class DefaultRecommendationRepository: RecommendationRepository {
         self.networkService = networkService
     }
     
-    func getRecentAnimeRecommendations() -> Observable<[AnimeData]> {
+    func getRecentAnimeRecommendations() -> Observable<[DomainAnimeDataModel]> {
         let endpoint = JikanEndpoint.recentAnimeRecommendation
 
         return self.networkService.request(endpoint)
             .decode(type: RecommendationAnimeDataDTO.self, decoder: JSONDecoder())
             .map { $0.data.flatMap { $0.entry } }
-            .map { $0 }
+            .map { Array($0.prefix(5)) }
+            .map { animeDataArray in
+                animeDataArray.map { animeData in
+                    DomainAnimeDataModel(
+                        animeID: animeData.animeID,
+                        title: animeData.title,
+                        episodes: animeData.episodes,
+                        imageURLString: animeData.imageURLs.jpgURLs.largeImageURL
+                    )
+                }
+            }
     }
     
 

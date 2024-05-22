@@ -16,7 +16,7 @@ final class DefaultSeasonAnimeUseCase: SeasonAnimeUseCase {
         self.seasonRepository = seasonRepository
     }
 
-    func execute(season: Season) -> Observable<[AnimeData]> {
+    func execute(season: Season) -> Observable<[DomainAnimeDataModel]> {
         return self.seasonRepository
             .getSeason(season: season)
     }

@@ -10,5 +10,5 @@ import RxSwift
 
 protocol TopAnimeUseCase {
 
-    func execute() -> Observable<[AnimeData]>
+    func execute() -> Observable<[DomainAnimeDataModel]>
 }

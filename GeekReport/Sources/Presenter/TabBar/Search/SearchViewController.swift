@@ -80,13 +80,13 @@ final class SearchViewController: BaseUIViewController {
 
         output.searchList
             .subscribe(onNext: { [weak self] datas in
-                self?.applySnapshot(items: datas.map { $0.toModel() })
+                self?.applySnapshot(items: datas.map { $0 })
             })
             .disposed(by: disposeBag)
 
         output.selectAnimeDone
             .subscribe { [weak self] data in
-                self?.pushToAnimeDetailVC(item: data.toModel())
+                self?.pushToAnimeDetailVC(item: data)
             }
             .disposed(by: disposeBag)
     }

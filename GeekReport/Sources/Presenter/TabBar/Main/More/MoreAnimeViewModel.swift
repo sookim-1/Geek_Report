@@ -17,7 +17,7 @@ final class MoreAnimeViewModel: ViewModelType {
 
     struct Output {
         var moreAnimeList: Observable<[DomainAnimeDataModel]>
-        let selectAnimeDone: Observable<AnimeDetailData>
+        let selectAnimeDone: Observable<DomainAnimeDetailDataModel>
     }
 
     private let animUseCase: AnimeDataUseCase

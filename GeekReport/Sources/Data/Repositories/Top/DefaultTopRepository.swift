@@ -16,12 +16,12 @@ final class DefaultTopRepository: TopRepository {
         self.networkService = networkService
     }
 
-    func getTopAnime() -> Observable<[AnimeData]> {
+    func getTopAnime() -> Observable<[DomainAnimeDataModel]> {
         let endpoint = JikanEndpoint.topAnime
 
         return self.networkService.request(endpoint)
             .decode(type: TopAnimeDataDTO.self, decoder: JSONDecoder())
-            .map { $0.data }
+            .map { $0.toList() }
     }
 
 }

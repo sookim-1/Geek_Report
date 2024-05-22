@@ -18,8 +18,8 @@ final class SearchViewModel: ViewModelType {
     }
 
     struct Output {
-        var searchList: Observable<[AnimeData]>
-        let selectAnimeDone: Observable<AnimeDetailData>
+        var searchList: Observable<[DomainAnimeDataModel]>
+        let selectAnimeDone: Observable<DomainAnimeDetailDataModel>
     }
 
     private let animUseCase: AnimeDataUseCase

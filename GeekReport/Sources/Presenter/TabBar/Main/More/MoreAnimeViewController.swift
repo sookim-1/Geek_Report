@@ -87,7 +87,7 @@ final class MoreAnimeViewController: BaseUIViewController {
 
         output.selectAnimeDone
             .subscribe { [weak self] data in
-                self?.pushToAnimeDetailVC(item: data.toModel())
+                self?.pushToAnimeDetailVC(item: data)
             }
             .disposed(by: disposeBag)
     }

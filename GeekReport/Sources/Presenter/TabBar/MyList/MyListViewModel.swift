@@ -20,7 +20,7 @@ final class MyListViewModel: ViewModelType {
 
     struct Output {
         var myAnimeList: Driver<[AnimeEntities]>
-        let selectAnimeDone: Observable<AnimeDetailData>
+        let selectAnimeDone: Observable<DomainAnimeDetailDataModel>
     }
 
     private let animUseCase: AnimeDataUseCase

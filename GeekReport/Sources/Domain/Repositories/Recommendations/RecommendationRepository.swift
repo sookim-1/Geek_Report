@@ -10,5 +10,5 @@ import RxSwift
 
 protocol RecommendationRepository {
 
-    func getRecentAnimeRecommendations() -> Observable<[AnimeData]>
+    func getRecentAnimeRecommendations() -> Observable<[DomainAnimeDataModel]>
 }

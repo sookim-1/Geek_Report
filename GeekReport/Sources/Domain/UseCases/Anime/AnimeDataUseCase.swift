@@ -10,6 +10,6 @@ import RxSwift
 
 protocol AnimeDataUseCase {
 
-    func execute(animeID: Int) -> Observable<AnimeDetailData>
-    func execute(searchText: String) -> Observable<[AnimeData]>
+    func execute(animeID: Int) -> Observable<DomainAnimeDetailDataModel>
+    func execute(searchText: String) -> Observable<[DomainAnimeDataModel]>
 }

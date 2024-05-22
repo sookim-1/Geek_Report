@@ -268,31 +268,11 @@ extension HomeViewController {
     }
 
     private func pushToAnimeDetailVC(item: DomainAnimeDataModel) {
-        /*
-        HomeService.shared.getAnimeID(animeID: item.animeID) { result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data), animated: true)
-                }
-            case .failure(let error):
-                if error == .unknownError {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "에러", message: "해당 애니메이션은 접근이 불가합니다.\n참고 ID : \(item.animeID)", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                        alert.addAction(action)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
-        }
-        */
-
         animUseCase.execute(animeID: item.animeID)
             .withUnretained(self)
             .subscribe { owner, data in
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data.toModel()), animated: true)
+                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data), animated: true)
                 }
             }
             .disposed(by: disposeBag)
@@ -338,87 +318,36 @@ extension HomeViewController {
         recommendationUseCase.execute()
             .withUnretained(self)
             .subscribe { owner, data in
-                self.animeRecommendationLists = data.map { $0.toModel() }
+                self.animeRecommendationLists = data.map { $0 }
             }
             .disposed(by: disposeBag)
-
-        /*
-        HomeService.shared.getRecentAnimeRecommendations { result in
-            switch result {
-            case .success(let datas):
-                self.animeRecommendationLists = datas
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-            completion()
-        }
-        */
     }
 
     private func requestGetTopAnime() {
         topUseCase.execute()
             .withUnretained(self)
             .subscribe { owner, data in
-                self.animeTopLists = data.map { $0.toModel() }
+                self.animeTopLists = data.map { $0 }
             }
             .disposed(by: disposeBag)
-
-        /*
-        HomeService.shared.getTopAnime { result in
-            switch result {
-            case .success(let datas):
-                self.animeTopLists = datas
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-            completion()
-        }
-         */
     }
 
     private func requestGetSpringSeasonAnime() {
         seasonUseCase.execute(season: .spring)
             .withUnretained(self)
             .subscribe { owner, data in
-                self.animeSpringLists = data.map { $0.toModel() }
+                self.animeSpringLists = data.map { $0 }
             }
             .disposed(by: disposeBag)
-        /*
-        HomeService.shared.getSeasonAnime(season: .spring) { result in
-            switch result {
-            case .success(let datas):
-                self.animeSpringLists = datas
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-
-            completion()
-        }
-        */
     }
 
     private func requestGetSummerSeasonAnime() {
         seasonUseCase.execute(season: .summer)
             .withUnretained(self)
             .subscribe { owner, data in
-                self.animeSummerLists = data.map { $0.toModel() }
+                self.animeSummerLists = data.map { $0 }
             }
             .disposed(by: disposeBag)
-
-        /*
-        HomeService.shared.getSeasonAnime(season: .summer) { result in
-            switch result {
-            case .success(let datas):
-                self.animeSummerLists = datas
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-
-            completion()
-        }
-        */
     }
 
     private func requestGetAutumnSeasonAnime() {
@@ -426,44 +355,18 @@ extension HomeViewController {
         seasonUseCase.execute(season: .autumn)
             .withUnretained(self)
             .subscribe { owner, data in
-                self.animeAutumnLists = data.map { $0.toModel() }
+                self.animeAutumnLists = data.map { $0 }
             }
             .disposed(by: disposeBag)
-
-        /*
-        HomeService.shared.getSeasonAnime(season: .autumn) { result in
-            switch result {
-            case .success(let datas):
-                self.animeAutumnLists = datas
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-
-            completion()
-        }
-        */
     }
 
     private func requestGetWinterSeasonAnime() {
         seasonUseCase.execute(season: .winter)
             .withUnretained(self)
             .subscribe { owner, data in
-                self.animeWinterLists = data.map { $0.toModel() }
+                self.animeWinterLists = data.map { $0 }
             }
             .disposed(by: disposeBag)
-
-        /*
-        HomeService.shared.getSeasonAnime(season: .winter) { result in
-            switch result {
-            case .success(let datas):
-                self.animeWinterLists = datas
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-
-            completion()
-        }
-        */
     }
 
 }

@@ -10,5 +10,5 @@ import RxSwift
 
 protocol SeasonAnimeUseCase {
 
-    func execute(season: Season) -> Observable<[AnimeData]>
+    func execute(season: Season) -> Observable<[DomainAnimeDataModel]>
 }

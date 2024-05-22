@@ -10,5 +10,5 @@ import RxSwift
 
 protocol TopRepository {
 
-    func getTopAnime() -> Observable<[AnimeData]>
+    func getTopAnime() -> Observable<[DomainAnimeDataModel]>
 }

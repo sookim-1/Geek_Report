@@ -16,7 +16,6 @@ struct RecommendationAnimeDataDTO: Codable {
 struct RecommendationAnimeEntry: Codable {
     var entry: [AnimeData]
 
-
     func toList() -> [DomainAnimeDataModel] {
         return entry.map {
             DomainAnimeDataModel(animeID: $0.animeID,

@@ -16,12 +16,12 @@ final class DefaultSeasonRepository: SeasonRepository {
         self.networkService = networkService
     }
 
-    func getSeason(season: Season) -> Observable<[AnimeData]> {
+    func getSeason(season: Season) -> Observable<[DomainAnimeDataModel]> {
         let endpoint = JikanEndpoint.season(season: season)
 
         return self.networkService.request(endpoint)
             .decode(type: TargetSeasonDataDTO.self, decoder: JSONDecoder())
-            .map { $0.data }
+            .map { $0.toList() }
     }
 
 }

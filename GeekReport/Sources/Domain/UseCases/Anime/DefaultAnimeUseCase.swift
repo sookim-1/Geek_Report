@@ -16,12 +16,12 @@ final class DefaultAnimeUseCase: AnimeDataUseCase {
         self.animeRepository = animeRepository
     }
 
-    func execute(animeID: Int) -> Observable<AnimeDetailData> {
+    func execute(animeID: Int) -> Observable<DomainAnimeDetailDataModel> {
         return animeRepository
             .getAnimeById(animeID: animeID)
     }
 
-    func execute(searchText: String) -> Observable<[AnimeData]> {
+    func execute(searchText: String) -> Observable<[DomainAnimeDataModel]> {
         return animeRepository
             .getAnimeSearch(searchText: searchText)
     }

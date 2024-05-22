@@ -10,5 +10,5 @@ import RxSwift
 
 protocol RecommendationUseCase {
 
-    func execute() -> Observable<[AnimeData]>
+    func execute() -> Observable<[DomainAnimeDataModel]>
 }

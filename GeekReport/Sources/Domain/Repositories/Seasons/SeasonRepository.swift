@@ -10,5 +10,5 @@ import RxSwift
 
 protocol SeasonRepository {
 
-    func getSeason(season: Season) -> Observable<[AnimeData]>
+    func getSeason(season: Season) -> Observable<[DomainAnimeDataModel]>
 }
