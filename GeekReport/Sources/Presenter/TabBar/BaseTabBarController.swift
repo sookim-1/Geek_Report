@@ -57,7 +57,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
     }
 
     private func createSettingNavigationController() -> UINavigationController {
-        let rootView = SettingViewController()
+        let rootView = SettingViewController(viewModel: DefaultSettingViewModel())
         let nextView = SettingNavigationViewController(rootViewController: rootView)
         nextView.delegate = tabBarNavigationManager
 

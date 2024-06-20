@@ -54,7 +54,7 @@ struct AppLogger {
         let category = "\(shortFileName) - \(function) - line \(line)"
         if !output.isEmpty { msg += "\n\(output)" }
 
-         let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "--", category: category)
+        let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "--", category: category)
 
         switch tag {
         case .error   : logger.error("\(msg)")
