@@ -66,6 +66,14 @@ final class HomeViewController: BaseUIViewController {
     private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
     private let animeRepository = DefaultAnimeRepository()
 
+    private var viewModel: HomeViewModel!
+
+    init(viewModel: HomeViewModel) {
+        super.init()
+
+        self.viewModel = viewModel
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
