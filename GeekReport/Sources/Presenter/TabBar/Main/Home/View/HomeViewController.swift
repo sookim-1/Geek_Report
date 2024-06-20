@@ -23,7 +23,6 @@ final class HomeViewController: BaseUIViewController {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
         $0.backgroundColor = .black
         $0.delegate = self
-        $0.alpha = 0
     }
 
     enum Section: CaseIterable {
@@ -51,21 +50,11 @@ final class HomeViewController: BaseUIViewController {
     private var homeDataSource: HomeDataSource!
     private var titleHeaderRegistration: UICollectionView.SupplementaryRegistration<SectionTitleHeaderView>!
     private var pageFooterRegistration: UICollectionView.SupplementaryRegistration<PagingSectionFooterView>!
-    private let pagingInfoSubject = PublishSubject<PagingInfo>()
 
-    private var animeRecommendationLists: [DomainAnimeDataModel] = []
-    private var animeTopLists: [DomainAnimeDataModel] = []
-    private var animeSpringLists: [DomainAnimeDataModel] = []
-    private var animeSummerLists: [DomainAnimeDataModel] = []
-    private var animeAutumnLists: [DomainAnimeDataModel] = []
-    private var animeWinterLists: [DomainAnimeDataModel] = []
-
-    private let recommendationUseCase = DefaultRecommendationUseCase(recommendationRepository: DefaultRecommendationRepository())
-    private let seasonUseCase = DefaultSeasonAnimeUseCase(seasonRepository: DefaultSeasonRepository())
-    private let topUseCase = DefaultTopAnimeUseCase(topRepository: DefaultTopRepository())
-    private let animUseCase = DefaultAnimeUseCase(animeRepository: DefaultAnimeRepository())
     private let animeRepository = DefaultAnimeRepository()
 
+    private lazy var loadingView = CustomLoadingView(colors: [.systemRed, .systemGreen, .systemBlue], lineWidth: 5)
+    private var networkDelayTime: TimeInterval = 1
     private var viewModel: HomeViewModel!
 
     init(viewModel: HomeViewModel) {
@@ -81,24 +70,14 @@ final class HomeViewController: BaseUIViewController {
         setupLayout()
         setupProperties()
         configureDataSource()
-        applySnapshot()
 
-        self.requestGetRecentAnimeRecommendations()
-        self.requestGetTopAnime()
-        self.requestGetSpringSeasonAnime()
-        self.requestGetSummerSeasonAnime()
-        self.requestGetAutumnSeasonAnime()
-        self.requestGetWinterSeasonAnime()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            self.collectionView.alpha = 1
-            self.applySnapshot()
-        }
-
+        self.viewModel.requestGetRecentAnimeRecommendations()
+        self.bind(to: viewModel)
     }
 
     override func setupHierarchy() {
-        self.view.addSubviews(self.collectionView)
+        self.view.addSubviews(self.collectionView, self.loadingView)
+        self.view.bringSubviewToFront(self.loadingView)
     }
 
     override func setupLayout() {
@@ -108,10 +87,130 @@ final class HomeViewController: BaseUIViewController {
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-GlobalConstant.customTabBarHeight)
         }
+
+        loadingView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
     }
 
     override func setupProperties() {
         
+    }
+
+    private func bind(to viewModel: HomeViewModel) {
+        viewModel.animeRecommendationLists.observe(on: self, skipInitial: true) { [weak self] value in
+            guard let self
+            else { return }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.networkDelayTime) {
+                AppLogger.log(tag: .error, "API 제한 : \(self.networkDelayTime)초후 데이터 호출")
+             
+                if value.isEmpty {
+                    self.viewModel.requestGetRecentAnimeRecommendations()
+                } else {
+                    AppLogger.log(tag: .success, "완료")
+                    self.viewModel.requestGetTopAnime()
+                }
+            }
+        }
+
+        viewModel.animeTopLists.observe(on: self, skipInitial: true) { [weak self] value in
+            guard let self
+            else { return }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.networkDelayTime) {
+                AppLogger.log(tag: .error, "API 제한 : \(self.networkDelayTime)초후 데이터 호출")
+
+                if value.isEmpty {
+                    self.viewModel.requestGetTopAnime()
+                } else {
+                    AppLogger.log(tag: .success, "완료")
+                    self.viewModel.requestGetSpringSeasonAnime()
+                }
+            }
+        }
+
+        viewModel.animeSpringLists.observe(on: self, skipInitial: true) { [weak self] value in
+            guard let self
+            else { return }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.networkDelayTime) {
+                AppLogger.log(tag: .error, "API 제한 : \(self.networkDelayTime)초후 데이터 호출")
+
+                if value.isEmpty {
+                    self.viewModel.requestGetSpringSeasonAnime()
+                } else {
+                    AppLogger.log(tag: .success, "완료")
+                    self.viewModel.requestGetSummerSeasonAnime()
+                }
+            }
+        }
+
+        viewModel.animeSummerLists.observe(on: self, skipInitial: true) { [weak self] value in
+            guard let self
+            else { return }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.networkDelayTime) {
+                AppLogger.log(tag: .error, "API 제한 : \(self.networkDelayTime)초후 데이터 호출")
+
+                if value.isEmpty {
+                    self.viewModel.requestGetSummerSeasonAnime()
+                } else {
+                    AppLogger.log(tag: .success, "완료")
+                    self.viewModel.requestGetAutumnSeasonAnime()
+                }
+            }
+        }
+
+        viewModel.animeAutumnLists.observe(on: self, skipInitial: true) { [weak self] value in
+            guard let self
+            else { return }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.networkDelayTime) {
+                AppLogger.log(tag: .error, "API 제한 : \(self.networkDelayTime)초후 데이터 호출")
+
+                if value.isEmpty {
+                    self.viewModel.requestGetAutumnSeasonAnime()
+                } else {
+                    AppLogger.log(tag: .success, "완료")
+                    self.viewModel.requestGetWinterSeasonAnime()
+                }
+            }
+        }
+
+        viewModel.animeWinterLists.observe(on: self, skipInitial: true) { [weak self] value in
+            guard let self
+            else { return }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.networkDelayTime) {
+                AppLogger.log(tag: .error, "API 제한 : \(self.networkDelayTime)초후 데이터 호출")
+
+                if value.isEmpty {
+                    self.viewModel.requestGetWinterSeasonAnime()
+                }
+            }
+        }
+
+        viewModel.isLoad.observe(on: self) { [weak self] isComplete in
+            let logMessage = (isComplete) ? "모든 API 호출 작업 완료" : "로딩 시작"
+            AppLogger.log(tag: .success, logMessage)
+
+            DispatchQueue.main.async {
+                self?.loadingView.isAnimating = !isComplete
+                self?.collectionView.isHidden = !isComplete
+                self?.applySnapshot()
+            }
+        }
+
+        viewModel.isCompleteAnimeDetailData.observe(on: self, skipInitial: true) { [weak self] data in
+            AppLogger.log(tag: .success, "AnimeDetail 화면 전환")
+
+            DispatchQueue.main.async {
+                self?.navigationController?.pushViewController(AnimeDetailViewController(viewModel: DefaultAnimeDetailViewModel(item: data)), animated: true)
+            }
+        }
     }
 
     private func createLayout() -> UICollectionViewLayout {
@@ -154,15 +253,15 @@ final class HomeViewController: BaseUIViewController {
                 let section = self.homeDataSource.sectionIdentifier(for: indexPath.section)
                 switch section {
                 case .recommend:
-                    self.pushToMoreAnimeVC(items: self.animeTopLists)
+                    self.pushToMoreAnimeVC(items: self.viewModel.animeTopLists.value)
                 case .spring:
-                    self.pushToMoreAnimeVC(items: self.animeSpringLists)
+                    self.pushToMoreAnimeVC(items: self.viewModel.animeSpringLists.value)
                 case .summer:
-                    self.pushToMoreAnimeVC(items: self.animeSummerLists)
+                    self.pushToMoreAnimeVC(items: self.viewModel.animeSummerLists.value)
                 case .autumn:
-                    self.pushToMoreAnimeVC(items: self.animeAutumnLists)
+                    self.pushToMoreAnimeVC(items: self.viewModel.animeAutumnLists.value)
                 case .winter:
-                    self.pushToMoreAnimeVC(items: self.animeWinterLists)
+                    self.pushToMoreAnimeVC(items: self.viewModel.animeWinterLists.value)
                 default:
                     print("Not Push")
                 }
@@ -173,7 +272,7 @@ final class HomeViewController: BaseUIViewController {
         self.pageFooterRegistration = .init(elementKind: UICollectionView.elementKindSectionFooter) { [unowned self]
             (pagingFooter, elementKind, indexPath) in
             pagingFooter.configure(numberOfPages: 5, indexPath: indexPath, delegate: self)
-            pagingFooter.subscribeTo(subject: self.pagingInfoSubject, for: indexPath.section)
+            pagingFooter.subscribeTo(subject: self.viewModel.pagingInfoSubject, for: indexPath.section)
         }
 
         self.homeDataSource.supplementaryViewProvider = { (collectionView, elementKind, indexPath) in
@@ -195,17 +294,17 @@ final class HomeViewController: BaseUIViewController {
         Section.allCases.forEach {
             switch $0 {
             case .carousel:
-                snapShot.appendItems(self.animeRecommendationLists, toSection: $0)
+                snapShot.appendItems(self.viewModel.animeRecommendationLists.value, toSection: $0)
             case .recommend:
-                snapShot.appendItems(self.animeTopLists, toSection: $0)
+                snapShot.appendItems(self.viewModel.animeTopLists.value, toSection: $0)
             case .spring:
-                snapShot.appendItems(self.animeSpringLists, toSection: $0)
+                snapShot.appendItems(self.viewModel.animeSpringLists.value, toSection: $0)
             case .summer:
-                snapShot.appendItems(self.animeSummerLists, toSection: $0)
+                snapShot.appendItems(self.viewModel.animeSummerLists.value, toSection: $0)
             case .autumn:
-                snapShot.appendItems(self.animeAutumnLists, toSection: $0)
+                snapShot.appendItems(self.viewModel.animeAutumnLists.value, toSection: $0)
             case .winter:
-                snapShot.appendItems(self.animeWinterLists, toSection: $0)
+                snapShot.appendItems(self.viewModel.animeWinterLists.value, toSection: $0)
             }
         }
         
@@ -249,7 +348,7 @@ extension HomeViewController {
 
             // MARK: - Paging
             let page = round(offset.x / self.view.bounds.width)
-            self.pagingInfoSubject.onNext(PagingInfo(currentPage: Int(page)))
+            self.viewModel.didCurrentPage(page: Int(page))
         }
 
         return section
@@ -275,17 +374,6 @@ extension HomeViewController {
         return section
     }
 
-    private func pushToAnimeDetailVC(item: DomainAnimeDataModel) {
-        animUseCase.execute(animeID: item.animeID)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(viewModel: DefaultAnimeDetailViewModel(item: data)), animated: true)
-                }
-            }
-            .disposed(by: disposeBag)
-    }
-
     private func pushToMoreAnimeVC(items: [DomainAnimeDataModel]) {
         self.navigationController?.pushViewController(MoreAnimeViewController(viewModel: makeMoreAnimeViewModel(items: items)), animated: true)
     }
@@ -307,74 +395,14 @@ extension HomeViewController: PagerDelegate {
     }
 }
 
-// MARK: -
+// MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let item = self.homeDataSource.itemIdentifier(for: indexPath)
         else { return }
-
-        self.pushToAnimeDetailVC(item: item)
-    }
-
-}
-
-// MARK: - API
-extension HomeViewController {
-
-    private func requestGetRecentAnimeRecommendations() {
-        recommendationUseCase.execute()
-            .withUnretained(self)
-            .subscribe { owner, data in
-                self.animeRecommendationLists = data.map { $0 }
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func requestGetTopAnime() {
-        topUseCase.execute()
-            .withUnretained(self)
-            .subscribe { owner, data in
-                self.animeTopLists = data.map { $0 }
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func requestGetSpringSeasonAnime() {
-        seasonUseCase.execute(season: .spring)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                self.animeSpringLists = data.map { $0 }
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func requestGetSummerSeasonAnime() {
-        seasonUseCase.execute(season: .summer)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                self.animeSummerLists = data.map { $0 }
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func requestGetAutumnSeasonAnime() {
         
-        seasonUseCase.execute(season: .autumn)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                self.animeAutumnLists = data.map { $0 }
-            }
-            .disposed(by: disposeBag)
-    }
-
-    private func requestGetWinterSeasonAnime() {
-        seasonUseCase.execute(season: .winter)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                self.animeWinterLists = data.map { $0 }
-            }
-            .disposed(by: disposeBag)
+        self.viewModel.didSelectItem(item.animeID)
     }
 
 }

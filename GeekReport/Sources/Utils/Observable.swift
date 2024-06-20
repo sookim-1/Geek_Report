@@ -25,9 +25,11 @@ final class CustomObservable<Value> {
         self.value = value
     }
 
-    func observe(on observer: AnyObject, observerBlock: @escaping (Value) -> Void) {
+    func observe(on observer: AnyObject, skipInitial: Bool = false, observerBlock: @escaping (Value) -> Void) {
         observers.append(Observer(observer: observer, block: observerBlock))
-        observerBlock(self.value)
+        if !skipInitial {
+            observerBlock(self.value)
+        }
     }
 
     func remove(observer: AnyObject) {
