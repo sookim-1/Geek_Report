@@ -15,64 +15,63 @@ import RxCocoa
 
 final class AnimeDetailViewController: BaseUIViewController {
 
-    lazy var backButton = DefaultBackButton()
-    lazy var mainScrollView = UIScrollView()
-    lazy var headerImageWrapView = UIView()
-    lazy var headerImageView = UIImageView().then {
+    private lazy var backButton = DefaultBackButton()
+    private lazy var mainScrollView = UIScrollView()
+    private lazy var headerImageWrapView = UIView()
+    private lazy var headerImageView = UIImageView().then {
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill
     }
 
-    lazy var mainContentView = UIView().then {
+    private lazy var mainContentView = UIView().then {
         $0.backgroundColor = .systemGray6
     }
 
-    lazy var mainHeaderView = UIView()
+    private lazy var mainHeaderView = UIView()
 
-    lazy var animeTitleLabel = UILabel().then {
+    private lazy var animeTitleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 34, weight: .heavy)
         $0.textColor = .white
         $0.numberOfLines = 2
         $0.textAlignment = .right
     }
     
-    lazy var iconLabelStackView = UIStackView(arrangedSubviews: [rankIconLabelView, scoreIconLabelView, heartIconLabelView]).then {
+    private lazy var iconLabelStackView = UIStackView(arrangedSubviews: [rankIconLabelView, scoreIconLabelView, heartIconLabelView]).then {
         $0.axis = .horizontal
         $0.alignment = .fill
         $0.distribution = .fillEqually
         $0.spacing = 5
     }
 
-    lazy var rankIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "medal.fill"), title: "랭크", description: "46위").then {
+    private lazy var rankIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "medal.fill"), title: "랭크", description: "46위").then {
         $0.iconImageWrapView.backgroundColor = .white
         $0.iconImageView.tintColor = .systemMint
     }
     
-    lazy var scoreIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "star.fill"), title: "점수", description: "8.75").then {
+    private lazy var scoreIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "star.fill"), title: "점수", description: "8.75").then {
         $0.iconImageWrapView.backgroundColor = .white
         $0.iconImageView.tintColor = .systemYellow
     }
     
-    lazy var heartIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "heart.fill"), title: "좋아요", description: "82416").then {
+    private lazy var heartIconLabelView = SimpleIconLabelView(image: UIImage(systemName: "heart.fill"), title: "좋아요", description: "82416").then {
         $0.iconImageWrapView.backgroundColor = .white
         $0.iconImageView.tintColor = .systemPink
     }
 
-    let customSegmentedControlProperty = CustomSegmentedControlProperty(currentIndex: 0, segmentsTitleLists: ["시놉시스", "배경"])
-    lazy var chapterSegmentedControl = CustomSegmentedControl(property: self.customSegmentedControlProperty)
-    
-    lazy var detailLabel = UILabel().then {
+    private let customSegmentedControlProperty = CustomSegmentedControlProperty(currentIndex: 0, segmentsTitleLists: ["시놉시스", "배경"])
+    private lazy var chapterSegmentedControl = CustomSegmentedControl(property: self.customSegmentedControlProperty)
+
+    private lazy var detailLabel = UILabel().then {
         $0.textColor = .black
         $0.numberOfLines = 0
         $0.font = .systemFont(ofSize: 14, weight: .regular)
-        $0.text = self.item.synopsis
     }
 
-    lazy var detailContainerView = UIView().then {
+    private lazy var detailContainerView = UIView().then {
         $0.backgroundColor = .systemMint
     }
     
-    lazy var episodeTextField = UITextField().then {
+    private lazy var episodeTextField = UITextField().then {
         $0.placeholder = "에피소드를 선택해주세요!"
         $0.tintColor = .black
         $0.textColor = .black
@@ -81,12 +80,12 @@ final class AnimeDetailViewController: BaseUIViewController {
         $0.layer.cornerRadius = 8
     }
     
-    lazy var episodePickerView = UIPickerView().then {
+    private lazy var episodePickerView = UIPickerView().then {
         $0.delegate = self
         $0.dataSource = self
     }
     
-    lazy var saveButton = UIButton().then {
+    private lazy var saveButton = UIButton().then {
         $0.setBackgroundColor(.systemYellow, for: .normal)
         $0.setTitle("저장", for: .normal)
         $0.setTitleColor(.white, for: .normal)
@@ -94,7 +93,7 @@ final class AnimeDetailViewController: BaseUIViewController {
         $0.clipsToBounds = true
     }
     
-    lazy var toolBar = UIToolbar().then {
+    private lazy var toolBar = UIToolbar().then {
         $0.barStyle = .default
         $0.isTranslucent = true
         $0.tintColor = .black
@@ -107,37 +106,23 @@ final class AnimeDetailViewController: BaseUIViewController {
         $0.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
         $0.isUserInteractionEnabled = true
     }
-    
-    private var item: DomainAnimeDetailDataModel!
-    private var episodes: [Int] = []
-    private var selectEpisode = 1
-    
-    lazy var scrollContentView = UIView()
-    private var container: NSPersistentContainer!
-    private var coreDataUseCase = DefaultCoreDataUseCase(coreDataRepository: DefaultCoreDataRepository())
 
-    init(item: DomainAnimeDetailDataModel) {
-        self.item = item
-        
-        if let itemEpisodes = item.episodes,
-                itemEpisodes > 0 {
-            self.episodes = Array(1...itemEpisodes)
-        }
-        
-        super.init()
-    }
+    private lazy var scrollContentView = UIView()
+    private var viewModel: AnimeDetailViewModel!
     
+    init(viewModel: AnimeDetailViewModel) {
+        super.init()
+
+        self.viewModel = viewModel
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupHierarchy()
         setupLayout()
         setupProperties()
-
-        self.chapterSegmentedControl.didTapSegment = { index in
-            self.detailLabel.text = (index == 0) ? self.item.synopsis : self.item.background
-        }
-        mainScrollView.updateContentView()
+        bind(to: self.viewModel)
     }
     
     override func viewDidLayoutSubviews() {
@@ -151,14 +136,12 @@ final class AnimeDetailViewController: BaseUIViewController {
         
         view.layoutIfNeeded()
     }
-    
 
     override func setupHierarchy() {
         self.view.addSubviews(mainScrollView, backButton)
         self.mainScrollView.addSubviews(self.scrollContentView)
         self.scrollContentView.addSubviews(headerImageWrapView, mainContentView)
         self.headerImageWrapView.addSubviews(headerImageView, animeTitleLabel)
-
         self.mainContentView.addSubviews(self.iconLabelStackView, self.chapterSegmentedControl, self.detailLabel, self.episodeTextField, self.saveButton)
     }
 
@@ -246,49 +229,63 @@ final class AnimeDetailViewController: BaseUIViewController {
 
     override func setupProperties() {
         self.view.backgroundColor = .systemGray6
-        self.animeTitleLabel.text = self.item.title
-        self.headerImageView.kf.setImage(with: URL(string: self.item.imageURLString))
+        self.animeTitleLabel.text = self.viewModel.title
+        self.headerImageView.kf.setImage(with: self.viewModel.imagePathURL)
+        self.rankIconLabelView.descriptionLabel.text = self.viewModel.rankString
+        self.scoreIconLabelView.descriptionLabel.text = self.viewModel.scoreString
+        self.heartIconLabelView.descriptionLabel.text = self.viewModel.favouriteString
+        self.episodeTextField.inputView = self.episodePickerView
+        self.episodeTextField.inputAccessoryView = self.toolBar
+        self.mainScrollView.updateContentView()
+    }
 
-        self.rankIconLabelView.descriptionLabel.text = (self.item.rank != nil) ? "\(self.item.rank!)" : "미정"
-        self.scoreIconLabelView.descriptionLabel.text = "\(self.item.score)"
-        self.heartIconLabelView.descriptionLabel.text = "\(self.item.favorites.formatThousandString)"
-
+    private func bind(to viewModel: AnimeDetailViewModel) {
         self.backButton.rx.tap
             .bind { [weak self] in
                 guard let self
                 else { return }
 
+                self.viewModel.goBack()
                 self.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
-        
-        self.episodeTextField.inputView = self.episodePickerView
-        self.episodeTextField.inputAccessoryView = self.toolBar
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.container = appDelegate.persistentContainer
-        
+
         self.saveButton.rx.tap
             .bind { [weak self] in
                 guard let self
                 else { return }
-                
+
                 if self.episodeTextField.text?.isEmpty == false {
-                    self.coreDataUseCase.createAnime(selectEpisode: self.selectEpisode, DomainAnimeDataModel(animeID: self.item.animeID, title: self.item.title, episodes: self.item.episodes, imageURLString: self.item.imageURLString))
+                    self.viewModel.didSaveAnimationData()
                 }
             }
             .disposed(by: disposeBag)
+
+        self.chapterSegmentedControl.didTapSegment = { index in
+            self.viewModel.didTapSegment(index: index)
+        }
+
+        viewModel.selectEpisode
+            .observe(on: self) { [weak self] value in
+                self?.episodeTextField.text = "\(value)화"
+            }
+
+        viewModel.descriptionString
+            .observe(on: self) { [weak self] value in
+                self?.detailLabel.text = value
+                self?.mainScrollView.updateContentView()
+            }
     }
-    
+
 }
 
-// MARK: -
+// MARK: - UIPickerViewDelegate, UIPickerViewDataSource
 extension AnimeDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     @objc func donePicker() {
         let row = self.episodePickerView.selectedRow(inComponent: 0)
         self.episodePickerView.selectRow(row, inComponent: 0, animated: false)
-        self.episodeTextField.text = "\(self.episodes[row])화"
+        self.episodeTextField.text = "\(self.viewModel.episodes[row])화"
         self.episodeTextField.resignFirstResponder()
     }
 
@@ -302,45 +299,15 @@ extension AnimeDetailViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        self.episodes.count
+        self.viewModel.episodes.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.selectEpisode = self.episodes[row]
-        self.episodeTextField.text = "\(self.episodes[row])화"
+        self.viewModel.selectAnimationEpisode(index: row)
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(self.episodes[row])화"
+        return "\(self.viewModel.episodes[row])화"
     }
     
-}
-
-extension UIScrollView {
-    func updateContentSize() {
-        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
-        
-        // 계산된 크기로 컨텐츠 사이즈 설정
-        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
-    }
-    
-    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
-        var totalRect: CGRect = .zero
-        
-        // 모든 자식 View의 컨트롤의 크기를 재귀적으로 호출하며 최종 영역의 크기를 설정
-        for subView in view.subviews {
-            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
-        }
-        
-        // 최종 계산 영역의 크기를 반환
-        return totalRect.union(view.frame)
-    }
-    
-    
-}
-
-extension UIScrollView {
-   func updateContentView() {
-      contentSize.height = subviews.sorted(by: { $0.frame.maxY < $1.frame.maxY }).last?.frame.maxY ?? contentSize.height
-   }
 }

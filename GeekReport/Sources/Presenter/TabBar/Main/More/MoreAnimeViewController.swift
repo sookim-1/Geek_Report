@@ -145,7 +145,7 @@ final class MoreAnimeViewController: BaseUIViewController {
 
     private func pushToAnimeDetailVC(item: DomainAnimeDetailDataModel) {
         DispatchQueue.main.async {
-            self.navigationController?.pushViewController(AnimeDetailViewController(item: item), animated: true)
+            self.navigationController?.pushViewController(AnimeDetailViewController(viewModel: DefaultAnimeDetailViewModel(item: item)), animated: true)
         }
     }
 

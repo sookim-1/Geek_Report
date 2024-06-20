@@ -65,7 +65,7 @@ final class SettingViewController: BaseUIViewController {
     private func bind(to viewModel: SettingViewModel) {
         viewModel.isLoad.observe(on: self) { [weak self] isComplete in
             AppLogger.log(tag: .success, "viewWillAppear 작업 완료")
-            
+
             DispatchQueue.main.async {
                 self?.completeLabel.isHidden = !isComplete
                 self?.loadingView.isAnimating = !isComplete

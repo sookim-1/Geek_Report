@@ -272,7 +272,7 @@ extension HomeViewController {
             .withUnretained(self)
             .subscribe { owner, data in
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(AnimeDetailViewController(item: data), animated: true)
+                    self.navigationController?.pushViewController(AnimeDetailViewController(viewModel: DefaultAnimeDetailViewModel(item: data)), animated: true)
                 }
             }
             .disposed(by: disposeBag)
