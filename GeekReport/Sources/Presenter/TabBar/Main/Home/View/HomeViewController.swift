@@ -54,7 +54,7 @@ final class HomeViewController: BaseUIViewController {
     private let animeRepository = DefaultAnimeRepository()
 
     private lazy var loadingView = CustomLoadingView(colors: [.systemRed, .systemGreen, .systemBlue], lineWidth: 5)
-    private var networkDelayTime: TimeInterval = 1
+    private var networkDelayTime: TimeInterval = 0.4
     private var viewModel: HomeViewModel!
 
     init(viewModel: HomeViewModel) {
