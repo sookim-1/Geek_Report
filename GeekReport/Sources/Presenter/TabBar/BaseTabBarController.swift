@@ -141,14 +141,8 @@ extension BaseTabBarController {
         return DefaultAnimeUseCase(animeRepository: animeRepository)
     }
 
-    func makeContainer() -> NSPersistentContainer {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
-        return appDelegate.persistentContainer
-    }
-
     func makeCoreDataUseCase() -> CoreDataUseCase {
-        return DefaultCoreDataUseCase(coreDataRepository: DefaultCoreDataRepository())
+        return DefaultCoreDataUseCase()
     }
 
 }

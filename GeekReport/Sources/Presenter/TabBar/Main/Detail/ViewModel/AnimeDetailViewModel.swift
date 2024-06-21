@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol AnimeDetailViewModelInput {
     func goBack()
@@ -24,6 +25,7 @@ protocol AnimeDetailViewModelOutput {
     var favouriteString: String { get }
     var selectEpisode: CustomObservable<Int> { get }
     var descriptionString: CustomObservable<String> { get }
+    var isSave: CustomObservable<Bool> { get }
 }
 
 protocol AnimeDetailViewModel: AnimeDetailViewModelInput, AnimeDetailViewModelOutput { }
@@ -31,7 +33,7 @@ protocol AnimeDetailViewModel: AnimeDetailViewModelInput, AnimeDetailViewModelOu
 final class DefaultAnimeDetailViewModel: AnimeDetailViewModel {
 
     private var item: DomainAnimeDetailDataModel!
-    private var coreDataUseCase = DefaultCoreDataUseCase(coreDataRepository: DefaultCoreDataRepository())
+    private var coreDataUseCase = DefaultCoreDataUseCase()
 
     // MARK: - OUTPUT
     let title: String
@@ -42,6 +44,10 @@ final class DefaultAnimeDetailViewModel: AnimeDetailViewModel {
     let episodes: [Int]
     var selectEpisode: CustomObservable<Int> = CustomObservable(1)
     var descriptionString: CustomObservable<String> = CustomObservable("")
+    var isSave: CustomObservable<Bool> = CustomObservable(false)
+
+    private var isUpdate = false
+    private let disposeBag = DisposeBag()
 
     init(item: DomainAnimeDetailDataModel) {
         self.item = item
@@ -67,6 +73,19 @@ final class DefaultAnimeDetailViewModel: AnimeDetailViewModel {
         }
 
         self.descriptionString.value = self.item.synopsis
+
+        coreDataUseCase.executeFetch()
+            .compactMap { $0 }
+            .subscribe { [weak self] data in
+                guard let data = data.element
+                else { return }
+
+                let idList = data.map { $0.animeID }
+                self?.isUpdate = !(idList
+                                        .filter { $0 == item.animeID }
+                                        .isEmpty)
+            }
+            .disposed(by: disposeBag)
     }
 
     func selectAnimationEpisode(index: Int) {
@@ -80,6 +99,20 @@ final class DefaultAnimeDetailViewModel: AnimeDetailViewModel {
 
     func didSaveAnimationData() {
         AppLogger.log(tag: .network, "CoreData 저장 시작")
+        
+        if self.isUpdate {
+            coreDataUseCase.executeUpdate(selectEpisode: selectEpisode.value, item: item)
+                .subscribe { [weak self] value in
+                    self?.isSave.value = value
+                }
+                .disposed(by: disposeBag)
+        } else {
+            coreDataUseCase.executeCreate(selectEpisode: selectEpisode.value, item: item)
+                .subscribe { [weak self] value in
+                    self?.isSave.value = value
+                }
+                .disposed(by: disposeBag)
+        }
     }
 
     func didTapSegment(index: Int) {

@@ -275,6 +275,13 @@ final class AnimeDetailViewController: BaseUIViewController {
                 self?.detailLabel.text = value
                 self?.mainScrollView.updateContentView()
             }
+
+        viewModel.isSave
+            .observe(on: self) { [weak self] value in
+                if value {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
     }
 
 }

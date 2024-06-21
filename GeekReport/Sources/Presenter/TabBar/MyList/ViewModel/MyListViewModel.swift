@@ -36,9 +36,9 @@ final class MyListViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         let myAnimeList = input.viewWillappear
             .withUnretained(self)
-            .map { owner, _ in
-                self.coreDataUseCase.getAnimes()
-            }
+            .flatMapLatest { owner, _ -> Observable<[DomainAnimeDataModel]> in
+                 owner.coreDataUseCase.executeFetch()
+             }
             .asDriver(onErrorJustReturn: [])
 
         let selectAnimeDone = input.selectAnime
