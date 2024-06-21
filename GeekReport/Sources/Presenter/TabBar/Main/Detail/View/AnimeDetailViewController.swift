@@ -73,7 +73,7 @@ final class AnimeDetailViewController: BaseUIViewController {
     
     private lazy var episodeTextField = UITextField().then {
         $0.placeholder = "에피소드를 선택해주세요!"
-        $0.tintColor = .black
+        $0.tintColor = .clear
         $0.textColor = .black
         $0.textAlignment = .center
         $0.backgroundColor = .white
