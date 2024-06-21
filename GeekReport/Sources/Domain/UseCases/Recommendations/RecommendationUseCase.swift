@@ -12,3 +12,18 @@ protocol RecommendationUseCase {
 
     func execute() -> Observable<[DomainAnimeDataModel]>
 }
+
+final class DefaultRecommendationUseCase: RecommendationUseCase {
+
+    private let recommendationRepository: RecommendationRepository
+
+    init(recommendationRepository: RecommendationRepository) {
+        self.recommendationRepository = recommendationRepository
+    }
+
+    func execute() -> Observable<[DomainAnimeDataModel]> {
+        return self.recommendationRepository
+            .getRecentAnimeRecommendations()
+    }
+
+}

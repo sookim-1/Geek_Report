@@ -33,7 +33,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
     }
 
     private func createHomeNavigationController() -> UINavigationController {
-        let rootView = HomeViewController()
+        let rootView = HomeViewController(viewModel: DefaultHomeViewModel())
         let nextView = HomeNavigationViewController(rootViewController: rootView)
         nextView.delegate = tabBarNavigationManager
 
@@ -57,7 +57,7 @@ final class BaseTabBarController: UITabBarController, UIConfigurable {
     }
 
     private func createSettingNavigationController() -> UINavigationController {
-        let rootView = SettingViewController()
+        let rootView = SettingViewController(viewModel: DefaultSettingViewModel())
         let nextView = SettingNavigationViewController(rootViewController: rootView)
         nextView.delegate = tabBarNavigationManager
 
@@ -141,14 +141,8 @@ extension BaseTabBarController {
         return DefaultAnimeUseCase(animeRepository: animeRepository)
     }
 
-    func makeContainer() -> NSPersistentContainer {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
-        return appDelegate.persistentContainer
-    }
-
     func makeCoreDataUseCase() -> CoreDataUseCase {
-        return DefaultCoreDataUseCase(coreDataRepository: DefaultCoreDataRepository())
+        return DefaultCoreDataUseCase()
     }
 
 }
