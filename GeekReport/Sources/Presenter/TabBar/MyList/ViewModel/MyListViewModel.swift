@@ -42,6 +42,7 @@ final class MyListViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: [])
 
         let selectAnimeDone = input.selectAnime
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .flatMap { owner, id in
                 owner.animUseCase.execute(animeID: id)

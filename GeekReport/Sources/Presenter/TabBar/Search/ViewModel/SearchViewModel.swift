@@ -32,12 +32,14 @@ final class SearchViewModel: ViewModelType {
 
     func transform(input: Input) -> Output {
         let searchAnimeList = input.searchAnime
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .flatMap { owner, text in
                 owner.animUseCase.execute(searchText: text)
             }
 
         let selectAnimeDone = input.selectAnime
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .flatMap { owner, id in
                 owner.animUseCase.execute(animeID: id)

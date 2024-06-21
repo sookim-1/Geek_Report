@@ -34,6 +34,7 @@ final class MoreAnimeViewModel: ViewModelType {
         let animeLists = Observable.just(self.animeLists)
 
         let selectAnimeDone = input.selectAnime
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .withUnretained(self)
             .flatMap { owner, id in
                 owner.animUseCase.execute(animeID: id)

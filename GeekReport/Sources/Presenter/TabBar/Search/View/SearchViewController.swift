@@ -18,7 +18,7 @@ final class SearchViewController: BaseUIViewController {
         $0.searchBar.placeholder = "제목을 입력해주세요"
         $0.searchBar.searchBarStyle = .minimal
         $0.searchBar.searchTextField.backgroundColor = .white
-        $0.searchBar.tintColor = .white
+        $0.searchBar.tintColor = .black
     }
     
     private lazy var animeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {

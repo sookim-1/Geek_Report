@@ -55,18 +55,27 @@ final class DefaultHomeViewModel: HomeViewModel {
     var animeWinterLists: CustomObservable<[DomainAnimeDataModel]> = CustomObservable([])
     var isCompleteAnimeDetailData: CustomObservable<DomainAnimeDetailDataModel> = CustomObservable(DomainAnimeDetailDataModel.init(animeID: 0, title: "", episodes: 0, imageURLString: "", score: 0.0, rank: 0, favorites: 0, synopsis: "", background: ""))
     var pagingInfoSubject: PublishSubject<PagingInfo> = PublishSubject<PagingInfo>()
+    private let itemSelectedSubject = PublishSubject<Int>()
 
     private let disposeBag = DisposeBag()
 
-    func didSelectItem(_ animeID: Int) {
-        AppLogger.log(tag: .network, "AnimeDetail Data 호출")
-
-        animUseCase.execute(animeID: animeID)
-            .withUnretained(self)
-            .subscribe { owner, data in
-                owner.isCompleteAnimeDetailData.value = data
+    init() {
+        itemSelectedSubject
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .flatMapLatest { [weak self] animeID -> Observable<DomainAnimeDetailDataModel> in
+                guard let self = self else { return Observable.empty() }
+                AppLogger.log(tag: .network, "AnimeDetail Data 호출")
+                return self.animUseCase.execute(animeID: animeID)
             }
+            .withUnretained(self)
+            .subscribe(onNext: { owner, data in
+                owner.isCompleteAnimeDetailData.value = data
+            })
             .disposed(by: disposeBag)
+    }
+
+    func didSelectItem(_ animeID: Int) {
+        itemSelectedSubject.onNext(animeID)
     }
 
     func requestGetRecentAnimeRecommendations() {
