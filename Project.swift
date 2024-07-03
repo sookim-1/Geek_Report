@@ -54,7 +54,8 @@ let geekReportTarget = Target.target(name: "GeekReport",
                                         .package(product: "RxGesture"),
                                         .package(product: "Kingfisher")
                                      ],
-                                     settings: settings)
+                                     settings: settings,
+                                     coreDataModels: [.coreDataModel(("GeekReport/Sources/Data/PersistentStorage/CoreDataStorage/CoreDataStorage.xcdatamodeld"))])
 
 // MARK: 프로젝트
 let project = Project(name: "GeekReport",
