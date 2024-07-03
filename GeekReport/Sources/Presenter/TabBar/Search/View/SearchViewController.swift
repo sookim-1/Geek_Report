@@ -94,7 +94,7 @@ final class SearchViewController: BaseUIViewController {
     private func transformSearchTextToInput() -> Observable<String> {
         return self.searchController.searchBar.rx.text
             .filter { $0?.isEmpty == false }
-            .throttle(.milliseconds(1000), scheduler: MainScheduler.instance)
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .asObservable()
             .compactMap { $0 }
     }
